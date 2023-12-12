@@ -121,26 +121,7 @@ class Project extends Group {
     pubSub.publish("todo-storage-deleted", deletion)
     pubSub.publish("data-change", projects)
     pubSub.publish("todo-deleted", todo.index)
-
-    // award coins
-    if(deletion.checked && !moveOperation) {
-      const [reward, positive] = deletion.getWorth()
-
-      if (positive) {
-        bank.deposit(reward)  
-        pubSub.publish("coin-message", 
-          `Yay! You earned ${reward} coins. Total coins:  ${bank.showBalance()}`
-        )
-      } else if (bank.deduct(reward)) {
-        pubSub.publish("coin-message", 
-          `Late completion! You lost ${reward} coins. Balance: ${bank.showBalance()}`
-        )
-      } else {
-        pubSub.publish("coin-message", 
-          `Error! Coins to few to subtract from.`
-        )
-      }
-    }
+    this.awardCoins(deletion, !moveOperation)
   }
 
   deleteSelf() {
@@ -164,6 +145,27 @@ class Project extends Group {
       })
       pubSub.publish("todo-stored", this.initialTodos)
       pubSub.publish("data-change", projects)
+    }
+  }
+
+  private awardCoins(deletion: ToDo, awardable: boolean) {
+    if(deletion.checked && awardable) {
+      const [reward, positive] = deletion.getWorth()
+
+      if (positive) {
+        bank.deposit(reward)  
+        pubSub.publish("coin-message", 
+          `Yay! You earned ${reward} coins. Total coins:  ${bank.showBalance()}`
+        )
+      } else if (bank.deduct(reward)) {
+        pubSub.publish("coin-message", 
+          `Late completion! You lost ${reward} coins. Balance: ${bank.showBalance()}`
+        )
+      } else {
+        pubSub.publish("coin-message", 
+          `Error! Coins to few to subtract from.`
+        )
+      }
     }
   }
 }
