@@ -138,7 +138,7 @@ async function renderWalkthrough() {
         {
           element: e.toDoArticle1.get(), // both to-dos and game cards use the <article> element
           title: "Work hard! Play hard!",
-          intro: "Using those coins you earn from completing to-dos, you can pay for a 10-minute game session!",
+          intro: "Using those coins you earn from completing to-dos, you can pay for a 5-minute game session!",
         },
         {
           element: e.gameImg.get(),

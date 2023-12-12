@@ -361,12 +361,12 @@ function renderGamePanel() {
       if(userCanPay) {
         projectContainer.appendChild(gameContainer)
         gameContainer.showModal()
-        renderMessage(`Paid ${game.cost} coins for a 10-minute gaming session.`, gameContainer)
+        renderMessage(`Paid ${game.cost} coins for a 5-minute gaming session.`, gameContainer)
 
         setTimeout(() => {
           gameContainer.close()
           renderMessage("Session done. Pay again to play.")
-        }, 1000 * 60 * 10); // ten minutes
+        }, gamePanel.minutes);
       } else {
         renderMessage("Not enough coins to pay. Complete more to-dos.")
       }

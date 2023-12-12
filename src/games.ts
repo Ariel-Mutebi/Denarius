@@ -1,8 +1,10 @@
 class GamePanel{
   games: Game[]
+  minutes: number
 
-  constructor() {
+  constructor(minutes: number) {
     this.games = []
+    this.minutes = minutes * 60 * 1000
   }
 
   addGame(newGame: Game) {
@@ -55,7 +57,7 @@ class Bank {
   }
 }
 
-const gamePanel = new GamePanel()
+const gamePanel = new GamePanel(5)
 const coins = Number(localStorage.getItem("coins"))
 const bank = new Bank(coins)
 
