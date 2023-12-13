@@ -6,6 +6,8 @@ import { format } from 'date-fns';
 import "./style.scss";
 import "./resizer.js";
 
+const loadTime = 10
+
 const projectContainer = document.createElement("section");
 projectContainer.classList.add("to-do-page");
 
@@ -16,7 +18,7 @@ function showAllTasks() {
 function addProject(project: Project | Category) {
   // show all tasks on startup
   if (project.name === "All Tasks") {
-    setTimeout(showAllTasks, 10); // 10ms delay to allow all to-dos to initialise
+    setTimeout(showAllTasks, loadTime)
   };
 
   const type = project instanceof Project ? "project" : "category";
@@ -171,6 +173,10 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
   if (toDo.checked) {
     checkBox.checked = true;
     element.classList.add("text-decoration-line-through")
+  }
+
+  if(toDo.isOverDue()) {
+    element.classList.add("overdue")
   }
 
   // details button
@@ -423,4 +429,4 @@ pubSub.subscribe("todo-deleted", removeToDo)
 pubSub.subscribe("project-deleted", removeProject)
 pubSub.subscribe("coin-message", renderMessage)
 
-export { addProject }
+export { addProject, showAllTasks }

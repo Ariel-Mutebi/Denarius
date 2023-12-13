@@ -71,7 +71,7 @@ section.game-page {
 
 section.to-do-page {
   header {
-    @extend .fs-2, .mb-3, .bg-success-subtle, .p-3, .d-flex, .justify-content-between;
+    @extend .fs-2, .mb-3, .bg-success-subtle, .p-3, .d-flex, .justify-content-between, .rounded;
 
     >div {
       @extend .d-flex, .gap-4, .align-items-center;
@@ -123,6 +123,10 @@ section.to-do-page {
 
   article.priority-low {
     border-left: 5px solid green;
+  }
+
+  article.overdue{
+    background: linear-gradient(45deg, #c4a48f 0%, #d3bcac 30%, #dfc8b9 70%, #c9ac98 100%);
   }
 
   // add to-do form

@@ -3,27 +3,32 @@ import { pubSub } from "./pubsub";
 
 function populateInitialProjects() {
   // date for week to-do
-  const today = new Date();
-  const endOfWeek = new Date(today);
-  endOfWeek.setDate(endOfWeek.getDate() + 7);
+  const today = new Date()
+  const endOfWeek = new Date(today)
+  const endOfMonth = new Date(today)
+  endOfWeek.setDate(endOfWeek.getDate() + 7)
+  endOfMonth.setDate(endOfMonth.getDate() + 31)
 
-  const randomDate = new Date(
+  const dateWithinWeek = new Date(
     today.getTime() + Math.random() * (endOfWeek.getTime() - today.getTime())
-  );
+  )
+
+  const dateWithinPastWeek = new Date(
+    today.getTime() + Math.random() * (today.getTime() - endOfWeek.getTime())
+  )
+
+  const randomDay = () => new Date(
+    today.getTime() + Math.random() * (endOfMonth.getTime() - today.getTime())
+  )
 
   new Project("Tutorial", [
-    new ToDo("Important task", "This has a priority number of 3 (the highest). Notice the red border color-coding.", new Date(2023, 11, 31), 3),
-    new ToDo("Nice-to-do task", "This is something of medium importance. It has a priority number of 2. It's color-coded green", new Date(2023, 11, 31), 2),
-    new ToDo("Just for fun", "This is not important. It's priority number is one (the lowest). It's flagged as green.", new Date(2023, 11, 31), 1),
+    new ToDo("Important task", "This is high-priority. Notice the red border color-coding.", randomDay(), 3),
+    new ToDo("Nice-to-do task", "This is medium-priority. It's color-coded orange", randomDay(), 2),
+    new ToDo("Just for fun", "This is low-priority. It's flagged as green.", randomDay(), 1),
     new ToDo("Finish today", "Here is a to-do that is due today!", today, 3),
-    new ToDo("Week's work", "This is something you just need to do sometime this week.", randomDate, 2),
-  ])
-
-  new Project("Sample", [
-    new ToDo("New Year", "Write my new year's day resolutions", new Date(2024, 0, 1), 1),
-    new ToDo("Coding", "Finish creating the TaskQuest app", new Date(2023, 8, 29), 3),
-    new ToDo("Gym", "Bench press my body weight", new Date(2024, 11, 31), 2)
-  ]);
+    new ToDo("Week's work", "This is something you just need to do sometime this week.", dateWithinWeek, 2),
+    new ToDo("Too Late", "Overdue to-dos are color-coded this bronze hue", dateWithinPastWeek, 2)
+  ], "bi-pencil-fill")
 }
 
 function setVisitedFlag() {

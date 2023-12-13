@@ -1,4 +1,4 @@
-import { hasVisited, populateInitialProjects, loadData, setVisitedFlag } from "./storage"
+import { hasVisited, loadData, setVisitedFlag, populateInitialProjects } from "./storage"
 import { filterImportant, filterThisWeek, filterToday, noFilter } from "./filters";
 import { renderWalkthrough } from "./welcome";
 import { addProject } from "./display";
@@ -6,7 +6,7 @@ import { Game, bank } from "./games";
 import { pubSub } from "./pubsub";
 import "./sw"
 
-let projects: Project[] = [];
+let projects: Project[] = []
 
 class ToDo {
   checked: Boolean;
@@ -43,16 +43,17 @@ class ToDo {
   }
 
   getWorth() : [worth: number, punctual: boolean] {
-    let worth = this.priorityNum * 10
+    const worth = this.priorityNum * 10
+    const punctual = !this.isOverDue()
+    return [worth, punctual]
+  }
 
+  isOverDue() {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     const dueDate = new Date(this.due)
     dueDate.setHours(0, 0, 0, 0)
-
-    const punctual = today <= dueDate;
-
-    return [worth, punctual]
+    return today > dueDate
   }
 }
 
@@ -235,4 +236,9 @@ if (!hasVisited()) {
   projects = loadData()
 }
 
-export { Category, Project, ToDo, allTasksCategory };
+function tutorialExists() {
+  const tutorial = projects.find(project => project.name == "Tutorial")
+  return tutorial ? true: false
+}
+
+export { Category, Project, ToDo, allTasksCategory, tutorialExists};

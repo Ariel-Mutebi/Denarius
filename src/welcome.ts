@@ -1,5 +1,8 @@
 import introJs from "intro.js";
 import { IntroJs } from "intro.js/src/intro";
+import { populateInitialProjects } from "./storage";
+import { showAllTasks } from "./display";
+import { tutorialExists } from "./app";
 
 interface elementDictionary {
   [name: string]: {
@@ -18,15 +21,20 @@ const e: elementDictionary = (() => {
 
   const banner = stepElement(() => document.getElementsByTagName("h2")[0])
   
-  const toDoArticle = stepElement(() => document.getElementsByTagName("article")[1], false, true)
   const toDoArticle1 = stepElement(() => document.getElementsByTagName("article")[0], false, true)
-  const toDoArticle2 = stepElement(() => document.getElementsByTagName("article")[2], false, true)
+  const toDoArticle2 = stepElement(() => document.getElementsByTagName("article")[1], false, true)
+  const toDoArticle3 = stepElement(() => document.getElementsByTagName("article")[2], false, true)
+  const toDoArticle4 = stepElement(() => document.getElementsByTagName("article")[3], false, true)
+  const toDoArticle5 = stepElement(() => document.getElementsByTagName("article")[4], false, true)
+  const toDoArticle6 = stepElement(() => document.getElementsByTagName("article")[5], false, true)
 
   const menuIcon = stepElement(() => document.querySelector<HTMLElement>("i.bi-list"), false, true)
   const navBar = stepElement(() => document.getElementsByTagName("nav")[0])
   const tourButton = stepElement(() => document.querySelector<HTMLButtonElement>("button[title='create tour']"))
-  const category = stepElement(() => document.querySelectorAll<HTMLLIElement>("#category-list > li")[1])
+  const category2 = stepElement(() => document.querySelectorAll<HTMLLIElement>("#category-list > li")[1])
+  const addProjectIcon = stepElement(() => document.getElementById("add-project-icon"))
   const projectHeader = stepElement(() => document.getElementById("project-header"))
+  const projectLinkLI = stepElement(() => document.getElementById("project-list"))
   const projectLink = stepElement(() => {
     const link = document.querySelectorAll<HTMLElement>("#project-list > li > p")[0]
 
@@ -44,7 +52,26 @@ const e: elementDictionary = (() => {
   
   const gameImg = stepElement(() => document.getElementsByTagName("img")[0])
 
-  return { banner, toDoArticle, toDoArticle1, toDoArticle2, menuIcon, navBar, tourButton, category, projectHeader, projectLink, addToDoIcon, gameIcon, gameImg }
+  return {
+    banner,
+    toDoArticle1,
+    toDoArticle2,
+    toDoArticle3,
+    toDoArticle4,
+    toDoArticle5,
+    toDoArticle6,
+    menuIcon,
+    navBar,
+    tourButton,
+    category2,
+    projectHeader,
+    projectLink,
+    projectLinkLI,
+    addProjectIcon,
+    addToDoIcon,
+    gameIcon,
+    gameImg
+  }
 })()
 
 async function renderWalkthrough() {
@@ -63,34 +90,69 @@ async function renderWalkthrough() {
           position: "right"
         },
         {
-          element: e.toDoArticle.get(),
+          element: e.toDoArticle1.get(),
           title: "A To-Do Element",
-          intro: "Get a glance of the title and details. Click the checkbox to tick it off!"
+          intro: "Get a glance of the title, due date, and other details. Click the checkbox to tick it off!"
+        },
+        {
+          element: e.toDoArticle2.get(),
+          title: "Importance labels",
+          intro: "Notice the border color? It's because high-priority to-dos are labeled red."
+        },
+        {
+          element: e.toDoArticle3.get(),
+          title: "Overdue :(",
+          intro: "The bronze background shows that this to-do's due date has passed."
+        },
+        {
+          element: e.toDoArticle4.get(),
+          title: "Labels continued",
+          intro: "The orange border here shows this is a medium-priority to-do."
+        },
+        {
+          element: e.toDoArticle5.get(),
+          title: "Date sorting",
+          intro: "As suggested, in a category to-dos that are of the same importance are further sorted by due date (in descending order)."
+        },
+        {
+          element: e.toDoArticle6.get(),
+          title: "Cucumber-cool",
+          intro: "This green border just means this to-do is low-priority."
         },
         {
           element: e.menuIcon.isVisible() ? e.menuIcon.get() : e.navBar.get(),
           title: "The menu",
-          intro: e.menuIcon.isVisible() ? "Click the icon to discover even more!" : "This is just the place to navigate the different app pages!",
+          intro: e.menuIcon.isVisible() ? "Click the icon to open the side-bar and discover more!" : "Navigate the to the other pages from this sidebar.",
         },
         {
           element: e.tourButton.get(),
           title: "A Quick Reminder",
-          intro: "By default, this tour will not show on your second visit. Ever need it again? Just tap this button."
+          intro: "This tour will not show when you come back. Ever need this tour again? Just tap this button."
         },
         {
-          element: e.category.get(),
+          element: e.category2.get(),
           title: "Example category",
-          intro: "This is a category that filters to-dos by priority, storing only high-priority ones."
+          intro: "The <b>'Important'</b> category stores only high-priority to-dos."
         },
         {
           element: e.projectHeader.get(),
           title: "About Projects",
-          intro: "These are the groups of to-dos that you make. After you close the tour, you can click the plus icon to add your own!"
+          intro: "These are the groups of to-dos that <i>you</i> make."
+        },
+        {
+          element: e.addProjectIcon.get(),
+          title: "Make your own!",
+          intro: "After closing the tour, you can click the plus icon to add your own project!"
+        },
+        {
+          element: e.projectLinkLI.get(),
+          title: "For example...",
+          intro: "Look into this project I made just for you!"
         },
         {
           element: e.projectLink.get(),
-          title: "A Perfect Example",
-          intro: "Look into this project I made just for you! <small>(Select done and then you can open the page.)</small>"
+          title: "Trouble opening?",
+          intro: "<small>(Select done and then you can open the page.)</small>"
         }
       ],
       showBullets: false,
@@ -101,7 +163,8 @@ async function renderWalkthrough() {
       steps: [
         {
           element: e.banner.get(),
-          intro: "Welcome to the project page!",
+          title: "So we continue...",
+          intro: "Welcome to  <b>'Tutorial'</b> project page!",
         },
         {
           element: e.addToDoIcon.get(),
@@ -110,19 +173,24 @@ async function renderWalkthrough() {
           position: "left"
         },
         {
-          element: e.toDoArticle.get(),
+          element: e.toDoArticle1.get(),
           title: "More powerful to-dos",
           intro: "A to-do element within a product page also has buttons to edit / delete it."
         },
         {
-          element: e.toDoArticle2.get(),
+          element: e.toDoArticle3.get(),
           title: "Want to move?",
           intro: "Just drag a to-do element and drop it on a project link in the menu. <i>Only works on wider screens.</i>"
         },
         {
-          element: e.toDoArticle1.get(),
+          element: e.toDoArticle5.get(),
           title: "The Easter Egg",
           intro: "Check this to-do then delete it... You just earned some coins!"
+        },
+        {
+          element: e.toDoArticle6.get(),
+          title: "The Cost for Laziness",
+          intro: "If you complete an overdue to-do late, you will lose the coins you could have otherwise gained."
         },
         {
           element: e.gameIcon.get(),
@@ -182,12 +250,17 @@ async function renderWalkthrough() {
 
 // attach this function to tour button
 document.querySelector('button[title="create tour"]')?.addEventListener("click", () => {
-
-  if(e.menuIcon.isVisible() && e.navBar.isVisible()) { // as in mobile screen
-    e.navBar.get()?.classList.add("d-none") // hide menu when clicked
-  }
-  
   renderWalkthrough()
+
+  if(!tutorialExists()) {
+    populateInitialProjects()
+    showAllTasks()
+  }
+
+  // prevent sidebar covering tutorial on mobile
+  if(e.menuIcon.isVisible() && e.navBar.isVisible()) { // as in mobile screen
+    e.navBar.get()?.classList.add("d-none")
+  }
 })
 
 export { renderWalkthrough }
