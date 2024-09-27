@@ -1,4 +1,4 @@
-class PubSub {
+class PubSubBus {
   private subscribers: { [eventName: string]: Function[] } = {};
 
   subscribe(eventName: string, callback: Function) {
@@ -15,6 +15,6 @@ class PubSub {
   }
 }
 
-const pubSub = new PubSub();
+const bus = new PubSubBus(); // singleton pattern
 
-export { pubSub };
+export default bus;

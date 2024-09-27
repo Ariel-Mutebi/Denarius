@@ -1,48 +1,4 @@
-import { format } from "date-fns";
-import { Project, ToDo } from "./app";
-
-function addProjectForm() {
-  const navBar = document.getElementsByTagName("nav")[0];
-  const icon = document.getElementById("add-project-icon");
-  const modal = document.querySelector("dialog#project-form-container");
-  const form = document.getElementById("add-project-form")
-  const nameField = document.getElementById("project-name")
-
-  if (icon) icon.addEventListener("click", () => {
-    if (modal instanceof HTMLDialogElement) {
-      // Get the position of the parent element (the header)
-      const iconTop = icon.parentElement?.getBoundingClientRect().top;
-
-      // Set the position of the dialog
-      if (iconTop) {
-        if(window.innerWidth > 500) {
-          modal.style.top = `${iconTop - 20}px`;
-          modal.style.left = `${navBar?.clientWidth - 35}px`
-          modal.show()
-        } else {
-          modal.style.top = `${iconTop - 80}px`
-          modal.style.left = "1rem"
-          modal.showModal()
-        };
-      }
-    }
-  })
-
-  if (form instanceof HTMLFormElement) form.addEventListener("submit", () => {
-    if (nameField instanceof HTMLInputElement) new Project(nameField.value)
-  })
-
-  // close modal if user clicks away
-  document.body.addEventListener("click", function (event) {
-    if (modal instanceof HTMLDialogElement && event.target instanceof Node) {
-      if (!(modal.contains(event.target) || icon?.contains(event.target))) {
-        modal.close()
-      }
-    }
-  })
-}
-
-addProjectForm()
+import FormActionFunction from "./interfaces/FormActionFunction"
 
 function toDoForm(container: HTMLElement, position: DOMRect, formAction: FormActionFunction, isEditForm = false) {
   if (document.getElementsByClassName("to-do-form")[0]) return // prevent duplicates
@@ -180,36 +136,4 @@ function toDoForm(container: HTMLElement, position: DOMRect, formAction: FormAct
   return { titleInput, detailsInput, dateInput, submit }
 }
 
-function addToDoForm(project: Project, container: HTMLElement, coordinates: DOMRect) {
-
-  // create ToDo from user input
-  function createToDo(title: string, details: string, dateString: string, priority: number) {
-    const newToDo = new ToDo(title, details, new Date(dateString), priority)
-    project.addToDo(newToDo)
-  }
-
-  // hand over creation of form to lower-level function toDoForm()
-  toDoForm(container, coordinates, createToDo)
-}
-
-function editToDoForm(toDo: ToDo, container: HTMLElement, coordinates: DOMRect) {
-  const elements = toDoForm(container, coordinates, editDetails, true)
-
-  // include the text of previous todo details
-  if (elements) {
-    elements.titleInput.value = toDo.title
-    elements.detailsInput.value = toDo.description
-    elements.dateInput.value = format(toDo.due, "yyyy-MM-dd")
-    elements.submit.innerText = "Edit"
-  }
-
-  function editDetails(title: string, details: string, dateString: string, priority: number) {
-    toDo.updateProperties(title, details, new Date(dateString), priority)
-  }
-}
-
-interface FormActionFunction {
-  (title: string, details: string, dateString: string, priority: number): void;
-}
-
-export { addToDoForm, editToDoForm }
+export default toDoForm

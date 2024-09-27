@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/black-RAM/TaskQuest#readme",
   "devDependencies": {
+    "@types/date-fns": "^2.6.0",
+    "@types/node": "^22.7.3",
     "css-loader": "^6.8.1",
     "http-server": "^14.1.1",
     "sass": "^1.68.0",
