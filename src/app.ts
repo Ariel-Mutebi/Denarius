@@ -242,3 +242,7 @@ function tutorialExists() {
 }
 
 export { Category, Project, ToDo, allTasksCategory, tutorialExists};
+
+function setTimeout(renderWalkthrough: () => Promise<void>, arg1: number) {
+  throw new Error("Function not implemented.");
+}

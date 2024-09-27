@@ -7,5 +7,6 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "moduleResolution": "Node",
+    "lib": ["es2016"]
   }
 }
