@@ -1,4 +1,4 @@
-import gamePanel from "../constants/gamePanel";
+import GamePanel from "./GamePanel"
 
 class Game {
   constructor(
@@ -7,7 +7,7 @@ class Game {
     public link: string,
     public cost: number
   ) {
-    gamePanel.addGame(this)
+    GamePanel.addGame(this)
   }
 }
 

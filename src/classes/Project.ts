@@ -1,50 +1,42 @@
-import projects from "../constants/projects";
-import addProject from "../ui/outputs/addProject";
-import bank from "../constants/bank";
+import Projects from "../classes/Projects";
+import Bank from "./Bank";
 import bus from "../pubsub/bus";
 import Group from "./Group";
 import ToDo from "./ToDo";
 
 class Project extends Group {
-  index: Number;
-  private count: number; // number of to-do being added to array (this.todos.length)
-
   constructor(
     public name: string,
     public initialTodos?: ToDo[],
-    public icon: String = "bi-calendar-fill"
+    public icon: string = "bi-calendar-fill"
   ) {
     super()
-    projects.push(this);
-    this.index = projects.indexOf(this);
-    addProject(this)
+    Projects.add(this)
     
-    this.count = -1
-    this.registerInitialToDos()
+    this.initialTodos?.forEach(initTodo => {
+      this.addToDo(initTodo)
+    })
 
-    // handle when todo needs to be deleted
-    bus.subscribe(`deletion-in-${this.name}`, this.deleteToDo.bind(this))
+    this.initialTodos = undefined
+
+    bus.publish("added-project", this.id)
+    bus.subscribe(`deletion-in-${this.id}`, this.deleteToDo.bind(this))
   }
 
   addToDo(todo: ToDo, moveOperation = false) {
-    todo.index = ++this.count;
-    todo.parent = this.name;
-    this.todos.push(todo);
-    bus.publish("todo-added", [todo, true, !moveOperation]);
-
-    if (!this.initialTodos?.includes(todo)) {
-      bus.publish("todo-stored", [todo])
-      bus.publish("todo-counted", [this.index, true])
-    }
-
-    bus.publish("data-change", projects)
+    todo.parentId = this.id
+    this.todos.push(todo)
+    bus.publish("todo-added", [todo, true, !moveOperation])
+    bus.publish("projects-change")
+    bus.publish("category-add-todo", [todo])
+    bus.publish("todo-counted", [this.id, true])
   }
 
   receiveDrop(toDoData: string) {
-    const props: ToDo = JSON.parse(toDoData)
-    const parent = projects.find(project => project.name == props.parent)
+    const toDoToReceive: ToDo = JSON.parse(toDoData)
+    const parent = Projects.query(project => project.id == toDoToReceive.parentId)
     if(parent) {
-      const movingToDo = parent.deleteToDoByName(props.title)
+      const movingToDo = parent.deleteToDoByName(toDoToReceive.title)
       if(movingToDo) this.addToDo(movingToDo, true)
     }
   }
@@ -58,49 +50,30 @@ class Project extends Group {
   deleteToDo(todo: ToDo, moveOperation = false) {
     const index = this.todos.indexOf(todo)
     const deletion = this.todos.splice(index, 1)[0]
-    bus.publish("todo-counted", [this.index, false])
+    bus.publish("todo-counted", [this.id, false])
     bus.publish("todo-storage-deleted", deletion)
-    bus.publish("data-change", projects)
-    bus.publish("todo-deleted", todo.index)
+    bus.publish("projects-change")
+    bus.publish("todo-deleted", todo.id)
     this.awardCoins(deletion, !moveOperation)
-  }
-
-  deleteSelf() {
-    const index = projects.indexOf(this);
-    const deletion = projects.splice(index, 1)[0];
-    bus.publish("project-deleted", index)
-    bus.publish("project-storage-deleted", deletion)
-    bus.publish("data-change", projects)
   }
 
   deleteInitialToDos() {
     this.initialTodos = undefined
-    bus.publish("data-change", projects)
+    bus.publish("projects-change")
   }
 
-  private registerInitialToDos() {
-    if (this.initialTodos) {
-      this.initialTodos.forEach(todo => {
-        todo.parent = this.name;
-        bus.publish("todo-counted", [this.index, true])
-      })
-      bus.publish("todo-stored", this.initialTodos)
-      bus.publish("data-change", projects)
-    }
-  }
-
-  private awardCoins(deletion: ToDo, awardable: boolean) {
+  awardCoins(deletion: ToDo, awardable: boolean) {
     if(deletion.checked && awardable) {
       const [reward, positive] = deletion.getWorth()
 
       if (positive) {
-        bank.deposit(reward)  
+        Bank.deposit(reward)  
         bus.publish("coin-message", 
-          `Yay! You earned ${reward} coins. Total coins:  ${bank.showBalance()}`
+          `Yay! You earned ${reward} coins. Total coins:  ${Bank.showBalance()}`
         )
-      } else if (bank.deduct(reward)) {
+      } else if (Bank.deduct(reward)) {
         bus.publish("coin-message", 
-          `Late completion! You lost ${reward} coins. Balance: ${bank.showBalance()}`
+          `Late completion! You lost ${reward} coins. Balance: ${Bank.showBalance()}`
         )
       } else {
         bus.publish("coin-message", 

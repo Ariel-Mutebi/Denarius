@@ -1,22 +1,37 @@
 import renderOnboarding from "./ui/onboarding/onboarding";
-import projects from "./constants/projects";
+import Projects from "./classes/Projects";
 import hasVisited from "./storage/hasVisited";
 import populateInitialProjects from "./storage/populateInitialProjects";
 import setVisitedFlag from "./storage/setVisitedFlag";
-import loadProjects from "./storage/loadProjects";
 import showAllTasks from "./ui/outputs/showAllTasks";
-import "./ui/styles/style.scss"
-import "./ui/domUtilities/resizer"
-import "./constants/games"
-import "./sw"
+import Category from "./classes/Category";
+import filterImportant from "./functions/filterImportant";
+import filterThisWeek from "./functions/filterThisWeek";
+import filterToday from "./functions/filterToday";
+import noFilter from "./functions/noFilter";
+import Game from "./classes/Game";
+import "./ui/styles/style.scss";
+import "./ui/domUtilities/resizer";
+import "./sw";
+
+// These MUST be instantiated before the projects
+// because the only way they "hear" about a new to-do is through the "category-[add|delete]-[todo|project]" messages
+new Category("All Tasks", noFilter, "bi-calendar-check-fill")
+new Category("Important", filterImportant, "bi-star-fill")
+new Category("Today", filterToday, "bi-calendar-event-fill")
+new Category("This Week", filterThisWeek, "bi-calendar-week-fill")
 
 if (!hasVisited()) {
   populateInitialProjects()
   setTimeout(renderOnboarding, 1500)
   setVisitedFlag()
 } else {
-  projects.splice(0, projects.length)
-  projects.push(...loadProjects())
+  Projects.deleteAll()
+  Projects.load()
 }
+
+new Game("Cross Code", "./thumbnails/cross-code.jpg", "https://www.cross-code.com/en/start", 60)
+new Game("Missile Game", "./thumbnails/missile-game.jpg", "https://missile-game.bwhmather.com/", 40)
+new Game("Chrome Dino", "./thumbnails/chrome-dino.jpeg", "https://chromedino.com/", 20)
 
 showAllTasks()

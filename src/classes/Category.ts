@@ -1,7 +1,6 @@
-import addProject from "../ui/outputs/addProject"
 import bus from "../pubsub/bus"
+import uuid from "../types/uuid"
 import Group from "./Group"
-import Project from "./Project"
 import ToDo from "./ToDo"
 
 class Category extends Group {
@@ -11,10 +10,10 @@ class Category extends Group {
     public icon: String = "bi-calendar-fill"
   ) {
     super()
-    addProject(this)
-    bus.subscribe("todo-stored", this.updateCategory.bind(this))
-    bus.subscribe("todo-storage-deleted", this.removeFromCategory.bind(this))
-    bus.subscribe("project-storage-deleted", this.removeProject.bind(this))
+    bus.publish("added-category", this.id)
+    bus.subscribe("category-add-todo", this.updateCategory.bind(this))
+    bus.subscribe("category-delete-todo", this.removeFromCategory.bind(this))
+    bus.subscribe("category-delete-project", this.removeProject.bind(this))
   }
 
   private updateCategory(newToDos: ToDo[]) {
@@ -27,8 +26,8 @@ class Category extends Group {
     this.sort()
   }
 
-  private removeProject(deletion: Project) {
-    this.todos = this.todos.filter(todo => todo.parent !== deletion.name)
+  private removeProject(deletionId: uuid) {
+    this.todos = this.todos.filter(todo => todo.parentId !== deletionId)
     this.sort()
   }
 

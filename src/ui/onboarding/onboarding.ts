@@ -1,6 +1,6 @@
 import populateInitialProjects from "../../storage/populateInitialProjects";
 import showAllTasks from "../outputs/showAllTasks";
-import projects from "../../constants/projects";
+import Projects from "../../classes/Projects";
 import e from "./elementDictionary";
 import stages from "./stages";
 
@@ -33,7 +33,7 @@ async function renderOnboarding() {
 document.querySelector('button[title="create tour"]')?.addEventListener("click", () => {
   renderOnboarding()
 
-  if(!projects.some(project => project.name == "Tutorial")) {
+  if(!Projects.getAll().some(project => project.name == "Tutorial")) {
     populateInitialProjects()
     showAllTasks()
   }

@@ -1,4 +1,4 @@
-import FormActionFunction from "./interfaces/FormActionFunction"
+import FormActionFunction from "../../interfaces/FormActionFunction"
 
 function toDoForm(container: HTMLElement, position: DOMRect, formAction: FormActionFunction, isEditForm = false) {
   if (document.getElementsByClassName("to-do-form")[0]) return // prevent duplicates

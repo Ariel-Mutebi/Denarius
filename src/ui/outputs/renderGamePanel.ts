@@ -1,5 +1,5 @@
-import bank from "../../constants/bank"
-import gamePanel from "../../constants/gamePanel"
+import Bank from "../../classes/Bank"
+import GamePanel from "../../classes/GamePanel"
 import projectContainer from "../domConstants/projectContainer"
 import clearPage from "./clearPage"
 import renderMessage from "./renderMessage"
@@ -17,7 +17,7 @@ function renderGamePanel() {
   const cardContainer = document.createElement("div")
   cardContainer.classList.add("card-container")
 
-  for(const game of gamePanel.games) {
+  for(const game of GamePanel.games) {
     const gameContainer = document.createElement("dialog")
     const gamePlay = document.createElement("iframe")
     const closeGame = document.createElement("button")
@@ -40,7 +40,7 @@ function renderGamePanel() {
 
     thumbnail.addEventListener("click", () => {
 
-      const userCanPay = bank.deduct(game.cost)
+      const userCanPay = Bank.deduct(game.cost)
 
       if(userCanPay) {
         projectContainer.appendChild(gameContainer)
@@ -50,7 +50,7 @@ function renderGamePanel() {
         setTimeout(() => {
           gameContainer.close()
           renderMessage("Session done. Pay again to play.")
-        }, gamePanel.minutes);
+        }, GamePanel.minutes);
       } else {
         renderMessage("Not enough coins to pay. Complete more to-dos.")
       }
@@ -60,7 +60,7 @@ function renderGamePanel() {
       gameContainer.close()
       projectContainer.removeChild(gameContainer)
 
-      bank.deposit(game.cost)
+      Bank.deposit(game.cost)
       renderMessage("Yay! Coins refunded")
     })
 

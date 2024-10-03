@@ -1,8 +1,12 @@
-class Bank {
+import getCoins from "../storage/getCoins"
+import Singleton from "./Singleton"
 
+class Bank extends Singleton{
   constructor(
     private coins: number
-  ) {}
+  ) {
+    super()
+  }
 
   deposit(amount: number) {
     this.coins += amount
@@ -32,4 +36,6 @@ class Bank {
   }
 }
 
-export default Bank
+const BankInstance = new Bank(getCoins())
+
+export default BankInstance

@@ -4,10 +4,12 @@ import bus from "../../pubsub/bus";
 import projectContainer from "../domConstants/projectContainer";
 import editToDoForm from "../inputs/editToDoForm";
 import renderMessage from "./renderMessage";
+import Projects from "../../classes/Projects";
 
 function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boolean]) {
   // spread parameters of tuple
   const [toDo, isProject, externalCall] = parameters,
+    toDoPriority = toDo.priorityNum === 3 ? "high" : toDo.priorityNum === 2 ? "medium" : toDo.priorityNum === 1 ? "low" : "value error with priority number",
 
   // HTML elements for to-do article
     element = document.createElement("article"),
@@ -23,7 +25,7 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
     closeDetailsModal = document.createElement("button");
 
   // attributes
-  element.classList.add(`priority-${toDo.getPriorityWord()}`);
+  element.classList.add(`priority-${toDoPriority}`);
   checkBox.type = "checkbox";
   checkBox.classList.add("completeCheck");
   toDoTitle.htmlFor = "completeCheck";
@@ -49,8 +51,8 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
   closeDetailsModal.innerHTML = '<i class="bi bi-x-square"></i>'
   detailsModal.innerHTML =
     `<h3>${toDo.title}</h3>
-    <p><b>Project:</b> ${toDo.parent}</p>
-    <p><b>Priority:</b> ${toDo.getPriorityWord()}</p>
+    <p><b>Project:</b> ${toDo.parentId ? Projects.getProject(toDo.parentId) : null}</p>
+    <p><b>Priority:</b> ${toDoPriority}</p>
     <p><b>Description:</b> ${toDo.description}</p>
     <p><b>Due Date:</b> ${format(toDo.due, "do MMMM, Y")}</p>`;
 
@@ -155,12 +157,12 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
 
     // delete button
     deleteButton.addEventListener("click", () => {
-      bus.publish(`deletion-in-${toDo.parent}`, toDo)
+      bus.publish(`deletion-in-${toDo.parentId}`, toDo)
     })
 
     rightDiv.appendChild(editButton)
     rightDiv.appendChild(deleteButton)
-    element.dataset.index = String(toDo.index);
+    element.dataset.index = String(toDo.id);
   }
 
   element.appendChild(leftDiv);

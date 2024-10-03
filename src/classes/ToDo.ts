@@ -1,10 +1,11 @@
-import projects from "../constants/projects";
 import bus from "../pubsub/bus";
+import uuid from "../types/uuid";
+import { v4 as idGenerator } from "uuid"
 
 class ToDo {
   checked: Boolean;
-  index: number;
-  parent: string;
+  id: uuid;
+  parentId: uuid | null;
 
   constructor(
     public title: string,
@@ -12,18 +13,14 @@ class ToDo {
     public due: Date,
     public priorityNum: number
   ) {
-    this.parent = "orphan"
+    this.parentId = null
     this.checked = false
-    this.index = -1
+    this.id = idGenerator() as uuid
   }
 
   toggleCheck() {
     this.checked = !this.checked
-    bus.publish("data-change", projects)
-  }
-
-  getPriorityWord() {
-    return this.priorityNum === 3 ? "high" : this.priorityNum === 2 ? "medium" : this.priorityNum === 1 ? "low" : "";
+    bus.publish("projects-change")
   }
 
   updateProperties(newTitle: string, newDetails: string, newDate: Date, newPriority: number) {
@@ -32,7 +29,7 @@ class ToDo {
     this.due = newDate
     this.priorityNum = newPriority
     bus.publish("todo-updated", this)
-    bus.publish("data-change", projects)
+    bus.publish("projects-change")
   }
 
   getWorth() : [worth: number, punctual: boolean] {

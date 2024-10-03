@@ -1,7 +1,7 @@
-import elementDictionaryInterface from "./elementDictionaryInterface"
+import elementDictionaryInterface from "../../interfaces/elementDictionaryInterface"
 
-// factory function pattern used here
-const elementDictionary: elementDictionaryInterface = (() => {
+// factory function pattern for more dynamic object creation
+const createElementDictionary: () => elementDictionaryInterface = () => {
   const stepElement = (get: () => HTMLElement | null, stagehand = false, changer = false) => {
     const isVisible = () => !get()?.classList.contains("d-none")
     return {get, stagehand, changer, isVisible}
@@ -60,6 +60,9 @@ const elementDictionary: elementDictionaryInterface = (() => {
     gameIcon,
     gameImg
   }
-})()
+}
+
+// singleton
+const elementDictionary = createElementDictionary()
 
 export default elementDictionary

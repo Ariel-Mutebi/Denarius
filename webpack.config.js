@@ -1,5 +1,6 @@
 const path = require("path")
 const WorkboxPlugin = require("workbox-webpack-plugin")
+const CircularDependencyPlugin = require("circular-dependency-plugin")
 
 module.exports = {
   mode: "development",
@@ -38,9 +39,14 @@ module.exports = {
       runtimeCaching: [
         {
           urlPattern: /\.(?:html)$/, // cache index.html at runtime
-          handler: 'StaleWhileRevalidate',
-        },
+          handler: 'StaleWhileRevalidate'
+        }
       ],
+    }),
+    new CircularDependencyPlugin({
+      exclude: /node_modules/,
+      include: /src/,
+      failOnError: true,
     }),
   ]
 }

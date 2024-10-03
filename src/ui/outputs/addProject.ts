@@ -1,49 +1,46 @@
-import Category from "../../classes/Category";
-import Project from "../../classes/Project";
+import Projects from "../../classes/Projects";
+import uuid from "../../types/uuid";
 import renderProject from "./renderProject";
 import showAllTasks from "./showAllTasks";
 
-function addProject(project: Project | Category) {
-  const type = project instanceof Project ? "project" : "category";
-  const projectList = document.getElementById(`${type}-list`);
+function addProject(projectId: uuid) {
+  const project = Projects.getProject(projectId) // this does not account for categories
+  const projectList = document.getElementById("project-list");
   const listElement = document.createElement("li");
   const listText = document.createElement("p")
   const toDoCounter = document.createElement("span")
   toDoCounter.classList.add("counter")
 
   listText.appendChild(toDoCounter)
-  listText.innerHTML += project.name
+  listText.innerText += project.name
   listElement.appendChild(listText)
+  listElement.dataset.id = String(project.id)
 
-  if (project instanceof Project) {
-    listElement.dataset.index = String(project.index)
+  // move todo to this project when to-do dragged over
+  listElement.addEventListener("dragover", function (e) {
+    e.preventDefault()
 
-    // move todo to this project when to-do dragged over
-    listElement.addEventListener("dragover", function (e) {
-      e.preventDefault()
+    if(e.dataTransfer) {
+      e.dataTransfer.dropEffect = "move"
+    }
+  })
 
-      if(e.dataTransfer) {
-        e.dataTransfer.dropEffect = "move"
-      }
-    })
+  listElement.addEventListener("drop", function(e) {
+    if(e.dataTransfer) {
+      const data = e.dataTransfer.getData("text/plain")
+      project.receiveDrop(data)
+    }
+  })
 
-    listElement.addEventListener("drop", function(e) {
-      if(e.dataTransfer) {
-        const data = e.dataTransfer.getData("text/plain")
-        project.receiveDrop(data)
-      }
-    })
-
-    // delete project button
-    const deleteButton = document.createElement("button")
-    deleteButton.innerHTML = '<i class="bi bi-trash3 fs-5"></i>';
-    deleteButton.title = "delete project";
-    deleteButton.addEventListener("click", () => {
-      project.deleteSelf()
-      showAllTasks()
-    });
-    listElement.appendChild(deleteButton);
-  }
+  // delete project button
+  const deleteButton = document.createElement("button")
+  deleteButton.innerHTML = '<i class="bi bi-trash3 fs-5"></i>';
+  deleteButton.title = "delete project";
+  deleteButton.addEventListener("click", () => {
+    Projects.deleteProject(projectId)
+    showAllTasks()
+  });
+  listElement.appendChild(deleteButton);
 
   listText.addEventListener("click", () => {
     renderProject(project)

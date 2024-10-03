@@ -1,6 +1,6 @@
-function updateToDoCounter(parameters: [index: number, shouldIncrement: Boolean]) {
+function updateToDoCounter(parameters: [id: number, shouldIncrement: Boolean]) {
   const [index, shouldIncrement] = parameters;
-  const counter = document.querySelector(`ul#project-list > li[data-index="${index}"] .counter`)
+  const counter = document.querySelector(`ul#project-list > li[data-id="${index}"] .counter`)
 
   if (counter) {
     const currentCount = Number(counter.innerHTML)

@@ -4,8 +4,8 @@ import renderToDo from "./renderToDo"
 
 function updateEditedToDo(toDo: ToDo) {
   const newRender = renderToDo([toDo, true, false])
-  const oldRender = document.querySelector(`article[data-index="${toDo.index}"]`)
-  const sister = document.querySelector(`article[data-index="${toDo.index + 1}"]`)
+  const oldRender = document.querySelector(`article[data-index="${toDo.id}"]`)
+  const sister = document.querySelector(`article[data-index="${toDo.id + 1}"]`)
 
   if (newRender && oldRender) {
     projectContainer.insertBefore(newRender, sister)
