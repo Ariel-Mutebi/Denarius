@@ -1,3 +1,4 @@
+import bus from "../pubsub/bus"
 import getCoins from "../storage/getCoins"
 import Singleton from "./Singleton"
 
@@ -10,6 +11,7 @@ class Bank extends Singleton{
 
   deposit(amount: number) {
     this.coins += amount
+    this.depositMessage(amount)
     this.store()
   }
 
@@ -18,8 +20,10 @@ class Bank extends Singleton{
 
     if(deductible) {
       this.coins -= amount
+      this.deductMessage(amount)
     } else {
       this.coins = 0
+      this.undetuctibleMessage()
     }
 
     this.store()
@@ -31,8 +35,24 @@ class Bank extends Singleton{
     return this.coins
   }
 
+  private depositMessage(amount: number) {
+    bus.publish("coin-message", 
+      `Yay! You earned ${amount} coins. Total coins:  ${this.showBalance()}`
+    )
+  }
+
+  private deductMessage(amount: number) {
+    bus.publish("coin-message", 
+      `You lost ${amount} coins. Balance: ${this.showBalance()}`
+    )
+  }
+
+  private undetuctibleMessage() {
+    bus.publish("coin-message", "Error! Coins to few to subtract from.")
+  }
+
   private store() {
-    localStorage.setItem("coins", String(this.coins))
+    bus.publish("put-coins", this.coins)
   }
 }
 

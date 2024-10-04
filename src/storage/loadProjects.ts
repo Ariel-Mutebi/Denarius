@@ -7,15 +7,7 @@ function loadProjects(): Project[] {
   const loadedProjects: Project[] = []
 
   for (const project of projectsData) {
-    const loadedProject = new Project(project.name, undefined, project.icon)
-
-    if (project.initialTodos) {
-      for (const initial of project.initialTodos) {
-        loadedProject.addToDo(
-          new ToDo(initial.title, initial.description, new Date(initial.due), initial.priorityNum)
-        )
-      }
-    }
+    const loadedProject = new Project(project.name, [], project.icon)
 
     for (const todo of project.todos) {
       loadedProject.addToDo(
@@ -23,9 +15,7 @@ function loadProjects(): Project[] {
       )
     }
 
-    loadedProjects.push(
-      loadedProject
-    )
+    loadedProjects.push(loadedProject)
   }
 
   return loadedProjects

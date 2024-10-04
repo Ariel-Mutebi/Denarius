@@ -1,26 +1,29 @@
 import Projects from "../classes/Projects";
-import Bank from "./Bank";
 import bus from "../pubsub/bus";
 import Group from "./Group";
 import ToDo from "./ToDo";
+import uuid from "../types/uuid";
 
 class Project extends Group {
   constructor(
     public name: string,
-    public initialTodos?: ToDo[],
+    public initialTodos: ToDo[],
     public icon: string = "bi-calendar-fill"
   ) {
     super()
     Projects.add(this)
-    
-    this.initialTodos?.forEach(initTodo => {
-      this.addToDo(initTodo)
-    })
-
-    this.initialTodos = undefined
-
+    this.registerToDos()
     bus.publish("added-project", this.id)
     bus.subscribe(`deletion-in-${this.id}`, this.deleteToDo.bind(this))
+  }
+
+  private registerToDos() {
+    if(this.initialTodos.length > 0) {
+      this.initialTodos.forEach((initTodo, index) => {
+        this.initialTodos.splice(index, 1)
+        this.addToDo(initTodo)
+      })
+    }
   }
 
   addToDo(todo: ToDo, moveOperation = false) {
@@ -36,51 +39,20 @@ class Project extends Group {
     const toDoToReceive: ToDo = JSON.parse(toDoData)
     const parent = Projects.query(project => project.id == toDoToReceive.parentId)
     if(parent) {
-      const movingToDo = parent.deleteToDoByName(toDoToReceive.title)
+      const movingToDo = parent.deleteToDo(toDoToReceive.id, true)
       if(movingToDo) this.addToDo(movingToDo, true)
     }
   }
 
-  deleteToDoByName(title: string) {
-    const deletion = this.todos.find(todo => todo.title == title)
-    if(deletion) this.deleteToDo(deletion, true)
-    return deletion
-  }
-
-  deleteToDo(todo: ToDo, moveOperation = false) {
-    const index = this.todos.indexOf(todo)
+  deleteToDo(toDoId: uuid, moveOperation = false) {
+    const index = this.todos.findIndex(t => t.id == toDoId)
     const deletion = this.todos.splice(index, 1)[0]
     bus.publish("todo-counted", [this.id, false])
-    bus.publish("todo-storage-deleted", deletion)
+    bus.publish("category-delete-todo", deletion)
     bus.publish("projects-change")
-    bus.publish("todo-deleted", todo.id)
-    this.awardCoins(deletion, !moveOperation)
-  }
-
-  deleteInitialToDos() {
-    this.initialTodos = undefined
-    bus.publish("projects-change")
-  }
-
-  awardCoins(deletion: ToDo, awardable: boolean) {
-    if(deletion.checked && awardable) {
-      const [reward, positive] = deletion.getWorth()
-
-      if (positive) {
-        Bank.deposit(reward)  
-        bus.publish("coin-message", 
-          `Yay! You earned ${reward} coins. Total coins:  ${Bank.showBalance()}`
-        )
-      } else if (Bank.deduct(reward)) {
-        bus.publish("coin-message", 
-          `Late completion! You lost ${reward} coins. Balance: ${Bank.showBalance()}`
-        )
-      } else {
-        bus.publish("coin-message", 
-          `Error! Coins to few to subtract from.`
-        )
-      }
-    }
+    bus.publish("todo-deleted", toDoId)
+    if(!moveOperation) deletion.awardCompletion()
+    return deletion
   }
 }
 

@@ -1,7 +1,8 @@
+import uuid from "../../types/uuid";
 import projectContainer from "../domConstants/projectContainer";
 
-function removeToDo(index: Number) {
-  const deletion = document.querySelector(`article[data-index="${index}"]`)
+function removeToDo(id: uuid) {
+  const deletion = document.querySelector(`article[data-id="${id}"]`)
   if (deletion) projectContainer.removeChild(deletion);
 }
 

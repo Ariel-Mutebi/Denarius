@@ -28,7 +28,7 @@ function addProjectForm() {
   })
 
   if (form instanceof HTMLFormElement) form.addEventListener("submit", () => {
-    if (nameField instanceof HTMLInputElement) new Project(nameField.value)
+    if (nameField instanceof HTMLInputElement) new Project(nameField.value, [])
   })
 
   // close modal if user clicks away

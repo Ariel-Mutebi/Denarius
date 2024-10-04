@@ -46,16 +46,9 @@ function renderProject(project: Project | Category) {
   document.getElementsByTagName("main")[0].appendChild(projectContainer);
 
   const isProject = project instanceof Project
-  if (isProject && project.initialTodos) {
-    for (const todo of project.initialTodos) {
-      project.addToDo(todo)
-    }
-    project.deleteInitialToDos()
-  } else {
-    project.todos.forEach(todo => {
-      renderToDo([todo, isProject, true]);
-    });
-  }
+  project.todos.forEach(todo => {
+    renderToDo([todo, isProject, true])
+  })
 }
 
 export default renderProject

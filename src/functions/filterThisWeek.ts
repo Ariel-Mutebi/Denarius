@@ -1,14 +1,15 @@
 import ToDo from "../classes/ToDo";
+import { today } from "./dateGenerators";
+import timeNormalise from "./timeNormalise";
 
-export default (todos: ToDo[]) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0)
-  const endOfWeek = new Date(today);
-  endOfWeek.setDate(endOfWeek.getDate() + 7);
+const filterThisWeek = (todos: ToDo[]) => {
+  const endOfWeek = new Date(today)
+  endOfWeek.setDate(endOfWeek.getDate() + 7)
 
   return todos.filter((todo) => {
-    const todoDue = new Date(todo.due);
-    todoDue.setHours(0, 0, 0, 0); // Set to midnight
-    return todoDue >= today && todoDue <= endOfWeek;
-  });
-};
+    const todoDue = timeNormalise(todo.due)
+    return todoDue >= today && todoDue <= endOfWeek
+  })
+}
+
+export default filterThisWeek

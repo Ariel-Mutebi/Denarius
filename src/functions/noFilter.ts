@@ -1,3 +1,5 @@
 import ToDo from "../classes/ToDo";
 
-export default (todos: ToDo[]) => todos.filter(todo => true);
+const noFilter = (todos: ToDo[]) => todos.filter(() => true)
+
+export default noFilter

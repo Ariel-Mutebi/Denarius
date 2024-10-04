@@ -1,4 +1,5 @@
 import Projects from "../classes/Projects";
+import putCoins from "../storage/putCoins";
 import addCategory from "../ui/outputs/addCategory";
 import addProject from "../ui/outputs/addProject";
 import removeProject from "../ui/outputs/removeProject";
@@ -17,4 +18,5 @@ bus.subscribe("todo-counted", updateToDoCounter)
 bus.subscribe("todo-deleted", removeToDo)
 bus.subscribe("project-deleted", removeProject)
 bus.subscribe("coin-message", renderMessage)
+bus.subscribe("put-coins", putCoins)
 bus.subscribe("projects-change", Projects.save)

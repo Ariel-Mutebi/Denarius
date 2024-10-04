@@ -1,13 +1,7 @@
 import ToDo from "../classes/ToDo";
+import { today } from "./dateGenerators";
+import timeNormalise from "./timeNormalise";
 
-export default (todos: ToDo[]) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Set the time part to midnight
+const filterToday = (todos: ToDo[]) => todos.filter(todo =>  timeNormalise(todo.due).getTime() == today.getTime())
 
-  return todos.filter(todo => {
-    const todoDue = todo.due
-    todoDue.setHours(0, 0, 0, 0);
-
-    return todoDue.getTime() == today.getTime();
-  });
-}
+export default filterToday

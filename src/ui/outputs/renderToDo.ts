@@ -157,7 +157,7 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
 
     // delete button
     deleteButton.addEventListener("click", () => {
-      bus.publish(`deletion-in-${toDo.parentId}`, toDo)
+      bus.publish(`deletion-in-${toDo.parentId}`, toDo.id)
     })
 
     rightDiv.appendChild(editButton)

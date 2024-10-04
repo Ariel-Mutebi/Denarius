@@ -1,19 +1,20 @@
 const today = new Date()
+const todayTime = today.getTime()
 const endOfWeek = new Date(today)
 const endOfMonth = new Date(today)
 endOfWeek.setDate(endOfWeek.getDate() + 7)
 endOfMonth.setDate(endOfMonth.getDate() + 31)
 
 const dateWithinWeek = new Date(
-  today.getTime() + Math.random() * (endOfWeek.getTime() - today.getTime())
+  todayTime + Math.random() * (endOfWeek.getTime() - todayTime)
 )
 
 const dateWithinPastWeek = new Date(
-  today.getTime() + Math.random() * (today.getTime() - endOfWeek.getTime())
+  todayTime + Math.random() * (todayTime - endOfWeek.getTime())
 )
 
 const randomDay = () => new Date(
-  today.getTime() + Math.random() * (endOfMonth.getTime() - today.getTime())
+  todayTime + Math.random() * (endOfMonth.getTime() - todayTime)
 )
 
 export { dateWithinWeek, dateWithinPastWeek, randomDay, today }
