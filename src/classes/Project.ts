@@ -3,8 +3,9 @@ import bus from "../pubsub/bus";
 import Group from "./Group";
 import ToDo from "./ToDo";
 import uuid from "../types/uuid";
+import ProjectSecretary from "../interfaces/ProjectSecretary";
 
-class Project extends Group {
+class Project extends Group implements ProjectSecretary {
   constructor(
     public name: string,
     public initialTodos: ToDo[],
@@ -31,7 +32,7 @@ class Project extends Group {
     this.todos.push(todo)
     bus.publish("todo-added", [todo, true, !moveOperation])
     bus.publish("projects-change")
-    bus.publish("category-add-todo", [todo])
+    bus.publish("category-add-todo", todo)
     bus.publish("todo-counted", [this.id, true])
   }
 
@@ -48,7 +49,7 @@ class Project extends Group {
     const index = this.todos.findIndex(t => t.id == toDoId)
     const deletion = this.todos.splice(index, 1)[0]
     bus.publish("todo-counted", [this.id, false])
-    bus.publish("category-delete-todo", deletion)
+    bus.publish("category-delete-todo", toDoId)
     bus.publish("projects-change")
     bus.publish("todo-deleted", toDoId)
     if(!moveOperation) deletion.awardCompletion()
