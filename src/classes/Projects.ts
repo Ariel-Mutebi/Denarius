@@ -1,19 +1,18 @@
 import bus from "../pubsub/bus"
-import loadProjects from "../storage/loadProjects"
-import storeProjects from "../storage/storeProjects"
-import uuid from "../types/uuid"
-import Project from "./Project"
 import Singleton from "./Singleton"
+import storeProjects from "../storage/storeProjects"
+import ProjectSecretary from "../interfaces/ProjectSecretary"
+import uuid from "../types/uuid"
 
 class Projects extends Singleton{
-  private projects: Project[]
+  private projects: ProjectSecretary[]
   
   constructor() {
     super()
     this.projects = []
   }
 
-  add(project: Project) {
+  add(project: ProjectSecretary) {
     this.projects.push(project)
   }
 
@@ -26,7 +25,7 @@ class Projects extends Singleton{
     return [...this.projects]
   }
 
-  query(q: (predicate: Project) => boolean) {
+  query(q: (predicate: ProjectSecretary) => boolean) {
     const result = this.projects.find(q) 
     if(!result) throw new Error("Projects query returned undefined.");
     return result
@@ -43,10 +42,6 @@ class Projects extends Singleton{
 
   deleteAll() {
     this.projects.splice(0, this.projects.length)
-  }
-
-  load() {
-    this.projects.push(...loadProjects())
   }
 
   save() {

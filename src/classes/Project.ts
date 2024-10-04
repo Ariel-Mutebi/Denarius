@@ -17,7 +17,7 @@ class Project extends Group {
     bus.subscribe(`deletion-in-${this.id}`, this.deleteToDo.bind(this))
   }
 
-  private registerToDos() {
+  registerToDos() {
     if(this.initialTodos.length > 0) {
       this.initialTodos.forEach((initTodo, index) => {
         this.initialTodos.splice(index, 1)

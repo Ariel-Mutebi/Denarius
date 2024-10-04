@@ -1,8 +1,8 @@
-import Project from "../../classes/Project"
+import ProjectSecretary from "../../interfaces/ProjectSecretary"
 import ToDo from "../../classes/ToDo"
 import toDoForm from "./toDoForm"
 
-function addToDoForm(project: Project, container: HTMLElement, coordinates: DOMRect) {
+function addToDoForm(project: ProjectSecretary, container: HTMLElement, coordinates: DOMRect) {
 
   // create ToDo from user input
   function createToDo(title: string, details: string, dateString: string, priority: number) {

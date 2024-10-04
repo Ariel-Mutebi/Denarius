@@ -10,6 +10,7 @@ import filterThisWeek from "./functions/filterThisWeek";
 import filterToday from "./functions/filterToday";
 import noFilter from "./functions/noFilter";
 import Game from "./classes/Game";
+import loadProjects from "./storage/loadProjects";
 import "./ui/styles/style.scss";
 import "./ui/domUtilities/resizer";
 import "./sw";
@@ -27,7 +28,9 @@ if (!hasVisited()) {
   setVisitedFlag()
 } else {
   Projects.deleteAll()
-  Projects.load()
+  for(const loadedProject of loadProjects()) {
+    Projects.add(loadedProject)
+  }
 }
 
 new Game("Cross Code", "./thumbnails/cross-code.jpg", "https://www.cross-code.com/en/start", 60)
