@@ -4,6 +4,7 @@ import timeNormalise from "../functions/timeNormalise";
 import bus from "../pubsub/bus";
 import uuid from "../types/uuid";
 import Bank from "./Bank";
+import toDoPriorityNumber from "../types/toDoPriorityNumber";
 
 class ToDo {
   checked: Boolean;
@@ -13,8 +14,8 @@ class ToDo {
   constructor(
     public title: string,
     public description: string,
-    public due: Date,
-    public priorityNum: number
+    public dueDate: Date,
+    public priorityNum: toDoPriorityNumber
   ) {
     this.parentId = null
     this.checked = false
@@ -26,10 +27,10 @@ class ToDo {
     bus.publish("projects-change")
   }
 
-  updateProperties(newTitle: string, newDetails: string, newDate: Date, newPriority: number) {
+  updateProperties(newTitle: string, newDetails: string, newDate: Date, newPriority: toDoPriorityNumber) {
     this.title = newTitle
     this.description = newDetails
-    this.due = newDate
+    this.dueDate = newDate
     this.priorityNum = newPriority
     bus.publish("todo-updated", this)
     bus.publish("projects-change")
@@ -40,7 +41,7 @@ class ToDo {
   }
 
   isOverDue() {
-    return today > timeNormalise(this.due)
+    return today > timeNormalise(this.dueDate)
   }
 
   awardCompletion() {

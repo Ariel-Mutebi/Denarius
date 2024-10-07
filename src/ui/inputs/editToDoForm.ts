@@ -9,7 +9,7 @@ function editToDoForm(toDo: ToDo, container: HTMLElement, coordinates: DOMRect) 
   if (elements) {
     elements.titleInput.value = toDo.title
     elements.detailsInput.value = toDo.description
-    elements.dateInput.value = format(toDo.due, "yyyy-MM-dd")
+    elements.dateInput.value = format(toDo.dueDate, "yyyy-MM-dd")
     elements.submit.innerText = "Edit"
   }
 

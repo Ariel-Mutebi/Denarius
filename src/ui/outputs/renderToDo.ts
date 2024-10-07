@@ -43,8 +43,8 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
 
   // content
   toDoTitle.innerText = toDo.title;
-  dueDateT.dateTime = String(toDo.due)
-  dueDateT.innerText = format(toDo.due, "d LLL");
+  dueDateT.dateTime = String(toDo.dueDate)
+  dueDateT.innerText = format(toDo.dueDate, "d LLL");
   detailsButton.innerText = "Details";
   editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
   deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
@@ -54,7 +54,7 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
     <p><b>Project:</b> ${toDo.parentId ? Projects.getProject(toDo.parentId) : null}</p>
     <p><b>Priority:</b> ${toDoPriority}</p>
     <p><b>Description:</b> ${toDo.description}</p>
-    <p><b>Due Date:</b> ${format(toDo.due, "do MMMM, Y")}</p>`;
+    <p><b>Due Date:</b> ${format(toDo.dueDate, "do MMMM, Y")}</p>`;
 
   if (toDo.checked) {
     checkBox.checked = true;

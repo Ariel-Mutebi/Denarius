@@ -42,8 +42,8 @@ class Category extends Group implements CategorySecretary {
       }
 
       // If priorities are the same, sort by due date (earliest to latest)
-      const dueDateA = new Date(a.due).getTime();
-      const dueDateB = new Date(b.due).getTime();
+      const dueDateA = new Date(a.dueDate).getTime();
+      const dueDateB = new Date(b.dueDate).getTime();
 
       return dueDateA - dueDateB;
     });

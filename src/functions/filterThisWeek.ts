@@ -7,7 +7,7 @@ const filterThisWeek = (todos: ToDo[]) => {
   endOfWeek.setDate(endOfWeek.getDate() + 7)
 
   return todos.filter((todo) => {
-    const todoDue = timeNormalise(todo.due)
+    const todoDue = timeNormalise(todo.dueDate)
     return todoDue >= today && todoDue <= endOfWeek
   })
 }
