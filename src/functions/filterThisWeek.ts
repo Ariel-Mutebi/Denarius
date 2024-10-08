@@ -1,8 +1,8 @@
-import ToDo from "../classes/ToDo";
+import ToDoInterface from "../interfaces/ToDoInterface";
 import { today } from "./dateGenerators";
 import timeNormalise from "./timeNormalise";
 
-const filterThisWeek = (todos: ToDo[]) => {
+const filterThisWeek = (todos: ToDoInterface[]) => {
   const endOfWeek = new Date(today)
   endOfWeek.setDate(endOfWeek.getDate() + 7)
 

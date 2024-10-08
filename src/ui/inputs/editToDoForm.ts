@@ -13,8 +13,9 @@ function editToDoForm(toDo: ToDo, container: HTMLElement, coordinates: DOMRect) 
     elements.submit.innerText = "Edit"
   }
 
-  function editDetails(title: string, details: string, dateString: string, priority: number) {
-    toDo.updateProperties(title, details, new Date(dateString), priority)
+  function editDetails(title: string, description: string, dateString: string, priorityInteger: number) {
+    const dueDate = new Date(dateString)
+    toDo.updateProperties({ title, description, dueDate, priorityInteger })
   }
 }
 

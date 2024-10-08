@@ -1,5 +1,5 @@
-import ToDo from "../classes/ToDo";
+import ToDoInterface from "../interfaces/ToDoInterface";
 
-const noFilter = (todos: ToDo[]) => todos.filter(() => true)
+const noFilter = (todos: ToDoInterface[]) => todos.filter(() => true)
 
 export default noFilter

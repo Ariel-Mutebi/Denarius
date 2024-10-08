@@ -4,40 +4,52 @@ import timeNormalise from "../functions/timeNormalise";
 import bus from "../pubsub/bus";
 import uuid from "../types/uuid";
 import Bank from "./Bank";
-import toDoPriorityNumber from "../types/toDoPriorityNumber";
+import ToDoInterface from "../interfaces/ToDoInterface";
+import EditableToDoProperties from "../interfaces/EditableToDoProperties";
 
-class ToDo {
-  checked: Boolean;
+class ToDo implements ToDoInterface {
   id: uuid;
-  parentId: uuid | null;
+  parentId: uuid | undefined;
 
   constructor(
     public title: string,
     public description: string,
     public dueDate: Date,
-    public priorityNum: toDoPriorityNumber
+    public priorityInteger = 1,
+    public isChecked = false
   ) {
-    this.parentId = null
-    this.checked = false
+    const priorityIntegerValues = [1, 2, 3]
+    if(priorityIntegerValues.includes(priorityInteger)) {
+      this.priorityInteger = priorityInteger
+    } else {
+      // I used console.error instead of throw new Error so that initialization is not interrupted.
+      // I borrowed the "value error" terminology from Python (which has more descriptive error messages than JS).
+      console.error("Value error: ToDo.priorityInteger must be in array: ", priorityIntegerValues)
+    }
+
     this.id = idGenerator() as uuid
   }
 
   toggleCheck() {
-    this.checked = !this.checked
+    this.isChecked = !this.isChecked
     bus.publish("projects-change")
   }
 
-  updateProperties(newTitle: string, newDetails: string, newDate: Date, newPriority: toDoPriorityNumber) {
-    this.title = newTitle
-    this.description = newDetails
-    this.dueDate = newDate
-    this.priorityNum = newPriority
+  updateProperties(positionalParameters: Partial<EditableToDoProperties>) {
+    const { title, description, dueDate, priorityInteger, parentId } = positionalParameters
+    
+    if(title) this.title = title
+    if(description) this.description = description
+    if(dueDate) this.dueDate = dueDate
+    if(priorityInteger) this.priorityInteger = priorityInteger
+    if(parentId) this.parentId = parentId
+
     bus.publish("todo-updated", this)
     bus.publish("projects-change")
   }
 
   getWorth() {
-    return this.priorityNum * 10
+    return this.priorityInteger * 10
   }
 
   isOverDue() {
@@ -45,7 +57,7 @@ class ToDo {
   }
 
   awardCompletion() {
-    if(!this.checked) return
+    if(!this.isChecked) return
     if(this.isOverDue()) {
       Bank.deduct(this.getWorth())
       return

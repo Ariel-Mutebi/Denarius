@@ -1,8 +1,8 @@
-import ToDo from "../../classes/ToDo"
+import ToDoInterface from "../../interfaces/ToDoInterface"
 import projectContainer from "../domConstants/projectContainer"
 import renderToDo from "./renderToDo"
 
-function updateEditedToDo(toDo: ToDo) {
+function updateEditedToDo(toDo: ToDoInterface) {
   const newRender = renderToDo([toDo, true, false])
   const oldRender = document.querySelector(`article[data-index="${toDo.id}"]`)
   const sister = document.querySelector(`article[data-index="${toDo.id + 1}"]`)

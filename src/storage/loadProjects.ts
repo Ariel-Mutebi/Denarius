@@ -11,7 +11,7 @@ function loadProjects(): Project[] {
 
     for (const todo of project.todos) {
       loadedProject.addToDo(
-        new ToDo(todo.title, todo.description, new Date(todo.dueDate), todo.priorityNum)
+        new ToDo(todo.title, todo.description, new Date(todo.dueDate), todo.priorityInteger)
       )
     }
 

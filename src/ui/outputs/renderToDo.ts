@@ -1,15 +1,15 @@
 import { format } from "date-fns";
-import ToDo from "../../classes/ToDo";
+import ToDoInterface from "../../interfaces/ToDoInterface";
 import bus from "../../pubsub/bus";
 import projectContainer from "../domConstants/projectContainer";
 import editToDoForm from "../inputs/editToDoForm";
 import renderMessage from "./renderMessage";
 import Projects from "../../classes/Projects";
 
-function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boolean]) {
+function renderToDo(parameters: [toDo: ToDoInterface, isProject: Boolean, external: Boolean]) {
   // spread parameters of tuple
   const [toDo, isProject, externalCall] = parameters,
-    toDoPriority = toDo.priorityNum === 3 ? "high" : toDo.priorityNum === 2 ? "medium" : toDo.priorityNum === 1 ? "low" : "value error with priority number",
+    toDoPriority = toDo.priorityInteger === 3 ? "high" : toDo.priorityInteger === 2 ? "medium" : toDo.priorityInteger === 1 ? "low" : "value error with priority number",
 
   // HTML elements for to-do article
     element = document.createElement("article"),
@@ -56,7 +56,7 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
     <p><b>Description:</b> ${toDo.description}</p>
     <p><b>Due Date:</b> ${format(toDo.dueDate, "do MMMM, Y")}</p>`;
 
-  if (toDo.checked) {
+  if (toDo.isChecked) {
     checkBox.checked = true;
     element.classList.add("text-decoration-line-through")
   }
@@ -93,7 +93,7 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
   checkBox.addEventListener("click", () => {
     toDo.toggleCheck()
 
-    if (toDo.checked) {
+    if (toDo.isChecked) {
       element.classList.add("text-decoration-line-through")
     } else {
       element.classList.remove("text-decoration-line-through")
@@ -104,7 +104,7 @@ function renderToDo(parameters: [toDo: ToDo, isProject: Boolean, external: Boole
   toDoTitle.addEventListener("click", () => {
     toDo.toggleCheck()
 
-    if (toDo.checked) {
+    if (toDo.isChecked) {
       element.classList.add("text-decoration-line-through")
       checkBox.checked = true
     } else {

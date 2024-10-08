@@ -3,9 +3,9 @@ import bus from "../pubsub/bus";
 import Group from "./Group";
 import ToDo from "./ToDo";
 import uuid from "../types/uuid";
-import ProjectSecretary from "../interfaces/ProjectSecretary";
+import ProjectInterface from "../interfaces/ProjectInterface";
 
-class Project extends Group implements ProjectSecretary {
+class Project extends Group implements ProjectInterface {
   constructor(
     public name: string,
     public initialTodos: ToDo[],
@@ -28,7 +28,7 @@ class Project extends Group implements ProjectSecretary {
   }
 
   addToDo(todo: ToDo, moveOperation = false) {
-    todo.parentId = this.id
+    todo.updateProperties({ parentId: this.id })
     this.todos.push(todo)
     bus.publish("todo-added", [todo, true, !moveOperation])
     bus.publish("projects-change")

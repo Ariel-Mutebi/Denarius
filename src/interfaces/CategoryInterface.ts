@@ -1,8 +1,8 @@
 import Group from "../classes/Group";
-import ToDo from "../classes/ToDo";
+import ToDo from "./ToDoInterface";
 import uuid from "../types/uuid";
 
-interface CategorySecretary extends Group {
+interface CategoryInterface extends Group {
   name: string,
   icon: string,
   filterFunction: (todos: ToDo[]) => ToDo[],
@@ -12,4 +12,4 @@ interface CategorySecretary extends Group {
   sort(): void
 }
 
-export default CategorySecretary
+export default CategoryInterface

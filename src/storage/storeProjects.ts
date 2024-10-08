@@ -1,6 +1,6 @@
-import ProjectSecretary from "../interfaces/ProjectSecretary"
+import ProjectInterface from "../interfaces/ProjectInterface"
 
-function storeProjects(projects: ProjectSecretary[]) {
+function storeProjects(projects: ProjectInterface[]) {
   localStorage.setItem("projects", JSON.stringify(projects))
 }
 

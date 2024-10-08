@@ -1,7 +1,7 @@
-import ToDo from "../classes/ToDo";
+import ToDoInterface from "../interfaces/ToDoInterface";
 import { today } from "./dateGenerators";
 import timeNormalise from "./timeNormalise";
 
-const filterToday = (todos: ToDo[]) => todos.filter(todo =>  timeNormalise(todo.dueDate).getTime() == today.getTime())
+const filterToday = (todos: ToDoInterface[]) => todos.filter(todo =>  timeNormalise(todo.dueDate).getTime() == today.getTime())
 
 export default filterToday

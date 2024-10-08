@@ -1,7 +1,7 @@
 import bus from "../pubsub/bus"
 import Singleton from "./Singleton"
 import storeProjects from "../storage/storeProjects"
-import Project from "../interfaces/ProjectSecretary"
+import Project from "../interfaces/ProjectInterface"
 import uuid from "../types/uuid"
 
 class Projects extends Singleton{

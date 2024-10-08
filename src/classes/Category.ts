@@ -1,11 +1,11 @@
-import CategorySecretary from "../interfaces/CategorySecretary"
+import CategoryInterface from "../interfaces/CategoryInterface"
 import bus from "../pubsub/bus"
 import uuid from "../types/uuid"
 import Categories from "./Categories"
 import Group from "./Group"
 import ToDo from "./ToDo"
 
-class Category extends Group implements CategorySecretary {
+class Category extends Group implements CategoryInterface {
   constructor(
     public name: string,
     public filterFunction: (todos: ToDo[]) => ToDo[],
@@ -37,8 +37,8 @@ class Category extends Group implements CategorySecretary {
   sort() {
     this.todos = this.todos.sort((a, b) => {
       // Sort by priority (high to low)
-      if (a.priorityNum !== b.priorityNum) {
-        return b.priorityNum - a.priorityNum;
+      if (a.priorityInteger !== b.priorityInteger) {
+        return b.priorityInteger - a.priorityInteger;
       }
 
       // If priorities are the same, sort by due date (earliest to latest)

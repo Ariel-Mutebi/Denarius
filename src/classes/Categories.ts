@@ -1,5 +1,5 @@
 import uuid from "../types/uuid";
-import Category from "../interfaces/CategorySecretary";
+import Category from "../interfaces/CategoryInterface";
 import Singleton from "./Singleton";
 
 class Categories extends Singleton {
