@@ -91,7 +91,7 @@ function renderToDo(parameters: [toDo: ToDoInterface, isProject: Boolean, extern
 
   // checkbox functionality
   checkBox.addEventListener("click", () => {
-    toDo.toggleCheck()
+    toDo.toggleIsChecked()
 
     if (toDo.isChecked) {
       element.classList.add("text-decoration-line-through")
@@ -102,7 +102,7 @@ function renderToDo(parameters: [toDo: ToDoInterface, isProject: Boolean, extern
 
   // also check off if title clicked
   toDoTitle.addEventListener("click", () => {
-    toDo.toggleCheck()
+    toDo.toggleIsChecked()
 
     if (toDo.isChecked) {
       element.classList.add("text-decoration-line-through")

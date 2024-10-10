@@ -1,4 +1,3 @@
-import { v4 as idGenerator } from "uuid";
 import { today } from "../functions/dateGenerators";
 import timeNormalise from "../functions/timeNormalise";
 import bus from "../pubsub/bus";
@@ -6,10 +5,11 @@ import uuid from "../types/uuid";
 import Bank from "./Bank";
 import ToDoInterface from "../interfaces/ToDoInterface";
 import EditableToDoProperties from "../interfaces/EditableToDoProperties";
+import IDed from "./IDed";
 
-class ToDo implements ToDoInterface {
-  id: uuid;
+class ToDo extends IDed implements ToDoInterface {
   parentId: uuid | undefined;
+  awarded: boolean;
 
   constructor(
     public title: string,
@@ -18,19 +18,17 @@ class ToDo implements ToDoInterface {
     public priorityInteger = 1,
     public isChecked = false
   ) {
+    super()
     const priorityIntegerValues = [1, 2, 3]
     if(priorityIntegerValues.includes(priorityInteger)) {
       this.priorityInteger = priorityInteger
     } else {
-      // I used console.error instead of throw new Error so that initialization is not interrupted.
-      // I borrowed the "value error" terminology from Python (which has more descriptive error messages than JS).
       console.error("Value error: ToDo.priorityInteger must be in array: ", priorityIntegerValues)
     }
-
-    this.id = idGenerator() as uuid
+    this.awarded = false
   }
 
-  toggleCheck() {
+  toggleIsChecked() {
     this.isChecked = !this.isChecked
     bus.publish("projects-change")
   }
@@ -53,16 +51,23 @@ class ToDo implements ToDoInterface {
   }
 
   isOverDue() {
-    return today > timeNormalise(this.dueDate)
+    return timeNormalise(today) > timeNormalise(this.dueDate)
   }
 
   awardCompletion() {
+    if(this.awarded) {
+      throw new Error("ToDoInstance.awardCompletion() can only be called once.");
+    }
+
     if(!this.isChecked) return
+
     if(this.isOverDue()) {
       Bank.deduct(this.getWorth())
-      return
+    } else {
+      Bank.deposit(this.getWorth())
     }
-    Bank.deposit(this.getWorth())
+
+    this.awarded = true
   }
 }
 

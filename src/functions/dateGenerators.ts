@@ -13,8 +13,8 @@ const dateWithinPastWeek = new Date(
   todayTime + Math.random() * (todayTime - endOfWeek.getTime())
 )
 
-const randomDay = () => new Date(
+const dateWithinMonth = () => new Date(
   todayTime + Math.random() * (endOfMonth.getTime() - todayTime)
 )
 
-export { dateWithinWeek, dateWithinPastWeek, randomDay, today }
+export { dateWithinWeek, dateWithinPastWeek, dateWithinMonth, today }

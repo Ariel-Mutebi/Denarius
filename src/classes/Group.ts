@@ -1,14 +1,12 @@
-import { v4 as uuidGenerator } from "uuid"
 import ToDo from "./ToDo"
-import uuid from "../types/uuid"
+import IDed from "./IDed"
 
-class Group {
+class Group extends IDed {
   todos: ToDo[]
-  id: uuid
 
   constructor() {
+    super()
     this.todos = []
-    this.id = uuidGenerator() as uuid
   }
 }
 
