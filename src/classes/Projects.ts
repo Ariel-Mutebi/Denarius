@@ -20,9 +20,13 @@ class Projects extends Singleton{
     return this.query(p => p.id == id)
   }
 
-  getAll() {
+  getAllProjects() {
     // spread operator makes sure that mutations returned array do NOT mutate private projects property
     return [...this.projects]
+  }
+
+  getAllToDos() {
+    return this.projects.map(project => project.toDos).flat()
   }
 
   query(q: (predicate: Project) => boolean) {
@@ -32,7 +36,7 @@ class Projects extends Singleton{
   }
 
   deleteProject(id: uuid) {
-    const projectIndex = this.getAll().findIndex(p => p.id = id)
+    const projectIndex = this.getAllProjects().findIndex(p => p.id = id)
     const deletedProject = this.projects.splice(projectIndex, 1)[0]
     const deletedProjectId = Object.keys(deletedProject)[0]
     bus.publish("project-deleted", deletedProjectId)

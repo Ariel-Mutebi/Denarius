@@ -10,6 +10,9 @@ import updateEditedToDo from "../ui/outputs/updateEditedToDo";
 import updateToDoCounter from "../ui/outputs/updateToDoCounter";
 import bus from "./bus";
 
+// NOTE: These mostly just subscribe UI functions. 
+// Many important subscriptions are in Class constructors (e.g. Category constructor).
+// And all bus.publish calls are in functions like Class methods.
 bus.subscribe("added-category", addCategory)
 bus.subscribe("added-project", addProject)
 bus.subscribe("todo-added", renderToDo)

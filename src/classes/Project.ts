@@ -27,7 +27,7 @@ class Project extends Group implements ProjectInterface {
     this.toDos.push(todo)
     bus.publish("todo-added", [todo, true, !moveOperation])
     bus.publish("projects-change")
-    bus.publish("category-add-todo", todo)
+    bus.publish("category-add-todos", [todo])
     bus.publish("todo-counted", [this.id, true])
   }
 
@@ -40,10 +40,9 @@ class Project extends Group implements ProjectInterface {
     }
   }
 
-  // If not called by receiveDrop method,
-  // I hope this also removes the object from memory... eventually.
-  // But since JavaScript is garbage-collected,
-  // I guess we'll never know.
+  // I think dereferencing a ToDo from this.toDos array makes it unreachable. 
+  // (Unless another instance references it, of course.)
+  // So the garbage collector should eventually free up the memory taken by the "deleted" ToDo.
   deleteToDo(toDoId: uuid, moveOperation = false) {
     const index = this.toDos.findIndex(t => t.id == toDoId)
     const deletion = this.toDos.splice(index, 1)[0]

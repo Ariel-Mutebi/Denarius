@@ -4,6 +4,7 @@ import uuid from "../types/uuid"
 import Categories from "./Categories"
 import Group from "./Group"
 import ToDo from "../interfaces/ToDoInterface"
+import ProjectsInstance from "./Projects"
 
 class Category extends Group implements CategoryInterface {
   constructor(
@@ -12,15 +13,16 @@ class Category extends Group implements CategoryInterface {
     icon: string = "bi-calendar-fill"
   ) {
     super(name, icon)
+    this.updateCategory(ProjectsInstance.getAllToDos())
     Categories.add(this)
     bus.publish("added-category", this.id)
-    bus.subscribe("category-add-todo", this.updateCategory.bind(this))
+    bus.subscribe("category-add-todos", this.updateCategory.bind(this))
     bus.subscribe("category-delete-todo", this.removeToDo.bind(this))
     bus.subscribe("category-delete-project", this.removeProject.bind(this))
   }
 
-  updateCategory(newToDo: ToDo) {
-    this.toDos = this.filterFunction([...this.toDos, newToDo])
+  updateCategory(newToDos: ToDo[]) {
+    this.toDos = this.filterFunction([...this.toDos, ...newToDos])
     this.sort()
   }
 
@@ -38,15 +40,15 @@ class Category extends Group implements CategoryInterface {
     this.toDos = this.toDos.sort((a, b) => {
       // Sort by priority (high to low)
       if (a.priorityInteger !== b.priorityInteger) {
-        return b.priorityInteger - a.priorityInteger;
+        return b.priorityInteger - a.priorityInteger
       }
 
       // If priorities are the same, sort by due date (earliest to latest)
-      const dueDateA = new Date(a.dueDate).getTime();
-      const dueDateB = new Date(b.dueDate).getTime();
+      const dueDateA = new Date(a.dueDate).getTime()
+      const dueDateB = new Date(b.dueDate).getTime()
 
-      return dueDateA - dueDateB;
-    });
+      return dueDateA - dueDateB
+    })
   }
 }
 

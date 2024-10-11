@@ -33,7 +33,7 @@ async function renderOnboarding() {
 document.querySelector('button[title="create tour"]')?.addEventListener("click", () => {
   renderOnboarding()
 
-  if(!Projects.getAll().some(project => project.name == "Tutorial")) {
+  if(!Projects.getAllProjects().some(project => project.name == "Tutorial")) {
     populateInitialProjects()
     showAllTasks()
   }

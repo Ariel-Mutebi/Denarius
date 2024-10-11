@@ -15,8 +15,6 @@ import "./ui/styles/style.scss";
 import "./ui/domUtilities/resizer";
 import "./sw";
 
-// These MUST be instantiated before the projects
-// because the only way they "hear" about a new to-do is through the "category-[add|delete]-[todo|project]" messages
 new Category("All Tasks", noFilter, "bi-calendar-check-fill")
 new Category("Important", filterImportant, "bi-star-fill")
 new Category("Today", filterToday, "bi-calendar-event-fill")
