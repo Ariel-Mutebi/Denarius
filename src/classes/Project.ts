@@ -4,6 +4,7 @@ import Group from "./Group";
 import ToDoInterface from "../interfaces/ToDoInterface";
 import uuid from "../types/uuid";
 import ProjectInterface from "../interfaces/ProjectInterface";
+import ToDoProperties from "../interfaces/ToDoProperties";
 
 class Project extends Group implements ProjectInterface {
   constructor(
@@ -32,7 +33,7 @@ class Project extends Group implements ProjectInterface {
   }
 
   receiveDrop(toDoData: string) {
-    const toDoToReceive: ToDoInterface = JSON.parse(toDoData)
+    const toDoToReceive: ToDoProperties = JSON.parse(toDoData)
     const parent = Projects.query(project => project.id == toDoToReceive.parentId)
     if(parent) {
       const movingToDo = parent.deleteToDo(toDoToReceive.id, true)

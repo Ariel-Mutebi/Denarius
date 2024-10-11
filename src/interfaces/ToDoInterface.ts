@@ -1,8 +1,7 @@
-import uuid from "../types/uuid";
 import EditableToDoProperties from "./EditableToDoProperties";
+import ToDoProperties from "./ToDoProperties";
 
-interface ToDoInterface extends EditableToDoProperties {
-  id: uuid;
+interface ToDoInterface extends ToDoProperties {
   updateProperties(positionalParameters: Partial<EditableToDoProperties>): void;
   toggleIsChecked(): void;
   toggleIsChecked(): void;

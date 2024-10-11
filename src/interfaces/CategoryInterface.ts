@@ -1,10 +1,8 @@
-import Group from "../classes/Group";
+import Group from "./GroupInterface";
 import ToDo from "./ToDoInterface";
 import uuid from "../types/uuid";
 
 interface CategoryInterface extends Group {
-  name: string,
-  icon: string,
   filterFunction: (todos: ToDo[]) => ToDo[],
   updateCategory(newToDos: ToDo[]): void,
   removeToDo(toDoToDeleteID: uuid): void,
