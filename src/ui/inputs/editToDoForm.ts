@@ -1,5 +1,5 @@
 import { format } from "date-fns"
-import ToDo from "../../classes/ToDo"
+import ToDo from "../../interfaces/ToDoInterface"
 import toDoForm from "./toDoForm"
 
 function editToDoForm(toDo: ToDo, container: HTMLElement, coordinates: DOMRect) {

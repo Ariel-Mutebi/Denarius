@@ -16,9 +16,7 @@ import uuid from "../types/uuid";
 
 interface ProjectInterface extends Group {
   name: string,
-  initialTodos: ToDo[],
   icon: string,
-  registerToDos(): void,
   addToDo(todo: ToDo, moveOperation?: boolean): void,
   receiveDrop(toDoData: string): void,
   deleteToDo(toDoId: uuid, moveOperation?: boolean): ToDo,

@@ -3,15 +3,15 @@ import bus from "../pubsub/bus"
 import uuid from "../types/uuid"
 import Categories from "./Categories"
 import Group from "./Group"
-import ToDo from "./ToDo"
+import ToDo from "../interfaces/ToDoInterface"
 
 class Category extends Group implements CategoryInterface {
   constructor(
-    public name: string,
+    name: string,
     public filterFunction: (todos: ToDo[]) => ToDo[],
-    public icon: string = "bi-calendar-fill"
+    icon: string = "bi-calendar-fill"
   ) {
-    super()
+    super(name, icon)
     Categories.add(this)
     bus.publish("added-category", this.id)
     bus.subscribe("category-add-todo", this.updateCategory.bind(this))
@@ -20,22 +20,22 @@ class Category extends Group implements CategoryInterface {
   }
 
   updateCategory(newToDo: ToDo) {
-    this.todos = this.filterFunction([...this.todos, newToDo])
+    this.toDos = this.filterFunction([...this.toDos, newToDo])
     this.sort()
   }
 
   removeToDo(toDoToDeleteID: uuid) {
-    const index = this.todos.findIndex(t => t.id == toDoToDeleteID)
-    this.todos.splice(index, 1) // no sorting needed here
+    const index = this.toDos.findIndex(t => t.id == toDoToDeleteID)
+    this.toDos.splice(index, 1) // no sorting needed here
   }
 
   removeProject(deletionId: uuid) {
-    this.todos = this.todos.filter(todo => todo.parentId !== deletionId)
+    this.toDos = this.toDos.filter(todo => todo.parentId !== deletionId)
     this.sort()
   }
 
   sort() {
-    this.todos = this.todos.sort((a, b) => {
+    this.toDos = this.toDos.sort((a, b) => {
       // Sort by priority (high to low)
       if (a.priorityInteger !== b.priorityInteger) {
         return b.priorityInteger - a.priorityInteger;

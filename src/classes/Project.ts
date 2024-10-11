@@ -1,35 +1,30 @@
 import Projects from "../classes/Projects";
 import bus from "../pubsub/bus";
 import Group from "./Group";
-import ToDo from "./ToDo";
+import ToDoInterface from "../interfaces/ToDoInterface";
 import uuid from "../types/uuid";
 import ProjectInterface from "../interfaces/ProjectInterface";
 
 class Project extends Group implements ProjectInterface {
   constructor(
-    public name: string,
-    public initialTodos: ToDo[],
-    public icon: string = "bi-calendar-fill"
+    name: string,
+    initialToDos?: ToDoInterface[],
+    icon?: string,
   ) {
-    super()
+    super(name, icon)
+    
+    if(initialToDos) {
+      initialToDos.forEach(initialToDo => this.addToDo(initialToDo))
+    }
+
     Projects.add(this)
-    this.registerToDos()
     bus.publish("added-project", this.id)
     bus.subscribe(`deletion-in-${this.id}`, this.deleteToDo.bind(this))
   }
 
-  registerToDos() {
-    if(this.initialTodos.length > 0) {
-      this.initialTodos.forEach((initTodo, index) => {
-        this.initialTodos.splice(index, 1)
-        this.addToDo(initTodo)
-      })
-    }
-  }
-
-  addToDo(todo: ToDo, moveOperation = false) {
+  addToDo(todo: ToDoInterface, moveOperation = false) {
     todo.updateProperties({ parentId: this.id })
-    this.todos.push(todo)
+    this.toDos.push(todo)
     bus.publish("todo-added", [todo, true, !moveOperation])
     bus.publish("projects-change")
     bus.publish("category-add-todo", todo)
@@ -37,7 +32,7 @@ class Project extends Group implements ProjectInterface {
   }
 
   receiveDrop(toDoData: string) {
-    const toDoToReceive: ToDo = JSON.parse(toDoData)
+    const toDoToReceive: ToDoInterface = JSON.parse(toDoData)
     const parent = Projects.query(project => project.id == toDoToReceive.parentId)
     if(parent) {
       const movingToDo = parent.deleteToDo(toDoToReceive.id, true)
@@ -45,9 +40,13 @@ class Project extends Group implements ProjectInterface {
     }
   }
 
+  // If not called by receiveDrop method,
+  // I hope this also removes the object from memory... eventually.
+  // But since JavaScript is garbage-collected,
+  // I guess we'll never know.
   deleteToDo(toDoId: uuid, moveOperation = false) {
-    const index = this.todos.findIndex(t => t.id == toDoId)
-    const deletion = this.todos.splice(index, 1)[0]
+    const index = this.toDos.findIndex(t => t.id == toDoId)
+    const deletion = this.toDos.splice(index, 1)[0]
     bus.publish("todo-counted", [this.id, false])
     bus.publish("category-delete-todo", toDoId)
     bus.publish("projects-change")

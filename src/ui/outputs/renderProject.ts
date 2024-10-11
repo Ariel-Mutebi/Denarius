@@ -46,7 +46,7 @@ function renderProject(project: Project | Category) {
   document.getElementsByTagName("main")[0].appendChild(projectContainer);
 
   const isProject = project instanceof Project
-  project.todos.forEach(todo => {
+  project.toDos.forEach(todo => {
     renderToDo([todo, isProject, true])
   })
 }

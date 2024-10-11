@@ -1,12 +1,13 @@
-import ToDo from "./ToDo"
+import ToDo from "../interfaces/ToDoInterface"
 import IDed from "./IDed"
 
 class Group extends IDed {
-  todos: ToDo[]
-
-  constructor() {
+  constructor(
+    public name: string,
+    public icon: string = "bi-calendar-fill",
+    public toDos: ToDo[] = []
+  ) {
     super()
-    this.todos = []
   }
 }
 

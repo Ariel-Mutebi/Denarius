@@ -1,5 +1,5 @@
 import { dateWithinMonth, dateWithinPastWeek, dateWithinWeek, today } from "../functions/dateGenerators";
-import instancePropertyCheck from "../functions/instancePropertyCheck";
+import instancePropertyCheck from "../forTestFilesOnly/instancePropertyCheck";
 import makeStringIndexable from "../typeCasters/makeStringIndexable";
 import BankInstance from "./Bank";
 import ToDo from "./ToDo";
