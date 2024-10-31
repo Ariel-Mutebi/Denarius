@@ -36,14 +36,10 @@ describe("Category class:", () => {
     expect(allInCategory).toBe(true);
 
     // clean-up
-    const unprocessedParentIDs = allToDos.map(t => t.parentID);
-    const allProjectIDs: uuid[] = [];
-    for (const projectID of unprocessedParentIDs) {
-      if(!projectID || (allProjectIDs.indexOf(projectID) !== -1)) continue;
-
-      ProjectsInstance.deleteProject(projectID);
-      allProjectIDs.push(projectID);
-    }
+    const setOfParentIDs = new Set(allToDos.map(t => t.parentID));
+    setOfParentIDs.forEach(ID => {
+      if(ID) ProjectsInstance.deleteProject(ID);
+    });
   });
 
   test("Adds itself to Categories singleton.", () => {
