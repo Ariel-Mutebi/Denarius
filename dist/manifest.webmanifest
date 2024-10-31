@@ -1,0 +1,16 @@
+{
+  "name": "TaskQuest to-do list app",
+  "short_name": "TaskQuest",
+  "description": "A to-do list application",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#212529",
+  "icons": [
+    {
+      "src": "https://black-ram.github.io/TaskQuest/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
