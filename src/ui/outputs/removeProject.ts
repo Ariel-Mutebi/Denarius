@@ -1,8 +1,8 @@
 import uuid from "../../types/uuid"
 
 function removeProject(id: uuid) {
-  const deletedLI = document.querySelector(`li#${id}`)
-  if (deletedLI) document.getElementById("project-list")?.removeChild(deletedLI)
-}
+  const deletedLI = document.getElementById(id);
+  if (deletedLI) document.getElementById("project-list")?.removeChild(deletedLI);
+};
 
-export default removeProject
+export default removeProject;
