@@ -1,5 +1,5 @@
 import Bank from "../../classes/Bank"
-import GamePanel from "../../classes/GamePanel"
+import GamePanel from "../../classes/Arcade"
 import projectContainer from "../domConstants/projectContainer"
 import clearPage from "./clearPage"
 import renderMessage from "./renderMessage"
@@ -10,7 +10,7 @@ function renderGamePanel() {
 
   // heading
   const header = document.createElement("h1")
-  header.innerText = "Game Panel"
+  header.innerText = "Arcade"
   projectContainer.appendChild(header)
 
   // creating card for each game
@@ -28,7 +28,7 @@ function renderGamePanel() {
     const cost = document.createElement("small")
     
     text.classList.add("card-body")
-    thumbnail.classList.add("game-panel-img")
+    thumbnail.classList.add("arcade-img")
 
     thumbnail.src = game.iconFilePath
     thumbnail.title = "Click to play!"

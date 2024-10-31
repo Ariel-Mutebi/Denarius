@@ -50,8 +50,8 @@ function sizeAndToggle() {
     }, 100); // 100ms delay so section can first be rendered
   }
 
-  // maintain aspect ratio on game panel image cards
-  const cardImgs = Array.from(document.getElementsByClassName("game-panel-img")) as HTMLElement[];
+  // maintain aspect ratio on arcade image cards
+  const cardImgs = Array.from(document.getElementsByClassName("arcade-img")) as HTMLElement[];
   cardImgs.forEach(img => {
     img.style.height = `${img.clientWidth}px`;
   });

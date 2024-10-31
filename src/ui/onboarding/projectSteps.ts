@@ -36,7 +36,7 @@ const projectSteps: Partial<IntroStep>[] = [
   {
     element: e.gameIcon.get(),
     title: "A little reward",
-    intro: "Great job getting this far. Spend your hard-earned money at the game panel!",
+    intro: "Great job getting this far. Spend your hard-earned money at the arcade!",
     position: "left"
   },
 ]

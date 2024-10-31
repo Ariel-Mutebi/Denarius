@@ -1,4 +1,4 @@
-import GamePanel from "./GamePanel"
+import GamePanel from "./Arcade"
 
 class Game {
   constructor(

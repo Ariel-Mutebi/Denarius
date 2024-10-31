@@ -16,7 +16,7 @@
 
 - When you complete a to-do (by checking it and then deleting it) before the due date, you gain coins.
 - But if you complete a to-do after the due date, you lose the coins you could have gained.
-- At the game panel (which you can navigate to by clicking the game controller icon at the top right of the page), you can use the coins you have earned to pay for a ten-minute gaming session in any of the three games.
+- At the arcade (which you can navigate to by clicking the game controller icon at the top right of the page), you can use the coins you have earned to pay for a ten-minute gaming session in any of the three games.
 - Coins are also stored in local storage for continuity.
 
 # Latest Major Updates

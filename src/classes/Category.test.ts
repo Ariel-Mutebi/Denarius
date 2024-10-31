@@ -1,6 +1,5 @@
-import { v4 as universalUniqueIdentifier } from "uuid";
+import { dateWithinPastWeek, dateWithinWeek, today } from "../functions/dateGenerators";
 import ToDoPriority from "../enums/ToDoPriority";
-import { dateWithinMonth, today } from "../functions/dateGenerators";
 import filterImportant from "../functions/filterImportant";
 import populateTutorialProject from "../functions/populateInitialProjects";
 import CategoriesInstance from "./Categories";
@@ -9,6 +8,7 @@ import Group from "./Group";
 import ProjectsInstance from "./Projects";
 import ToDo from "./ToDo";
 import uuid from "../types/uuid";
+import shuffle from "../functions/shuffle";
 
 describe("Category class:", () => {
   const categoryName = "Jest";
@@ -89,21 +89,36 @@ describe("Category class:", () => {
   });
 
   test("sort method", () => {
+    const category = new Category(categoryName, t => t);
+    const toDos = [
+      new ToDo("Task 1", "Past date, high priority.", dateWithinPastWeek, ToDoPriority.High),
+      new ToDo("Task 2", "Past date, medium priority.", dateWithinPastWeek, ToDoPriority.Medium),
+      new ToDo("Task 3", "Past date, low priority.", dateWithinPastWeek, ToDoPriority.Low),
+      new ToDo("Task 4", "Today, high priority.", today, ToDoPriority.High),
+      new ToDo("Task 5", "Today, medium priority", today, ToDoPriority.Medium),
+      new ToDo("Task 6", "Today, low priority.", today, ToDoPriority.Low),
+      new ToDo("Task 7", "Future date, high priority", dateWithinWeek, ToDoPriority.High),
+      new ToDo("Task 8", "Future date, medium priority", dateWithinWeek, ToDoPriority.Medium),
+      new ToDo("Task 9", "Future date, low priority", dateWithinWeek, ToDoPriority.Low)
+    ]; // I tried to cover all combinations.
+
     // This test is not (and should not be) interested in how the toDos are sorted.
     // It should simply be satisfied if the .sort changes the order of toDos.
-    const toDoWithUniqueProperties = () => {
-      return new ToDo(
-        universalUniqueIdentifier(),
-        universalUniqueIdentifier(),
-        dateWithinMonth(),
-        Math.floor(1 + Math.random() * 3 )
-      );
+    let hasPassed = false;
+    let tryNumber = 0;
+    const maxTries = 3;
+    
+    while (tryNumber < maxTries && !hasPassed) {
+      const shuffledToDos = shuffle(toDos); // probably causes different permutation
+      category.toDos = [...shuffledToDos]; // Should be a shallow clone, or else categories.sort will do in-place sorting that mutates the original causing a false negative in test.
+      category.sort();
+      try {
+        expect(category.toDos).not.toEqual(shuffledToDos);
+        hasPassed = true;        
+      } catch (error) {
+        // maybe this permutation caused a stable sort, so we try again.
+        tryNumber++;
+      }
     };
-    const arbitraryNumber = 3;
-    const unsortedToDos = Array.from({ length: arbitraryNumber }, toDoWithUniqueProperties);
-    const category = new Category(categoryName, filterImportant);
-    category.toDos = unsortedToDos;
-    category.sort();
-    expect(category.toDos).not.toEqual(unsortedToDos);
   });
 });
