@@ -1,4 +1,4 @@
-import populateTutorialProject from "../storage/populateInitialProjects";
+import populateTutorialProject from "../functions/populateInitialProjects";
 import GroupOfGroups from "./GroupOfGroups";
 import ProjectsInstance from "./Projects";
 import * as storeProjectsModule from "../storage/storeProjects";

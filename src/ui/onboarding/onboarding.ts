@@ -1,4 +1,4 @@
-import populateTutorialProject from "../../storage/populateInitialProjects";
+import populateTutorialProject from "../../functions/populateInitialProjects";
 import showAllTasks from "../outputs/showAllTasks";
 import Projects from "../../classes/Projects";
 import e from "./elementDictionary";

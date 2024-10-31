@@ -2,7 +2,7 @@ import subscribeUIAndStorageFunctions from "./functions/subscribeUIAndStorageFun
 import renderOnboarding from "./ui/onboarding/onboarding";
 import Projects from "./classes/Projects";
 import hasVisited from "./storage/hasVisited";
-import populateTutorialProject from "./storage/populateInitialProjects";
+import populateTutorialProject from "./functions/populateInitialProjects";
 import setVisitedFlag from "./storage/setVisitedFlag";
 import showAllTasks from "./ui/outputs/showAllTasks";
 import loadProjects from "./storage/loadProjects";

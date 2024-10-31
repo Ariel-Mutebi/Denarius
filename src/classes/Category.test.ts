@@ -2,7 +2,7 @@ import { v4 as universalUniqueIdentifier } from "uuid";
 import ToDoPriority from "../enums/ToDoPriority";
 import { dateWithinMonth, today } from "../functions/dateGenerators";
 import filterImportant from "../functions/filterImportant";
-import populateTutorialProject from "../storage/populateInitialProjects";
+import populateTutorialProject from "../functions/populateInitialProjects";
 import CategoriesInstance from "./Categories";
 import Category from "./Category";
 import Group from "./Group";

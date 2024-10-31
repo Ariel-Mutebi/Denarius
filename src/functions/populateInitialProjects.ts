@@ -1,7 +1,7 @@
 import Project from "../classes/Project";
 import ToDo from "../classes/ToDo";
 import ToDoPriority from "../enums/ToDoPriority";
-import { dateWithinMonth, today, dateWithinWeek, dateWithinPastWeek } from "../functions/dateGenerators";
+import { dateWithinMonth, today, dateWithinWeek, dateWithinPastWeek } from "./dateGenerators";
 
 function populateTutorialProject() {
   return new Project("Tutorial", [
