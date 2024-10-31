@@ -1,14 +1,15 @@
 class Singleton {
-  static instantiated = false;
+  // A static map to store instances for derived classes
+  static instances = new Map();
 
   constructor() {
     const className = this.constructor.name;
     
-    if (Singleton.instantiated) {
+    if (Singleton.instances.get(className)) {
       throw new Error(`An instance of ${className} already exists!`);
     };
 
-    Singleton.instantiated = true;
+    Singleton.instances.set(className, this);
   };
 };
 

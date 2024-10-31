@@ -1,3 +1,4 @@
+import subscribeUIAndStorageFunctions from "./functions/subscribeUIAndStorageFunctions";
 import renderOnboarding from "./ui/onboarding/onboarding";
 import Projects from "./classes/Projects";
 import hasVisited from "./storage/hasVisited";
@@ -14,6 +15,7 @@ import "./sw";
 
 initializeCategories();
 initializeGames();
+subscribeUIAndStorageFunctions()
 showAllTasks();
 addProjectForm();
 
