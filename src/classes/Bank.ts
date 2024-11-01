@@ -11,6 +11,7 @@ class Bank extends Singleton{
   };
 
   deposit(amount: number) {
+    if(amount < 0) throw new Error("Value error: amount to deposit can not be negative!");
     this.coins += amount;
     this.depositMessage(amount);
     this.store();
@@ -23,7 +24,6 @@ class Bank extends Singleton{
       this.coins -= amount;
       this.deductMessage(amount);
     } else {
-      this.coins = 0;
       this.undetuctibleMessage();
     }
 
