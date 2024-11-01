@@ -4,14 +4,19 @@ import hyperlink from "../types/hyperlink";
 import stringWithImageFileExtension from "../types/stringWithImageFileExtension";
 import ArcadeInstance from "./Arcade";
 import Game from "./Game";
+import IDed from "./IDed";
 
 describe("Game Class", () => {
   const name = "Jest";
   const thumbnailURL = "./thumbnails/JestGame.png";
   const link = "https://jest-game.com";
   const cost = 10;
-  const ArcadeSpy = jest.spyOn(ArcadeInstance, "addGame");
+  const ArcadeSpy = jest.spyOn(ArcadeInstance, "add");
   const game = new Game(name, thumbnailURL, link, cost);
+
+  test("inherits from IDed class", () => {
+    expect(game instanceof IDed).toBe(true);
+  })
 
   test("initializes object with all expected properties.", () => {
     instancePropertyCheck(makeStringIndexable(game), { name, thumbnailURL, link, cost });

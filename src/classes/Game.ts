@@ -4,8 +4,9 @@ import startsWithHTTPS from "../regex/startsWithHTTPS";
 import hyperlink from "../types/hyperlink";
 import stringWithImageFileExtension from "../types/stringWithImageFileExtension";
 import Arcade from "./Arcade";
+import IDed from "./IDed";
 
-class Game implements GameInterface{
+class Game extends IDed implements GameInterface {
   name: string;
   thumbnailURL: stringWithImageFileExtension;
   link: hyperlink;
@@ -20,12 +21,13 @@ class Game implements GameInterface{
     if(!endsWithImageFileExtension.test(thumbnailURL)) throw new Error("thumbnailURL must end with image file extension.");
     if(!startsWithHTTPS.test(link)) throw new Error("link must start with 'https://'.");
     
+    super()
     this.name = name;
     this.thumbnailURL = thumbnailURL;
     this.link = link;
     this.cost = cost;
 
-    Arcade.addGame(this);
+    Arcade.add(this);
   };
 };
 

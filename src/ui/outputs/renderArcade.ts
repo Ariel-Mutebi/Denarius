@@ -17,7 +17,7 @@ function renderArcade() {
   const cardContainer = document.createElement("div")
   cardContainer.classList.add("card-container")
 
-  for(const game of GamePanel.games) {
+  for(const game of GamePanel.getAll()) {
     const gameContainer = document.createElement("dialog")
     const gamePlay = document.createElement("iframe")
     const closeGame = document.createElement("button")

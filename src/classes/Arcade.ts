@@ -1,18 +1,12 @@
 import GameInterface from "../interfaces/GameInterface";
-import Singleton from "./Singleton";
+import GroupOfGroups from "./GroupOfGroups";
 
-class Arcade extends Singleton {
-  games: GameInterface[];
+class Arcade extends GroupOfGroups<GameInterface> {
   sessionMS: number; // MS as in milliseconds
 
   constructor(sessionMinutes: number) {
-    super()
-    this.games = [];
+    super();
     this.sessionMS = sessionMinutes * 60 * 1000;
-  };
-
-  addGame(newGame: GameInterface) {
-    this.games.push(newGame);
   };
 };
 
