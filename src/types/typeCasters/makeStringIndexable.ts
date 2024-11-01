@@ -1,4 +1,4 @@
-import StringIndexable from "../interfaces/stringIndexable";
+import StringIndexable from "../../interfaces/stringIndexable";
 
 const makeStringIndexable = (object: object) => object as StringIndexable
 

@@ -2,7 +2,7 @@ import GroupGenders from "../enums/GroupGenders";
 import ToDoPriority from "../enums/ToDoPriority";
 import instancePropertyCheck from "../forTestFilesOnly/instancePropertyCheck";
 import { today } from "../functions/dateGenerators";
-import makeStringIndexable from "../typeCasters/makeStringIndexable";
+import makeStringIndexable from "../types/typeCasters/makeStringIndexable";
 import Group from "./Group";
 import IDed from "./IDed";
 import ToDo from "./ToDo";

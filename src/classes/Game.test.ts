@@ -1,5 +1,5 @@
-import instancePropertyCheck from "../forTestFilesOnly/instancePropertyCheck";
-import makeStringIndexable from "../typeCasters/makeStringIndexable";
+import instancePropertyCheck from "../functions/forTestFilesOnly/instancePropertyCheck";
+import makeStringIndexable from "../types/typeCasters/makeStringIndexable";
 import hyperlink from "../types/hyperlink";
 import stringWithImageFileExtension from "../types/stringWithImageFileExtension";
 import ArcadeInstance from "./Arcade";

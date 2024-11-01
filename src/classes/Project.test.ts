@@ -3,7 +3,7 @@ import ProjectsInstance from "./Projects"
 import Project from "./Project"
 import ToDo from "./ToDo"
 import instancePropertyCheck from "../forTestFilesOnly/instancePropertyCheck"
-import makeStringIndexable from "../typeCasters/makeStringIndexable"
+import makeStringIndexable from "../types/typeCasters/makeStringIndexable"
 import Group from "./Group"
 import ToDoPriority from "../enums/ToDoPriority"
 
