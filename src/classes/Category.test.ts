@@ -7,7 +7,6 @@ import Category from "./Category";
 import Group from "./Group";
 import ProjectsInstance from "./Projects";
 import ToDo from "./ToDo";
-import uuid from "../types/uuid";
 import shuffle from "../functions/shuffle";
 
 describe("Category class:", () => {

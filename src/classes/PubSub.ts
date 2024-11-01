@@ -4,12 +4,12 @@ import ToDoInterface from "../interfaces/ToDoInterface";
 import updateToDoCounterParameters from "../interfaces/updateToDoCounterParams";
 import uuid from "../types/uuid";
 
-type SubscribersDictionary = {
+type EventSubscribersMap = {
   [event in PSE]: Function[];
 };
 
 class PubSub extends Singleton {
-  private subscribers: SubscribersDictionary = {
+  private subscribers: EventSubscribersMap = {
     [PSE.PostMessage]: [],
     [PSE.PutCoins]: [],
     [PSE.PostCategory]: [],

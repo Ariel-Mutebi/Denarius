@@ -4,7 +4,7 @@ import projectContainer from "../domConstants/projectContainer"
 import clearPage from "./clearPage"
 import renderMessage from "./renderMessage"
 
-function renderGamePanel() {
+function renderArcade() {
   clearPage()
   projectContainer.classList.replace("to-do-page", "game-page")
 
@@ -30,7 +30,7 @@ function renderGamePanel() {
     text.classList.add("card-body")
     thumbnail.classList.add("arcade-img")
 
-    thumbnail.src = game.iconFilePath
+    thumbnail.src = game.thumbnailURL
     thumbnail.title = "Click to play!"
     title.innerText = game.name
     cost.innerHTML = `Cost: <i class="bi bi-coin text-warning"></i> ${game.cost}`
@@ -50,7 +50,7 @@ function renderGamePanel() {
         setTimeout(() => {
           gameContainer.close()
           renderMessage("Session done. Pay again to play.")
-        }, GamePanel.minutes);
+        }, GamePanel.sessionMS);
       } else {
         renderMessage("Not enough coins to pay. Complete more to-dos.")
       }
@@ -76,6 +76,6 @@ function renderGamePanel() {
   projectContainer.appendChild(cardContainer)
 }
 
-document.getElementById("game-icon")?.addEventListener("click", renderGamePanel)
+document.getElementById("game-icon")?.addEventListener("click", renderArcade)
 
-export default renderGamePanel
+export default renderArcade

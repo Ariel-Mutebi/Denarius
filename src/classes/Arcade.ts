@@ -1,21 +1,21 @@
-import Game from "./Game"
-import Singleton from "./Singleton"
+import GameInterface from "../interfaces/GameInterface";
+import Singleton from "./Singleton";
 
 class Arcade extends Singleton {
-  games: Game[];
-  minutes: number;
+  games: GameInterface[];
+  sessionMS: number; // MS as in milliseconds
 
-  constructor(minutes: number) {
+  constructor(sessionMinutes: number) {
     super()
     this.games = [];
-    this.minutes = minutes * 60 * 1000;
+    this.sessionMS = sessionMinutes * 60 * 1000;
   };
 
-  addGame(newGame: Game) {
+  addGame(newGame: GameInterface) {
     this.games.push(newGame);
   };
 };
 
-const GamePanelInstance =  new Arcade(5);
+const ArcadeInstance =  new Arcade(5);
 
-export default GamePanelInstance;
+export default ArcadeInstance;

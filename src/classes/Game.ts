@@ -1,14 +1,32 @@
-import GamePanel from "./Arcade"
+import GameInterface from "../interfaces/GameInterface";
+import endsWithImageFileExtension from "../regex/endsWithImageFileExtension";
+import startsWithHTTPS from "../regex/startsWithHTTPS";
+import hyperlink from "../types/hyperlink";
+import stringWithImageFileExtension from "../types/stringWithImageFileExtension";
+import Arcade from "./Arcade";
 
-class Game {
+class Game implements GameInterface{
+  name: string;
+  thumbnailURL: stringWithImageFileExtension;
+  link: hyperlink;
+  cost: number;
+
   constructor(
-    public name: string,
-    public iconFilePath: string,
-    public link: string,
-    public cost: number
+    name: string,
+    thumbnailURL: stringWithImageFileExtension,
+    link: hyperlink,
+    cost: number
   ) {
-    GamePanel.addGame(this)
-  }
-}
+    if(!endsWithImageFileExtension.test(thumbnailURL)) throw new Error("thumbnailURL must end with image file extension.");
+    if(!startsWithHTTPS.test(link)) throw new Error("link must start with 'https://'.");
+    
+    this.name = name;
+    this.thumbnailURL = thumbnailURL;
+    this.link = link;
+    this.cost = cost;
+
+    Arcade.addGame(this);
+  };
+};
 
 export default Game;
