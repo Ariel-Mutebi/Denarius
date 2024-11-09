@@ -1,4 +1,4 @@
-import StringIndexable from "../interfaces/stringIndexable"
+import StringIndexable from "../../interfaces/stringIndexable"
 
 // these few lines of code save A LOT of boring procedural lines in the test suites
 const instancePropertyCheck = (instanceToTest: StringIndexable,  expectedProperties: StringIndexable) => {

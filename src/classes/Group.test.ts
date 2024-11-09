@@ -1,6 +1,6 @@
 import GroupGenders from "../enums/GroupGenders";
 import ToDoPriority from "../enums/ToDoPriority";
-import instancePropertyCheck from "../forTestFilesOnly/instancePropertyCheck";
+import instancePropertyCheck from "../functions/forTestFilesOnly/instancePropertyCheck";
 import { today } from "../functions/dateGenerators";
 import makeStringIndexable from "../types/typeCasters/makeStringIndexable";
 import Group from "./Group";

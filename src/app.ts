@@ -13,9 +13,9 @@ import "./ui/styles/style.scss";
 import "./ui/domUtilities/resizer";
 import "./sw";
 
+subscribeUIAndStorageFunctions()
 initializeCategories();
 initializeGames();
-subscribeUIAndStorageFunctions()
 showAllTasks();
 addProjectForm();
 
