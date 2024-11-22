@@ -19,10 +19,9 @@ function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
     toDo.priority === ToDoPriority.Low ? "low" : 
     "value error with priority number");
 
-  const parent = toDo.parentID;
-  if(!parent) throw new Error("ToDo object for rendering must have parentID");
-  const projectItsIn = Projects.get(parent);
-  if(!projectItsIn) throw new Error("ToDo parentID property must equal Project ID for some Project instance.");
+  const { parentID } = toDo;
+  if(!parentID) throw new Error("ToDo object for rendering must have parentID");
+  if(!Projects.projectExists(p => p.ID === parentID)) throw new Error("ToDo parentID property must equal Project ID for some Project instance.");
 
   // HTML elements for to-do article
   const element = document.createElement("article");
@@ -39,10 +38,14 @@ function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
 
   // attributes
   element.id = toDo.ID;
-  element.classList.add(`priority-${toDoPriority}`);
+  element.classList.add("to-do-element", `priority-${toDoPriority}`, "d-flex", "justify-content-between", "p-2", "bg-light", "rounded", "mb-3");
+  leftDiv.classList.add("d-flex", "align-items-center", "gap-2", "borderless-children");
+  rightDiv.classList.add("d-flex", "align-items-center", "gap-2", "borderless-children");
+  
   checkBox.type = "checkbox";
-  checkBox.classList.add("completeCheck");
+  checkBox.classList.add("form-check-input");
   toDoTitle.htmlFor = "completeCheck";
+  toDoTitle.classList.add("form-check-label");
 
   editButton.type = "button";
   deleteButton.type = "button";
@@ -52,8 +55,8 @@ function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
   editButton.title = "edit";
   deleteButton.title = "delete";
   detailsButton.classList.add("btn-outline-secondary");
-  detailsModal.classList.add("details")
-  closeDetailsModal.classList.add("close-details")
+  detailsModal.classList.add("details");
+  closeDetailsModal.classList.add("close-details");
 
   // content
   toDoTitle.innerText = toDo.title;
@@ -65,7 +68,7 @@ function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
   closeDetailsModal.innerHTML = '<i class="bi bi-x-square"></i>';
   detailsModal.innerHTML =
     `<h3>${toDo.title}</h3>
-    <p><b>Project:</b> ${projectItsIn.name}</p>
+    <p><b>Project:</b> ${Projects.get(parentID)?.name}</p>
     <p><b>Priority:</b> ${toDoPriority}</p>
     <p><b>Description:</b> ${toDo.description}</p>
     <p><b>Due Date:</b> ${format(toDo.dueDate, "do MMMM, Y")}</p>`;

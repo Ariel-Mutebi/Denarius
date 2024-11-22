@@ -1,14 +1,18 @@
-// essential imports
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "intro.js/introjs.css";
 
-// bootstrap lacks a cursor-pointer class
 .pointer {
   cursor: pointer;
 }
 
-// global styles
+
+.borderless-children {
+  >* {
+    @extend .m-0;
+  }
+}
+
 button {
   @extend .btn;
 }

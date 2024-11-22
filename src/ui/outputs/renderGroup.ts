@@ -5,7 +5,6 @@ import jsContainer from "../domConstants/projectContainer";
 import addToDoForm from "../inputs/addToDoForm";
 import clearPage from "./clearPage";
 import putToDoInDOM from "./putToDoInDom";
-import "../styles/groupPage.scss";
 
 function renderGroup(group: GroupInterface) {
   // reset
@@ -16,16 +15,16 @@ function renderGroup(group: GroupInterface) {
   // wallpaper
   const randomImg = Math.floor(Math.random() * 10) + 1;
   jsContainer.style.backgroundImage = `url("./bg/img-${randomImg}.jpg")`;
-  jsContainer.style.backgroundPosition = "center";
-  jsContainer.style.backgroundSize = "cover";
 
   // html element creation
-  const heading = document.createElement("header");
+  const header = document.createElement("header");
   const titleDiv = document.createElement("div");
   const title = document.createElement("h2");
   const icon = document.createElement("i");
 
   // html element attributes
+  header.classList.add(".fs-2", "mb-3", "bg-success-subtle", "p-3", "d-flex", "justify-content-between", "rounded");
+  titleDiv.classList.add("d-flex", "gap-4", "align-items-center")
   title.innerText = group.name;
   title.classList.add("h1");
   icon.classList.add("bi");
@@ -34,7 +33,7 @@ function renderGroup(group: GroupInterface) {
   // append to DOM
   titleDiv.appendChild(icon);
   titleDiv.appendChild(title);
-  heading.appendChild(titleDiv);
+  header.appendChild(titleDiv);
 
   // users can only add to-dos to Projects
   if (group.gender === GroupGenders.Project) {
@@ -42,12 +41,12 @@ function renderGroup(group: GroupInterface) {
     addIcon.classList.add("bi");
     addIcon.classList.add("bi-journal-plus");
     addIcon.addEventListener("click", () => {
-      addToDoForm(group as ProjectInterface, jsContainer, heading.getBoundingClientRect());
+      addToDoForm(group as ProjectInterface, jsContainer, header.getBoundingClientRect());
     });
-    heading.appendChild(addIcon);
+    header.appendChild(addIcon);
   };
 
-  jsContainer.appendChild(heading);
+  jsContainer.appendChild(header);
 
   group.toDos.forEach(toDo => putToDoInDOM(toDo, group.gender));
 };
