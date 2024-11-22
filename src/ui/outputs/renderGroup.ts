@@ -1,22 +1,23 @@
 import GroupGenders from "../../enums/GroupGenders";
 import GroupInterface from "../../interfaces/GroupInterface";
 import ProjectInterface from "../../interfaces/ProjectInterface";
-import projectContainer from "../domConstants/projectContainer";
+import jsContainer from "../domConstants/projectContainer";
 import addToDoForm from "../inputs/addToDoForm";
 import clearPage from "./clearPage";
 import putToDoInDOM from "./putToDoInDom";
+import "../styles/groupPage.scss";
 
 function renderGroup(group: GroupInterface) {
   // reset
   clearPage();
-  projectContainer.classList.remove("game-page");
-  projectContainer.classList.add("to-do-page");
+  jsContainer.classList.remove("game-page");
+  jsContainer.classList.add("group-page");
 
   // wallpaper
   const randomImg = Math.floor(Math.random() * 10) + 1;
-  projectContainer.style.backgroundImage = `url("./bg/img-${randomImg}.jpg")`;
-  projectContainer.style.backgroundPosition = "center";
-  projectContainer.style.backgroundSize = "cover";
+  jsContainer.style.backgroundImage = `url("./bg/img-${randomImg}.jpg")`;
+  jsContainer.style.backgroundPosition = "center";
+  jsContainer.style.backgroundSize = "cover";
 
   // html element creation
   const heading = document.createElement("header");
@@ -41,12 +42,12 @@ function renderGroup(group: GroupInterface) {
     addIcon.classList.add("bi");
     addIcon.classList.add("bi-journal-plus");
     addIcon.addEventListener("click", () => {
-      addToDoForm(group as ProjectInterface, projectContainer, heading.getBoundingClientRect());
+      addToDoForm(group as ProjectInterface, jsContainer, heading.getBoundingClientRect());
     });
     heading.appendChild(addIcon);
   };
 
-  projectContainer.appendChild(heading);
+  jsContainer.appendChild(heading);
 
   group.toDos.forEach(toDo => putToDoInDOM(toDo, group.gender));
 };

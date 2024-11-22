@@ -1,0 +1,41 @@
+@import "./global.scss";
+
+.arcade-page {
+  h1 {
+    @extend .display-4, .text-center, .text-light, .py-3, .mb-4;
+    background-color: $gray-800; // bootstrap SASS variable, lighter than .bg-dark
+  }
+
+  >.card-container {
+    @extend .d-flex, .flex-wrap, .align-items-start, .justify-content-center, .gap-4, .text-center;
+
+    article {
+      @extend .card, .shadow;
+      flex-basis: 16rem;
+      flex-grow: 1;
+      max-width: 350px;
+
+      img {
+        @extend .w-100, .object-fit-fill, .bg-secondary;
+        min-height: 300px;
+      }
+    }
+  }
+
+  dialog {
+    @extend .p-0, .w-100, .h-100, .overflow-hidden, .border-0;
+    z-index: 2;
+
+    iframe {
+      @extend .w-100, .h-100;
+    }
+
+    button {
+      @extend .fs-2, .bg-danger, .p-0, .px-1;
+      z-index: 3;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}

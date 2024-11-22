@@ -1,8 +1,8 @@
-import projectContainer from "../domConstants/projectContainer"
+import jsContainer from "../domConstants/projectContainer"
 
 function clearPage() {
-  projectContainer.innerHTML = ""
-  projectContainer.style.background = "none"
+  jsContainer.innerHTML = ""
+  jsContainer.style.background = "none"
 }
 
 export default clearPage

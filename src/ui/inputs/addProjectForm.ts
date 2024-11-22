@@ -4,8 +4,8 @@ function addProjectForm() {
   const navBar = document.getElementsByTagName("nav")[0];
   const icon = document.getElementById("add-project-icon");
   const modal = document.querySelector("dialog#project-form-container");
-  const form = document.getElementById("add-project-form")
-  const nameField = document.getElementById("project-name")
+  const form = document.getElementById("add-project-form");
+  const nameField = document.getElementById("project-name");
 
   if (icon) icon.addEventListener("click", () => {
     if (modal instanceof HTMLDialogElement) {
@@ -16,29 +16,29 @@ function addProjectForm() {
       if (iconTop) {
         if(window.innerWidth > 500) {
           modal.style.top = `${iconTop - 20}px`;
-          modal.style.left = `${navBar?.clientWidth - 35}px`
-          modal.show()
+          modal.style.left = `${navBar?.clientWidth - 35}px`;
+          modal.show();
         } else {
-          modal.style.top = `${iconTop - 80}px`
-          modal.style.left = "1rem"
-          modal.showModal()
+          modal.style.top = `${iconTop - 80}px`;
+          modal.style.left = "1rem";
+          modal.showModal();
         };
-      }
-    }
-  })
+      };
+    };
+  });
 
   if (form instanceof HTMLFormElement) form.addEventListener("submit", () => {
-    if (nameField instanceof HTMLInputElement) new Project(nameField.value)
-  })
+    if (nameField instanceof HTMLInputElement) new Project(nameField.value);
+  });
 
   // close modal if user clicks away
   document.body.addEventListener("click", function (event) {
     if (modal instanceof HTMLDialogElement && event.target instanceof Node) {
       if (!(modal.contains(event.target) || icon?.contains(event.target))) {
-        modal.close()
-      }
-    }
-  })
-}
+        modal.close();
+      };
+    };
+  });
+};
 
-export default addProjectForm
+export default addProjectForm;

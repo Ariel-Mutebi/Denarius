@@ -26,19 +26,18 @@
       <main class="row">
         <nav
           class="h-100 col-7 col-sm-5 col-lg-3 p-3 fs-4 lh-lg bg-white overflow-y-scroll z-3 position-relative"
-          style="min-width: max-content"
-          id="menu"
+          id="sidebar"
         >
           <button
             type="button"
             class="fs-2 bg-gradient bg-primary-subtle mt-3 ms-4 p-2 text-center rounded-5 z-2 position-absolute"
-            style="top: 0; right: 1rem; width: 2em"
+            id="tour-button"
             title="create tour"
           >
             <i class="bi bi-mortarboard-fill"></i>
           </button>
           <h3 class="fs-2">Home</h3>
-          <ul id="category-list" class="mb-5"></ul>
+          <ul id="category-list" class="mb-5 list-group list-group-flush"></ul>
 
           <h3
             class="fs-2 d-flex justify-content-between pe-4"
@@ -47,7 +46,7 @@
             <span>Projects</span>
             <i class="bi bi-plus-square fs-3" id="add-project-icon"></i>
           </h3>
-          <ul id="project-list"></ul>
+          <ul id="project-list" class="list-group list-group-flush"></ul>
 
           <dialog
             id="project-form-container"
@@ -74,7 +73,12 @@
           </dialog>
         </nav>
 
-        <!-- section for project page inserted by JS -->
+        <section
+          class="col-12 col-sm-7 col-lg-9 bg-body-secondary overflow-y-scroll p-4"
+          id="JS-insertion-container"
+        >
+          <!-- content inserted by JS -->
+        </section>
       </main>
     </div>
 

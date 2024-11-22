@@ -1,10 +1,10 @@
 import Projects from "../../classes/Projects";
 import uuid from "../../types/uuid";
-import addGroup from "./addGroup";
+import addGroupToSidebar from "./addGroup";
 import showAllTasks from "./showAllTasks";
 
 function addProject(projectID: uuid) {
-  const { group: project, listElement } = addGroup(projectID, Projects);
+  const { group: project, listElement } = addGroupToSidebar(projectID, Projects);
 
   // drag to-do over project list element to move it
   listElement.addEventListener("dragover", (e) => {

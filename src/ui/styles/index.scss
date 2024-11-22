@@ -1,0 +1,12 @@
+@import "./global.scss";
+
+// styling some elements in index.html
+#sidebar {
+  min-width: max-content;
+}
+
+#tour-button {
+  top: 0;
+  right: 1rem;
+  width: 2em;
+}

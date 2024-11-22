@@ -3,7 +3,7 @@ import GroupOfGroupsInterface from "../../interfaces/GroupOfGroupsInterface";
 import renderGroup from "./renderGroup";
 import uuid from "../../types/uuid";
 
-function addGroup<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOfGroupsInterface<T>) {
+function addGroupToSidebar<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOfGroupsInterface<T>) {
   const group = GroupManager.get(groupID);
   if(!group) throw new Error(`Group of ID ${groupID} not found.`);
   
@@ -16,11 +16,14 @@ function addGroup<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOf
   const toDoCounter = document.createElement("span");
   const groupNameSpan = document.createElement("span");
 
-  toDoCounter.classList.add("counter");
-  groupNameSpan.innerText = group.name;
-  listText.addEventListener("click", () => renderGroup(group));
   listElement.id = groupID;
+  listElement.classList.add("list-group-item", "list-group-item-action", "d-flex", "justify-content-between", "align-items-center");
+  groupNameSpan.innerText = group.name;
 
+  listText.addEventListener("click", () => renderGroup(group));
+  listText.classList.add("link-opacity-75", "link-opacity-100-hover", "link-underline-opacity-0", "link-secondary", "user-select-none", "m-0");
+  toDoCounter.classList.add("counter", ".badge", "p-1", "me-2");
+  
   listText.append(toDoCounter);
   listText.append(groupNameSpan);
   listElement.append(listText);
@@ -30,4 +33,4 @@ function addGroup<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOf
   return { group, listElement };
 };
 
-export default addGroup;
+export default addGroupToSidebar;

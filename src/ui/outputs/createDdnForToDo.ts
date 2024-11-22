@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import PS from "../../classes/PubSub";
-import projectContainer from "../domConstants/projectContainer";
+import jsContainer from "../domConstants/projectContainer";
 import editToDoForm from "../inputs/editToDoForm";
 import Projects from "../../classes/Projects";
 import createDdnForToDoParameters from "../../interfaces/renderToDoParams";
@@ -139,7 +139,7 @@ function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
 
   if (parentGender === GroupGenders.Project) {
     // hide date on small screens
-    if (projectContainer.clientWidth < 400) {
+    if (jsContainer.clientWidth < 400) {
       dueDateT.classList.add("d-none");
     } else {
       // to-dos are draggable on desktop

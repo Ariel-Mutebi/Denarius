@@ -9,11 +9,11 @@ import loadProjects from "./storage/loadProjects";
 import addProjectForm from "./ui/inputs/addProjectForm";
 import initializeCategories from "./functions/initializeCategories";
 import initializeGames from "./functions/initializeGames";
-import "./ui/styles/style.scss";
+import "./ui/styles/index.scss";
 import "./ui/domUtilities/resizer";
-import "./sw";
+// import "./sw";
 
-subscribeUIAndStorageFunctions()
+subscribeUIAndStorageFunctions();
 initializeCategories();
 initializeGames();
 showAllTasks();

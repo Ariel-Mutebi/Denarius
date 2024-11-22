@@ -1,6 +1,6 @@
 import GroupGenders from "../../enums/GroupGenders";
 import ToDoInterface from "../../interfaces/ToDoInterface";
-import projectContainer from "../domConstants/projectContainer";
+import jsContainer from "../domConstants/projectContainer";
 import creteDdnForToDo from "./createDdnForToDo";
 
 function putToDoInDOM(toDo: ToDoInterface, parentGender: GroupGenders = GroupGenders.Project) {
@@ -8,10 +8,10 @@ function putToDoInDOM(toDo: ToDoInterface, parentGender: GroupGenders = GroupGen
   const oldRender = document.getElementById(toDo.ID);
 
   if (oldRender) {
-    projectContainer.insertBefore(newRender, oldRender.nextElementSibling);
-    projectContainer.removeChild(oldRender);
+    jsContainer.insertBefore(newRender, oldRender.nextElementSibling);
+    jsContainer.removeChild(oldRender);
   } else {
-    projectContainer.appendChild(newRender);
+    jsContainer.appendChild(newRender);
   };
 };
 
