@@ -6,7 +6,6 @@
   cursor: pointer;
 }
 
-
 .borderless-children {
   >* {
     @extend .m-0;
@@ -31,4 +30,10 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(0, 0%, 45%);
+}
+
+.counter {
+  color: inherit;
+  background-color: hsl(207, 22%, 90%);
+  min-width: 2ch;
 }

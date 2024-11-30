@@ -4,8 +4,8 @@ import updateToDoCounterParameters from "../../interfaces/updateToDoCounterParam
 function updateProjectCounter(parameters: updateToDoCounterParameters) {
   const { projectID, update } = parameters;
 
-  const counter = document.querySelector<HTMLElement>(`li#\\${projectID} .counter`);
-  if (!counter) throw new Error(`counter not found for project with ID: ${projectID}`);
+  const counter = document.querySelector<HTMLElement>(`li#${CSS.escape(projectID)} .counter`);
+  if (!counter) throw new Error(`Not selected .counter descendant of list-item with ID: ${projectID}`);
 
   const currentCount = Number(counter.innerText);
 

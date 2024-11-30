@@ -21,11 +21,10 @@ class Project extends Group implements ProjectInterface {
     
     PS.publish(PSE.PostProject, this.ID);
     PS.subscribe(PSE.DeleteToDo, this.deleteToDo.bind(this));
-
     if(initialToDos) {
       initialToDos.forEach(initialToDo => this.addToDo(initialToDo));
-    }
-  }
+    };
+  };
 
   addToDo(toDo: ToDoInterface, moveOperation = false) {
     toDo.updateProperties({ parentID: this.ID });
@@ -39,7 +38,7 @@ class Project extends Group implements ProjectInterface {
     });
  
     PS.publish(PSE.PutProjectData);    
-  }
+  };
 
   receiveDrop(toDoData: string) {
     const toDoToReceive: ToDoProperties = JSON.parse(toDoData);
@@ -47,8 +46,8 @@ class Project extends Group implements ProjectInterface {
     if(parent) {
       const movingToDo = parent.deleteToDo(toDoToReceive.ID, true);
       if(movingToDo) this.addToDo(movingToDo, true);
-    }
-  }
+    };
+  };
 
   // I think dereferencing a ToDo from this.toDos array makes it unreachable. 
   // (Unless another instance references it, of course.)
@@ -67,7 +66,7 @@ class Project extends Group implements ProjectInterface {
     PS.publish(PSE.PutProjectData);
 
     return deletion;
-  }
-}
+  };
+};
 
 export default Project;
