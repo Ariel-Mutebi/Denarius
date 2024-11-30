@@ -14,7 +14,7 @@ function renderGroup(group: GroupInterface) {
 
   // wallpaper
   const randomImg = Math.floor(Math.random() * 10) + 1;
-  jsContainer.style.backgroundImage = `url("./bg/img-${randomImg}.jpg")`;
+  jsContainer.style.background = `url("./bg/img-${randomImg}.jpg") center center / cover`;
 
   // html element creation
   const header = document.createElement("header");
@@ -23,7 +23,7 @@ function renderGroup(group: GroupInterface) {
   const icon = document.createElement("i");
 
   // html element attributes
-  header.classList.add(".fs-2", "mb-3", "bg-success-subtle", "p-3", "d-flex", "justify-content-between", "rounded");
+  header.classList.add("fs-2", "mb-3", "bg-success-subtle", "p-3", "d-flex", "justify-content-between", "rounded");
   titleDiv.classList.add("d-flex", "gap-4", "align-items-center")
   title.innerText = group.name;
   title.classList.add("h1");

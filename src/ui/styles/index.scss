@@ -8,9 +8,3 @@
   right: 1rem;
   width: 2em;
 }
-
-#JS-insertion-container {
-  // For some reason, setting backgroundImage in JS actually sets background property with lots of defaults.
-  background-position: center !important;
-  background-size: cover !important;
-}
