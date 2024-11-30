@@ -77,6 +77,4 @@ function renderArcade() {
   jsContainer.appendChild(cardContainer);
 };
 
-document.getElementById("game-icon")?.addEventListener("click", renderArcade);
-
 export default renderArcade;
