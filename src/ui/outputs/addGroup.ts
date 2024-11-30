@@ -22,10 +22,10 @@ function addGroupToSidebar<T extends GroupInterface>(groupID: uuid, GroupManager
 
   listText.addEventListener("click", () => renderGroup(group));
   listText.classList.add("link-opacity-75", "link-opacity-100-hover", "link-underline-opacity-0", "link-secondary", "user-select-none", "m-0");
-  toDoCounter.classList.add("counter", ".badge", "p-1", "me-2");
+  toDoCounter.classList.add("counter", "badge", "p-1", "me-2");
   
   listText.append(toDoCounter);
-  listText.append(groupNameSpan);
+  listText.append(groupNameSpan)
   listElement.append(listText);
   groupList.appendChild(listElement);
 

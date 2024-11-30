@@ -2,6 +2,7 @@ import GroupGenders from "../../enums/GroupGenders";
 import ToDoInterface from "../../interfaces/ToDoInterface";
 import jsContainer from "../domConstants/projectContainer";
 import creteDdnForToDo from "./createDdnForToDo";
+import "../styles/toDoElement.scss";
 
 function putToDoInDOM(toDo: ToDoInterface, parentGender: GroupGenders = GroupGenders.Project) {
   const newRender = creteDdnForToDo({ toDo, parentGender });

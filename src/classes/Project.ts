@@ -16,28 +16,29 @@ class Project extends Group implements ProjectInterface {
     icon?: string,
   ) {
     super(name, GroupGenders.Project, icon);
+
+    Projects.add(this);
     
+    PS.publish(PSE.PostProject, this.ID);
+    PS.subscribe(PSE.DeleteToDo, this.deleteToDo.bind(this));
+
     if(initialToDos) {
       initialToDos.forEach(initialToDo => this.addToDo(initialToDo));
     }
-
-    Projects.add(this);
-    PS.publish(PSE.PostProject, this.ID);
-    PS.subscribe(PSE.DeleteToDo, this.deleteToDo.bind(this));
   }
 
   addToDo(toDo: ToDoInterface, moveOperation = false) {
     toDo.updateProperties({ parentID: this.ID });
     this.toDos.push(toDo);
-    
-    PS.publish(PSE.PutToDo, toDo);    
-    
+
+    if(!moveOperation) PS.publish(PSE.PutToDo, toDo);
+
     PS.publish(PSE.PostProjectCount, {
       projectID: this.ID,
       update: ToDoCounterUpdate.Increment
     });
  
-    PS.publish(PSE.PutProjectData);
+    PS.publish(PSE.PutProjectData);    
   }
 
   receiveDrop(toDoData: string) {

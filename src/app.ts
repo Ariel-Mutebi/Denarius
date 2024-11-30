@@ -9,8 +9,9 @@ import loadProjects from "./storage/loadProjects";
 import addProjectForm from "./ui/inputs/addProjectForm";
 import initializeCategories from "./functions/initializeCategories";
 import initializeGames from "./functions/initializeGames";
-import "./ui/styles/index.scss";
 import "./ui/domUtilities/resizer";
+import "./ui/styles/index.scss";
+import "./ui/styles/global.scss";
 // import "./sw";
 
 subscribeUIAndStorageFunctions();
@@ -18,9 +19,9 @@ initializeCategories();
 initializeGames();
 showAllTasks();
 addProjectForm();
+populateTutorialProject();
 
 if (!hasVisited()) {
-  populateTutorialProject();
   setTimeout(renderOnboarding, 1500);
   setVisitedFlag();
 } else {

@@ -19,7 +19,7 @@ function subscribeUIAndStorageFunctions() {
   PS.subscribe(PSE.DeleteProject, removeProject);
   PS.subscribe(PSE.PostMessage, renderMessage);
   PS.subscribe(PSE.PutCoins, putCoins);
-  PS.subscribe(PSE.PutProjectData, ProjectsInstance.save);
+  PS.subscribe(PSE.PutProjectData, () => ProjectsInstance.save); // closure is necessary
 };
 
 export default subscribeUIAndStorageFunctions;

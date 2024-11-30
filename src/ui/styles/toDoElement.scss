@@ -1,0 +1,32 @@
+.group-page .to-do-element {
+
+  dialog {
+    position: absolute;
+    left: calc(100vw - 300px - 1.5rem) !important;
+    right: 1.5rem;
+    width: 300px;
+  }
+
+  dialog.details button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  // color-coded priority border
+  &.priority-high {
+    border-left: 5px solid red;
+  }
+
+  &.priority-medium {
+    border-left: 5px solid orange;
+  }
+
+  &.priority-low {
+    border-left: 5px solid green;
+  }
+
+  &.overdue {
+    background: linear-gradient(45deg, #c4a48f 0%, #d3bcac 30%, #dfc8b9 70%, #c9ac98 100%);
+  }
+}

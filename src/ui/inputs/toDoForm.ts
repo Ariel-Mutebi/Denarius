@@ -1,29 +1,42 @@
-import ToDoPriority from "../../enums/ToDoPriority"
-import formActionFunction from "../../types/FormActionFunction"
+import ToDoPriority from "../../enums/ToDoPriority";
+import formActionFunction from "../../types/FormActionFunction";
 
-function toDoForm(container: HTMLElement, position: DOMRect, formAction: formActionFunction, isEditForm = false) {
-  if (document.getElementsByClassName("to-do-form")[0]) return // prevent duplicates
+function toDoForm(container: HTMLElement, position: DOMRect, formAction: formActionFunction) {
+  if (document.getElementsByClassName("to-do-form")[0]) return; // prevent duplicates
 
   // HTML element creation
-  const modal = document.createElement("dialog")
-  const form = document.createElement("form")
-  const titleGroup = document.createElement("div")
-  const titleText = document.createElement("label")
-  const titleInput = document.createElement("input")
-  const detailsGroup = document.createElement("div")
-  const detailsText = document.createElement("label")
-  const detailsInput = document.createElement("input")
-  const dateGroup = document.createElement("div")
-  const dateText = document.createElement("label")
-  const dateInput = document.createElement("input")
-  const priorityGroup = document.createElement("div")
-  const priorityText = document.createElement("span")
-  const priorityBtn1 = document.createElement("button")
-  const priorityBtn2 = document.createElement("button")
-  const priorityBtn3 = document.createElement("button")
-  const submitGroup = document.createElement("div")
-  const submit = document.createElement("button")
-  const cancel = document.createElement("button")
+  const modal = document.createElement("dialog");
+  const form = document.createElement("form");
+  const titleGroup = document.createElement("div");
+  const titleText = document.createElement("label");
+  const titleInput = document.createElement("input");
+  const detailsGroup = document.createElement("div");
+  const detailsText = document.createElement("label");
+  const detailsInput = document.createElement("input");
+  const dateGroup = document.createElement("div");
+  const dateText = document.createElement("label");
+  const dateInput = document.createElement("input");
+  const priorityGroup = document.createElement("div");
+  const priorityText = document.createElement("span");
+  const priorityBtn1 = document.createElement("button");
+  const priorityBtn2 = document.createElement("button");
+  const priorityBtn3 = document.createElement("button");
+  const submitGroup = document.createElement("div");
+  const submit = document.createElement("button");
+  const cancel = document.createElement("button");
+
+  // bootstrap classes
+  form.classList.add("to-do-form");
+  titleGroup.classList.add("d-flex", "align-items-center", "mb-3", "gap-3");
+  detailsGroup.classList.add("d-flex", "align-items-center", "mb-3", "gap-3");
+  dateGroup.classList.add("d-flex", "align-items-center", "mb-3", "gap-3");
+  priorityGroup.classList.add("d-flex", "align-items-center", "mb-3");
+  submitGroup.classList.add("d-flex", "align-items-center", "justify-content-center", "mb-3", "gap-3");
+  titleInput.classList.add("form-control");
+  detailsInput.classList.add("form-control");
+  dateInput.classList.add("form-control");
+  submit.classList.add("bg-success");
+  cancel.classList.add("bg-danger");
 
   // text content
   titleText.innerText = "Title: "
@@ -37,7 +50,6 @@ function toDoForm(container: HTMLElement, position: DOMRect, formAction: formAct
   cancel.innerText = "Cancel"
 
   // attributes
-  form.classList.add("to-do-form")
   form.method = "dialog"
 
   titleInput.required = true
@@ -51,11 +63,6 @@ function toDoForm(container: HTMLElement, position: DOMRect, formAction: formAct
   dateInput.id = "date"
   dateText.htmlFor = "date"
   dateInput.type = "date"
-
-  if(isEditForm){
-    // priority group div has no gap in SCSS, so buttons do not overflow
-    priorityGroup.classList.add("priority-group") 
-  }
   priorityBtn1.type = "button"
   priorityBtn2.type = "button"
   priorityBtn3.type = "button"
