@@ -7,9 +7,11 @@ import clearPage from "./clearPage";
 import putToDoInDOM from "./putToDoInDom";
 
 function renderGroup(group: GroupInterface) {
+  // History API for more accessible navigation
+  history.pushState(group.ID, "",  group.name.toLocaleLowerCase().replace(" ", "-"));
   // reset
   clearPage();
-  jsContainer.classList.remove("game-page");
+  jsContainer.classList.remove("arcade-page");
   jsContainer.classList.add("group-page");
 
   // wallpaper

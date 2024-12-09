@@ -4,10 +4,12 @@ import jsContainer from "../domConstants/projectContainer";
 import clearPage from "./clearPage";
 import renderMessage from "./renderMessage";
 import "../styles/arcadePage.scss";
+import arcadeState from "../domConstants/arcadeState";
 
 function renderArcade() {
   clearPage();
   jsContainer.classList.replace("group-page", "arcade-page");
+  history.pushState(arcadeState, "", "arcade")
 
   // heading
   const header = document.createElement("h1");

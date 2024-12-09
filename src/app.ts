@@ -12,6 +12,7 @@ import initializeGames from "./functions/initializeGames";
 import "./ui/domUtilities/resizer";
 import "./ui/styles/index.scss";
 import "./ui/styles/global.scss";
+import whatsPopping from "./ui/outputs/whatsPopping";
 // import "./sw";
 
 subscribeUIAndStorageFunctions();
@@ -20,6 +21,7 @@ initializeGames();
 showAllTasks();
 addProjectForm();
 populateTutorialProject();
+whatsPopping();
 
 if (!hasVisited()) {
   setTimeout(renderOnboarding, 1500);
