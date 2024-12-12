@@ -1,6 +1,5 @@
 import subscribeUIAndStorageFunctions from "./functions/subscribeUIAndStorageFunctions";
 import renderOnboarding from "./ui/onboarding/onboarding";
-import Projects from "./classes/Projects";
 import hasVisited from "./storage/hasVisited";
 import setVisitedFlag from "./storage/setVisitedFlag";
 import showAllTasks from "./ui/outputs/showAllTasks";
@@ -25,5 +24,5 @@ if (!hasVisited()) {
   renderOnboarding();
   setVisitedFlag();
 } else {
-  loadProjects().forEach(Projects.add);
+  loadProjects();
 };

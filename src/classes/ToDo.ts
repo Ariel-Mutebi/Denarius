@@ -19,12 +19,12 @@ class ToDo extends IDed implements ToDoInterface {
     public priority: ToDoPriority = ToDoPriority.Low,
     public isChecked = false
   ) {
-    super()
-  }
+    super();
+  };
 
   toggleIsChecked() {
-    this.isChecked = !this.isChecked
-    PS.publish(PSE.PutProjectData)
+    this.isChecked = !this.isChecked;
+    PS.publish(PSE.PutProjectData);
   }
 
   updateProperties(positionalParameters: Partial<EditableToDoProperties>) {
