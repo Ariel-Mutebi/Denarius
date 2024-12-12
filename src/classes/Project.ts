@@ -5,7 +5,6 @@ import ToDoInterface from "../interfaces/ToDoInterface";
 import uuid from "../types/uuid";
 import ProjectInterface from "../interfaces/ProjectInterface";
 import ToDoProperties from "../interfaces/ToDoProperties";
-import ToDoCounterUpdate from "../enums/ToDoCounterUpdate";
 import PSE from "../enums/PubSubEvents";
 import GroupGenders from "../enums/GroupGenders";
 
@@ -21,20 +20,22 @@ class Project extends Group implements ProjectInterface {
     
     PS.publish(PSE.PostProject, this.ID);
     PS.subscribe(PSE.DeleteToDo, this.deleteToDo.bind(this));
+
     if(initialToDos) {
       initialToDos.forEach(initialToDo => this.addToDo(initialToDo));
     };
   };
 
   addToDo(toDo: ToDoInterface, moveOperation = false) {
+    if(this.toDos.some(t => t.ID === toDo.ID)) return;
     toDo.updateProperties({ parentID: this.ID });
     this.toDos.push(toDo);
 
     if(!moveOperation) PS.publish(PSE.PutToDo, toDo);
 
     PS.publish(PSE.PostGroupCount, {
-      projectID: this.ID,
-      update: ToDoCounterUpdate.Increment
+      groupID: this.ID,
+      integerToAdd: 1
     });
  
     PS.publish(PSE.PutProjectData);    
@@ -59,9 +60,10 @@ class Project extends Group implements ProjectInterface {
     if(!moveOperation) deletion.awardCompletion();
 
     PS.publish(PSE.PostGroupCount, {
-      projectID: this.ID,
-      update: ToDoCounterUpdate.Decrement
+      groupID: this.ID,
+      integerToAdd: -1
     });
+
     PS.publish(PSE.DeleteToDo, toDoID);
     PS.publish(PSE.PutProjectData);
 

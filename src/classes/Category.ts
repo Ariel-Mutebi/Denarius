@@ -26,21 +26,37 @@ class Category extends Group implements CategoryInterface {
   };
 
   updateCategory(newToDos: ToDoInterface[] | ToDoInterface) {
-    if(Array.isArray(newToDos)) {
-      this.toDos = this.filterFunction([...this.toDos, ...newToDos]);
-    } else {
-      this.toDos = this.filterFunction([...this.toDos, newToDos]);
-    }
+    if(!Array.isArray(newToDos)) newToDos = [newToDos];
+    if(newToDos.some(nt => this.toDos.some(t => t.ID === nt.ID))) return; // The advantage of idempotency outweighs the disadvantage of an n ^ 2 time complexity.
+    const before = this.l();
+    this.toDos = this.filterFunction([...this.toDos, ...newToDos]);
     this.sort();
+    this.updateCounter(before, this.l())
   };
 
   removeToDo(toDoToDeleteID: uuid) {
     const index = this.toDos.findIndex(t => t.ID == toDoToDeleteID);
     this.toDos.splice(index, 1);
+    this.updateCounter(1, 0);
   };
 
   removeProject(deletionId: uuid) {
+    const before = this.l();
     this.toDos = this.toDos.filter(todo => todo.parentID !== deletionId);
+    this.updateCounter(before, this.l());
+  };
+
+  private l() {
+    return this.toDos.length; // I'm too lazy to read/type this over and over again.
+  };
+
+  private updateCounter(beforeCount: number, afterCount: number) {
+    if(beforeCount !== afterCount) {
+      PS.publish(PSE.PostGroupCount, {
+        groupID: this.ID,
+        integerToAdd: afterCount - beforeCount
+      });
+    }
   };
 
   sort() {

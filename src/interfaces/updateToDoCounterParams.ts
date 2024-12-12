@@ -1,9 +1,8 @@
-import ToDoCounterUpdate from "../enums/ToDoCounterUpdate";
 import uuid from "../types/uuid";
 
 interface updateToDoCounterParameters {
-  projectID: uuid,
-  update: ToDoCounterUpdate
+  groupID: uuid,
+  integerToAdd: number
 }
 
 export default updateToDoCounterParameters
