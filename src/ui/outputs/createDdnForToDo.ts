@@ -21,7 +21,7 @@ function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
 
   const { parentID } = toDo;
   if(!parentID) throw new Error("ToDo object for rendering must have parentID");
-  if(!Projects.projectExists(p => p.ID === parentID)) throw new Error("ToDo parentID property must equal Project ID for some Project instance.");
+  if(!Projects.get(parentID)) throw new Error("ToDo parentID property must equal Project ID for some Project instance.");
 
   // HTML elements for to-do article
   const element = document.createElement("article");

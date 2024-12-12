@@ -15,19 +15,16 @@ import "./ui/styles/global.scss";
 import whatsPopping from "./ui/outputs/whatsPopping";
 // import "./sw";
 
-subscribeUIAndStorageFunctions();
+addProjectForm();
+subscribeUIAndStorageFunctions(); // must be before any object initializations
 initializeCategories();
 initializeGames();
 showAllTasks();
-addProjectForm();
-populateTutorialProject();
 whatsPopping();
 
 if (!hasVisited()) {
-  setTimeout(renderOnboarding, 1500);
+  renderOnboarding();
   setVisitedFlag();
 } else {
-  for(const loadedProject of loadProjects()) {
-    Projects.add(loadedProject);
-  };
+  loadProjects().forEach(p => Projects.add(p)); // arrow function wrapper is necessary
 };
