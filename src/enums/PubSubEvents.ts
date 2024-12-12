@@ -4,7 +4,7 @@ enum PSE {
   PostCategory,
   PostProject,
   PutToDo,
-  PostProjectCount,
+  PostGroupCount,
   DeleteToDo,
   DeleteProject,
   PutProjectData,

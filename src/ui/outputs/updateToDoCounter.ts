@@ -1,7 +1,7 @@
 import ToDoCounterUpdate from "../../enums/ToDoCounterUpdate";
 import updateToDoCounterParameters from "../../interfaces/updateToDoCounterParams";
 
-function updateProjectCounter(parameters: updateToDoCounterParameters) {
+function updateGroupCounter(parameters: updateToDoCounterParameters) {
   const { projectID, update } = parameters;
 
   const counter = document.querySelector<HTMLElement>(`li#${CSS.escape(projectID)} .counter`);
@@ -27,4 +27,4 @@ function updateProjectCounter(parameters: updateToDoCounterParameters) {
   };
 };
 
-export default updateProjectCounter;
+export default updateGroupCounter;

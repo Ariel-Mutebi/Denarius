@@ -15,7 +15,7 @@ class PubSub extends Singleton {
     [PSE.PostCategory]: [],
     [PSE.PostProject]: [],
     [PSE.PutToDo]: [],
-    [PSE.PostProjectCount]: [],
+    [PSE.PostGroupCount]: [],
     [PSE.DeleteToDo]: [],
     [PSE.DeleteProject]: [],
     [PSE.PutProjectData]: []
@@ -30,7 +30,7 @@ class PubSub extends Singleton {
   publish(e: PSE.PostCategory, d: uuid): void;
   publish(e: PSE.PostProject, d: uuid): void;
   publish(e: PSE.PutToDo, d: ToDoInterface): void;
-  publish(e: PSE.PostProjectCount, d: updateToDoCounterParameters): void;
+  publish(e: PSE.PostGroupCount, d: updateToDoCounterParameters): void;
   publish(e: PSE.DeleteToDo, d: uuid): void;
   publish(e: PSE.DeleteProject, d: uuid): void;
   publish(e: PSE.PutProjectData): void;

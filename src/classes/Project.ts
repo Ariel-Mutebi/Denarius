@@ -32,7 +32,7 @@ class Project extends Group implements ProjectInterface {
 
     if(!moveOperation) PS.publish(PSE.PutToDo, toDo);
 
-    PS.publish(PSE.PostProjectCount, {
+    PS.publish(PSE.PostGroupCount, {
       projectID: this.ID,
       update: ToDoCounterUpdate.Increment
     });
@@ -58,7 +58,7 @@ class Project extends Group implements ProjectInterface {
     const deletion = this.toDos.splice(index, 1)[0];
     if(!moveOperation) deletion.awardCompletion();
 
-    PS.publish(PSE.PostProjectCount, {
+    PS.publish(PSE.PostGroupCount, {
       projectID: this.ID,
       update: ToDoCounterUpdate.Decrement
     });
