@@ -5,7 +5,7 @@ import e from "./elementDictionary";
 import stages from "./stages";
 
 function renderOnboarding() {
-  if(window.location.pathname !== "all-tasks") showAllTasks();
+  if(window.location.pathname !== "/all-tasks") showAllTasks();
   if(!ProjectsInstance.projectExists(p => p.name === "Tutorial")) populateTutorialProject();
 
   setTimeout(async() => {
