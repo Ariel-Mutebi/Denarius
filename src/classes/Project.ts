@@ -28,7 +28,7 @@ class Project extends Group implements ProjectInterface {
 
   addToDo(toDo: ToDoInterface, moveOperation = false) {
     if(this.toDos.some(t => t.ID === toDo.ID)) return;
-    toDo.updateProperties({ parentID: this.ID });
+    toDo.updateProperties({ parentID: this.ID }, false);
     this.toDos.push(toDo);
 
     if(!moveOperation) PS.publish(PSE.PutToDo, toDo);

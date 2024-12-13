@@ -3,7 +3,7 @@ enum PSE {
   PutCoins,
   PostCategory,
   PostProject,
-  PutToDo,
+  PutToDo, // "Put" implies that you can expect the effects to be idempotent.
   PostGroupCount,
   DeleteToDo,
   DeleteProject,

@@ -27,7 +27,7 @@ class ToDo extends IDed implements ToDoInterface {
     PS.publish(PSE.PutProjectData);
   }
 
-  updateProperties(positionalParameters: Partial<EditableToDoProperties>) {
+  updateProperties(positionalParameters: Partial<EditableToDoProperties>, publish = true) {
     const { title, description, dueDate, priority, parentID } = positionalParameters;
     
     if(title) this.title = title;
@@ -35,9 +35,11 @@ class ToDo extends IDed implements ToDoInterface {
     if(dueDate) this.dueDate = dueDate;
     if(priority) this.priority = priority;
     if(parentID) this.parentID = parentID;
-
-    PS.publish(PSE.PutToDo, this);
-    PS.publish(PSE.PutProjectData);
+    
+    if(publish) {
+      PS.publish(PSE.PutToDo, this);
+      PS.publish(PSE.PutProjectData);
+    }
   };
 
   getWorth() {
