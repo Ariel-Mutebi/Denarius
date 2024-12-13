@@ -23,6 +23,10 @@ class Project extends Group implements ProjectInterface {
 
     if(initialToDos) {
       initialToDos.forEach(initialToDo => this.addToDo(initialToDo));
+    } else {
+      // this.addToDo includes publishing the PutProjectData event, which leads to the data being stored.
+      // But, even if a project is empty, it still needs to be stored.
+      PS.publish(PSE.PutProjectData);
     };
   };
 
