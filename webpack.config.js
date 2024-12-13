@@ -4,10 +4,16 @@ const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/app.ts",
+  entry: {
+    app: "./src/app.ts",
+    styles: "./src/styles.js"
+  },
   output: {
-    filename: "main.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, 'dist')
+  },
+  optimization: {
+    usedExports: true,
   },
   module: {
     rules: [

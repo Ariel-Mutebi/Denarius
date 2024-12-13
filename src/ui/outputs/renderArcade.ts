@@ -3,7 +3,6 @@ import Arcade from "../../classes/Arcade";
 import jsContainer from "../domConstants/projectContainer";
 import clearPage from "./clearPage";
 import renderMessage from "./renderMessage";
-import "../styles/arcadePage.scss";
 import arcadeState from "../domConstants/arcadeState";
 
 function renderArcade() {

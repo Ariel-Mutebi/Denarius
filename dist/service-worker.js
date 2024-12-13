@@ -81,11 +81,14 @@ define(['./workbox-ea107fe8'], (function (workbox) { 'use strict';
     "url": "449ad8adf6ae0424b7ed.woff?2820a3852bdb9a5832199cc61cec4e65",
     "revision": null
   }, {
+    "url": "app.bundle.js",
+    "revision": "7de05f8b4085d3ced031f271e2226030"
+  }, {
     "url": "dea24bf5a7646d8b84e7.woff2?2820a3852bdb9a5832199cc61cec4e65",
     "revision": null
   }, {
-    "url": "main.js",
-    "revision": "07da3e55fa07acdf7251bd0d9ac20f44"
+    "url": "styles.bundle.js",
+    "revision": "3b1197df01f109e7ea93cdbb7412641f"
   }], {});
   workbox.registerRoute(/\.(?:html)$/, new workbox.StaleWhileRevalidate(), 'GET');
 

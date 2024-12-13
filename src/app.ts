@@ -11,8 +11,6 @@ import whatsPopping from "./ui/outputs/whatsPopping";
 import setUpTourButton from "./ui/onboarding/setUpTourButton";
 import getSquaredUp from "./ui/domUtilities/resizer";
 import registerServiceWorker from "./sw";
-import "./ui/styles/index.scss";
-import "./ui/styles/global.scss";
 
 getSquaredUp();
 addProjectForm();
