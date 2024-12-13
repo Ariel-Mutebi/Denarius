@@ -33,13 +33,4 @@ function renderOnboarding() {
   }, 1500);
 };
 
-document.getElementById("tour-button")?.addEventListener("click", () => {
-  renderOnboarding();
-
-  // prevent sidebar covering tutorial on mobile
-  if(e.menuIcon.isVisible() && e.navBar.isVisible()) { // as in mobile screen
-    e.navBar.get()?.classList.add("d-none");
-  };
-});
-
 export default renderOnboarding;

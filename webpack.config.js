@@ -1,6 +1,6 @@
-const path = require("path")
-const WorkboxPlugin = require("workbox-webpack-plugin")
-const CircularDependencyPlugin = require("circular-dependency-plugin")
+const path = require("path");
+const WorkboxPlugin = require("workbox-webpack-plugin");
+const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 module.exports = {
   mode: "development",
@@ -49,4 +49,4 @@ module.exports = {
       failOnError: true,
     }),
   ]
-}
+};
