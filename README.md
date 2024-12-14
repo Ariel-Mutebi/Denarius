@@ -1,25 +1,17 @@
-# TaskQuest App Features
+# History
+1. I created [first version of TaskQuest](https://github.com/black-RAM/TaskQuest/) from September 22, 2023 to December 13, 2023. It was originally just supposed to be my solution to [this Odin Project assignment](https://www.theodinproject.com/lessons/node-path-javascript-todo-list#assignment). But I got too many ideas for extra features, and the app grew into my biggest yet.
+2. During late september this year, while I was wondering what to do for [the exceedingly ambiguous Inventory Application project from The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application), the thought crossed my mind that I should return to magnify my magnum opus. TaskQuest-Cloud was the name for this new version of TaskQuest which will have cloud storage and other such cool back-end capabilities.
+3. Appalled by the four-hundred-plus-line code files which I was once so proud of, I enacted the "refactor of Versailles [which] dissolv[ed] emipres, giving each function sovereignity". (I.e., I split up the code into different directories and modules so that each module had a single responsibility, exporting a single entity. The historical allusion was inspired by how the Treaty of Versailles dissolved the Ottoman Empire and so on.) Along the way, I also wrote dozens of tests (four dozen, actually), to make sure I was working with 100% reliable code. Plus, I tried to document the system with some UML diagrams. (Scroll down to see them.)
+5. I added minor features, like the history API changing the URL when the user navigates to a different part of the app, to make the app more accessible and SPA-esque. This is the stage where I am now, as of 14th December 2024. I now plan to work on the back-end API, then link the two so that the app runs on a hybrid of cloud and local storage.
 
-- A project contains a list of various todos.
-- Each project renders in its own different page.
-- Navigate/add/delete projects pages (and even see their to-do counts) by using the sidebar (which is collapsable on mobile).
-- Within the heading of the project page, there is an icon which opens the form to add a to-do.
-- Each to-do element includes a checkbox, its title, the due date, a button to display more of its details, a button to edit it, and a button to delete it.
+# UML Diagrams
+These can be found in the root of the repo. But in case you do not want to go through the hassle of loading their XML files in Draw.io, their PNGS are attached here for convenience.
 
-- Categories filter to-dos by a certain criteria. For example, the important category contains only to-dos with a priority number of 3.
-- Categories, like projects, render in their own pages, which can be selected from the sidebar; but unlike projects, they cannot be added or deleted by the user.
-- You cannot manually add a todo to a category, nor can you edit/delete a todo. You can only see its details.
+## Use Case Diagram
+![TaskQuest-Cloud-UML-Use-Case-Diagram drawio](https://github.com/user-attachments/assets/49c4bfd0-a1e4-4459-8551-9e2dcd5efb13)
 
-- All project data is stored in the user's local storage, and loaded from the JSON when the user visits the app again.
+## Class Diagram
+![TaskQuest-Cloud-UML-Class-Diagram drawio](https://github.com/user-attachments/assets/d8cb1b6b-6aed-4520-aa30-7f64ccd089d8)
 
-# New! All about the games
-
-- When you complete a to-do (by checking it and then deleting it) before the due date, you gain coins.
-- But if you complete a to-do after the due date, you lose the coins you could have gained.
-- At the arcade (which you can navigate to by clicking the game controller icon at the top right of the page), you can use the coins you have earned to pay for a ten-minute gaming session in any of the three games.
-- Coins are also stored in local storage for continuity.
-
-# Latest Major Updates
-
-- On desktop, drag a to-do and drop it on a project link to move it.
-- There is a product walkthrough to guide the user with the onboarding experience (using the intro.js library).
+## Sequence Diagrams
+![TaskQuest-UML-Sequence-Diagrams drawio](https://github.com/user-attachments/assets/e261e005-ddc0-488c-901c-eab91053a3be)
