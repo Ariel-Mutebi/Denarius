@@ -54,6 +54,12 @@ describe("Project class:", () => {
     instancePropertyCheck(makeStringIndexable(project.toDos.pop()!), makeStringIndexable(leavingToDo));
   });
 
+  test("changeName method", () => {
+    const newName = "Testing123";
+    project.changeName(newName);
+    expect(project.name).toBe(newName);
+  });
+
   afterAll(() => {
     ProjectsInstance.deleteProject(project.ID)
   });

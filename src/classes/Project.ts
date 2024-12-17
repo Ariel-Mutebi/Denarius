@@ -31,6 +31,10 @@ class Project extends Group implements ProjectInterface {
     };
   };
 
+  changeName(newName: string) {
+    this.name = newName;
+  };
+
   addToDo(toDo: ToDoInterface, moveOperation = false) {
     if(this.toDos.some(t => t.ID === toDo.ID)) return;
     toDo.updateProperties({ parentID: this.ID }, false);
