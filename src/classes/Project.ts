@@ -13,8 +13,9 @@ class Project extends Group implements ProjectInterface {
     name: string,
     initialToDos?: ToDoInterface[],
     icon?: string,
+    id?: string,
   ) {
-    super(name, GroupGenders.Project, icon);
+    super(name, GroupGenders.Project, icon, [], id);
 
     Projects.add(this);
     

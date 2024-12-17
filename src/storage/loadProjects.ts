@@ -8,7 +8,9 @@ function loadProjects(): Project[] {
     new Project(
       p.name,
       p.toDos.map(t => new ToDo(t.title, t.description, new Date(t.dueDate), t.priority)),
-      p.icon)
+      p.icon,
+      p.ID
+      )
     );
 };
 
