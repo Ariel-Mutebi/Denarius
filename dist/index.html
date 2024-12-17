@@ -49,26 +49,40 @@
           <ul id="project-list" class="list-group list-group-flush"></ul>
 
           <dialog
-            id="project-form-container"
-            class="position-fixed m-0 p-1 fs-5 z-3"
+            id="project-name-form-container"
+            class="position-fixed m-0 z-3 p-0"
           >
-            <form
-              id="add-project-form"
-              method="dialog"
-              class="d-flex align-items-center"
-            >
-              <label for="project-name" class="">Project: </label>
-              <input
-                id="project-name"
-                class="form-control m-2"
-                type="text"
-                placeholder="project name"
-                minlength="2"
-                maxlength="10"
-              />
-              <button type="submit" title="create project">
-                <i class="bi bi-folder-plus"></i>
-              </button>
+            <form id="project-name-form" method="dialog">
+              <label
+                for="project-name"
+                class="h6 text-white m-0 text-bg-secondary p-1"
+                >Project name:
+              </label>
+              <div class="d-flex align-items-center p-1">
+                <input
+                  id="project-name"
+                  class="form-control m-2"
+                  type="text"
+                  placeholder="project name"
+                  minlength="2"
+                  maxlength="10"
+                />
+                <button
+                  type="submit"
+                  title="create project"
+                  class="bg-success-subtle me-1"
+                >
+                  <i class="bi bi-folder-plus"></i>
+                </button>
+                <button
+                  type="reset"
+                  title="cancel"
+                  class="bg-danger-subtle"
+                  id="project-name-form-reset"
+                >
+                  <i class="bi bi-x-square"></i>
+                </button>
+              </div>
             </form>
           </dialog>
         </nav>

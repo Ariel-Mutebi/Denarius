@@ -22,6 +22,8 @@ function addProject(projectID: uuid) {
     };
   });
 
+  // 
+
   // delete project button
   const deleteButton = document.createElement("button");
   deleteButton.innerHTML = '<i class="bi bi-trash3 fs-5"></i>';
