@@ -7,7 +7,7 @@ function loadProjects(): Project[] {
   return parsedJSON.map(p => 
     new Project(
       p.name,
-      p.toDos.map(t => new ToDo(t.title, t.description, new Date(t.dueDate), t.priority)),
+      p.toDos.map(t => new ToDo(t.title, t.description, new Date(t.dueDate), t.priority, t.isChecked, t.ID)),
       p.icon,
       p.ID
       )

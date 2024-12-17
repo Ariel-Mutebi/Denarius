@@ -17,9 +17,10 @@ class ToDo extends IDed implements ToDoInterface {
     public description: string,
     public dueDate: Date,
     public priority: ToDoPriority = ToDoPriority.Low,
-    public isChecked = false
+    public isChecked = false,
+    id?: string
   ) {
-    super();
+    super(id);
   };
 
   toggleIsChecked() {
