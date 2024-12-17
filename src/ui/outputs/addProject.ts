@@ -1,5 +1,6 @@
 import Projects from "../../classes/Projects";
 import uuid from "../../types/uuid";
+import projectNameModal from "../inputs/projectNameModal";
 import addGroupToSidebar from "./addGroup";
 import showAllTasks from "./showAllTasks";
 
@@ -22,8 +23,15 @@ function addProject(projectID: uuid) {
     };
   });
 
-  // 
+  const buttonContainer = document.createElement("div");
 
+  // rename project button
+  const renameButton = document.createElement("button");
+  renameButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
+  renameButton.title = "Rename project";
+  projectNameModal(renameButton, project.changeName, project.name);
+  buttonContainer.appendChild(renameButton);
+  
   // delete project button
   const deleteButton = document.createElement("button");
   deleteButton.innerHTML = '<i class="bi bi-trash3 fs-5"></i>';
@@ -32,7 +40,8 @@ function addProject(projectID: uuid) {
     Projects.deleteProject(projectID);
     showAllTasks();
   });
-  listElement.appendChild(deleteButton);
+  buttonContainer.appendChild(deleteButton);
+  listElement.appendChild(buttonContainer);
 }
 
 export default addProject;

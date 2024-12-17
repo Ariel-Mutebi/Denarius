@@ -15,11 +15,12 @@ import GroupInterface from "./GroupInterface";
 // I resolved the circular dependency.
 
 interface ProjectInterface extends GroupInterface {
-  name: string,
-  icon: string,
-  addToDo(todo: ToDoInterface, moveOperation?: boolean): void,
-  receiveDrop(toDoData: string): void,
-  deleteToDo(toDoId: uuid, moveOperation?: boolean): ToDoInterface | undefined,
-}
+  name: string;
+  icon: string;
+  addToDo(todo: ToDoInterface, moveOperation?: boolean): void;
+  receiveDrop(toDoData: string): void;
+  deleteToDo(toDoId: uuid, moveOperation?: boolean): ToDoInterface | undefined;
+  changeName(newName: string): void;
+};
 
-export default ProjectInterface
+export default ProjectInterface;
