@@ -49,7 +49,7 @@ describe("Project class:", () => {
   test("receiveDrop method", () => {
     const leavingToDo = new ToDo("Start spreading the news", "I'm leaving today.", today, ToDoPriority.Medium); // this has no parentID
     const projectItsFrom = new Project("New York", [leavingToDo]);
-    project.receiveDrop(JSON.stringify(projectItsFrom.toDos[0]));
+    project.takeToDoFromAnother(leavingToDo.ID);
     expect(projectItsFrom.toDos.length).toBe(0);
     instancePropertyCheck(makeStringIndexable(project.toDos.pop()!), makeStringIndexable(leavingToDo));
   });

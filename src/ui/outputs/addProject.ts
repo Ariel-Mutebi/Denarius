@@ -7,22 +7,6 @@ import showAllTasks from "./showAllTasks";
 function addProject(projectID: uuid) {
   const { group: project, listElement } = putGroupInSidebar(projectID, Projects);
 
-  // drag to-do over project list element to move it
-  listElement.addEventListener("dragover", (e) => {
-    e.preventDefault();
-
-    if(e.dataTransfer) {
-      e.dataTransfer.dropEffect = "move";
-    };
-  });
-
-  listElement.addEventListener("drop", (e) => {
-    if(e.dataTransfer) {
-      const data = e.dataTransfer.getData("text/plain");
-      project.receiveDrop(data);
-    };
-  });
-
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("d-flex", "align-items-center")
 

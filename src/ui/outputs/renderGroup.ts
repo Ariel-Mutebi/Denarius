@@ -23,6 +23,7 @@ function renderGroup(group: GroupInterface) {
   const titleDiv = document.createElement("div");
   const title = document.createElement("h2");
   const icon = document.createElement("i");
+  const addIcon = document.createElement("i");
 
   // html element attributes
   header.classList.add("fs-2", "mb-3", "bg-success-subtle", "p-3", "d-flex", "justify-content-between", "rounded");
@@ -31,22 +32,19 @@ function renderGroup(group: GroupInterface) {
   title.classList.add("h1");
   icon.classList.add("bi");
   icon.classList.add(`${group.icon}`);
+  addIcon.classList.add("bi");
+  addIcon.classList.add("bi-journal-plus");
+
+  // events
+  addIcon.addEventListener("click", () => {
+    addToDoForm(jsContainer, header.getBoundingClientRect());
+  });
 
   // append to DOM
   titleDiv.appendChild(icon);
   titleDiv.appendChild(title);
   header.appendChild(titleDiv);
-
-  // users can only add to-dos to Projects
-  if (group.gender === GroupGenders.Project) {
-    const addIcon = document.createElement("i");
-    addIcon.classList.add("bi");
-    addIcon.classList.add("bi-journal-plus");
-    addIcon.addEventListener("click", () => {
-      addToDoForm(group as ProjectInterface, jsContainer, header.getBoundingClientRect());
-    });
-    header.appendChild(addIcon);
-  };
+  header.appendChild(addIcon);
 
   jsContainer.appendChild(header);
 

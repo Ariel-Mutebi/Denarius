@@ -2,13 +2,15 @@ import ProjectInterface from "../../interfaces/ProjectInterface";
 import ToDo from "../../classes/ToDo";
 import toDoForm from "./toDoForm";
 import ToDoPriority from "../../enums/ToDoPriority";
+import uuid from "../../types/uuid";
+import ProjectsInstance from "../../classes/Projects";
 
-function addToDoForm(project: ProjectInterface, container: HTMLElement, coordinates: DOMRect) {
+function addToDoForm(container: HTMLElement, coordinates: DOMRect) {
 
   // create ToDo from user input
-  function createToDo(title: string, details: string, dateString: string, priority: ToDoPriority) {
+  function createToDo(projectID: uuid, title: string, details: string, dateString: string, priority: ToDoPriority) {
     const newToDo = new ToDo(title, details, new Date(dateString), priority);
-    project.addToDo(newToDo);
+    ProjectsInstance.get(projectID)!.addToDo(newToDo);
   };
 
   // hand over creation of form to lower-level function toDoForm()

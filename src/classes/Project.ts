@@ -52,13 +52,12 @@ class Project extends Group implements ProjectInterface {
     PS.publish(PSE.PutProjectData);    
   };
 
-  receiveDrop(toDoData: string) {
-    const toDoToReceive: ToDoProperties = JSON.parse(toDoData);
-    const parent = Projects.query(project => project.ID == toDoToReceive.parentID);
-    if(parent) {
-      const movingToDo = parent.deleteToDo(toDoToReceive.ID, true);
-      if(movingToDo) this.addToDo(movingToDo, true);
-    };
+  takeToDoFromAnother(toDoID: uuid) {
+    const toDoToTake = Projects.getAllToDos().find(t => t.ID === toDoID);
+    if(!toDoToTake) throw new Error("Project can't take a to-do which doesn't exist.");
+    const originalHolder = Projects.query(project => project.ID == toDoToTake.parentID)!;
+    originalHolder.deleteToDo(toDoID, true);
+    this.addToDo(toDoToTake, true);
   };
 
   // I think dereferencing a ToDo from this.toDos array makes it unreachable. 
@@ -76,8 +75,6 @@ class Project extends Group implements ProjectInterface {
     });
 
     PS.publish(PSE.PutProjectData);
-
-    return deletion;
   };
 };
 

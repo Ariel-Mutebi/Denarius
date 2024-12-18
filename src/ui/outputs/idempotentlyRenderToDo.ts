@@ -27,7 +27,6 @@ function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders 
   const rightDiv = document.createElement("div");
   const checkBox = document.createElement("input");
   const toDoTitle = document.createElement("label");
-  const dueDateT = document.createElement("time");
   const detailsButton = document.createElement("button");
   const editButton = document.createElement("button");
   const deleteButton = document.createElement("button");
@@ -58,8 +57,6 @@ function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders 
 
   // content
   toDoTitle.innerText = toDo.title;
-  dueDateT.dateTime = String(toDo.dueDate);
-  dueDateT.innerText = format(toDo.dueDate, "d LLL");
   detailsButton.innerText = "Details";
   editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
   deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
@@ -74,14 +71,11 @@ function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders 
   if (toDo.isChecked) {
     checkBox.checked = true;
     element.classList.add("text-decoration-line-through");
-  }
+  };
 
   if(toDo.isOverDue()) {
     element.classList.add("overdue");
-  }
-
-  // hide date on small screens
-  if (jsContainer.clientWidth < 400) dueDateT.classList.add("d-none");
+  };
 
   // details button
   detailsButton.addEventListener("click", () => {
@@ -137,30 +131,8 @@ function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders 
   leftDiv.appendChild(checkBox);
   leftDiv.appendChild(toDoTitle);
 
-  rightDiv.appendChild(dueDateT);
   rightDiv.appendChild(detailsButton);
   rightDiv.appendChild(detailsModal);
-
-  // drag to-do to move it from one project to another on desktop
-  if (parentGender === GroupGenders.Project && jsContainer.clientWidth > 400) {
-    element.draggable = true;
-
-    element.addEventListener("dragstart", e => {
-      const serialized = JSON.stringify(toDo);
-      if(e.dataTransfer) {
-        e.dataTransfer.setData("text/plain", serialized);
-        e.dataTransfer.effectAllowed = "move";
-      };
-    });
-
-    element.addEventListener("dragend", e => {
-      if(e.dataTransfer?.dropEffect === "move") {
-        PS.publish(PSE.PostMessage, "Yay! To-do moved!");
-      } else {
-        PS.publish(PSE.PostMessage, "Move failed.");
-      };
-    });
-  };
 
   // edit button
   editButton.addEventListener("click", () => {
@@ -179,6 +151,6 @@ function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders 
   element.appendChild(rightDiv);
 
   idempotentDOM(jsContainer, element, toDo.ID);
-}
+};
 
 export default idempotentlyRenderToDo;

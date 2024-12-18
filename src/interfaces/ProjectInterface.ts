@@ -18,8 +18,8 @@ interface ProjectInterface extends GroupInterface {
   name: string;
   icon: string;
   addToDo(todo: ToDoInterface, moveOperation?: boolean): void;
-  receiveDrop(toDoData: string): void;
-  deleteToDo(toDoId: uuid, moveOperation?: boolean): ToDoInterface | undefined;
+  takeToDoFromAnother(toDoID: uuid): void;
+  deleteToDo(toDoId: uuid, moveOperation?: boolean): void;
   changeName(newName: string): void;
 };
 
