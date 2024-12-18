@@ -11,15 +11,12 @@ function projectNameModal(openingButton: HTMLButtonElement, callback: (n: string
     throw new Error("projectNameModal function did not find necessary DOM elements.")
   };
 
-  if(initialName) nameField.value = initialName;
-
   openingButton.addEventListener("click", () => {
-    // Get the position of the parent element (the header)
+    // position and show
     const parent = openingButton.parentElement;
     if(!parent) throw new Error("icon is an orphan");
     const iconTop = parent.getBoundingClientRect().top;
 
-    // Set the position of the dialog
     if(window.innerWidth > 500) {
       modal.style.top = `${iconTop -40}px`;
       modal.style.left = `${sidebar?.clientWidth - 35}px`;
@@ -29,14 +26,27 @@ function projectNameModal(openingButton: HTMLButtonElement, callback: (n: string
       modal.style.left = "1rem";
       modal.showModal();
     };
-  });
 
-  form.addEventListener("submit", () => {
-    callback(nameField.value);
-  });
+    // in case this is for renaming
+    form.reset();
+    if(initialName) nameField.value = initialName;
 
-  cancelButton.addEventListener("click", () => {
-    modal.close();
+    // prepare for submission
+    const cleanUp = () => {
+      form.removeEventListener("submit", handleSubmission); // avoid event listeners piling up.
+    };
+
+    const handleSubmission = () => {
+      callback(nameField.value);
+      cleanUp();
+    };
+
+    form.addEventListener("submit", handleSubmission);
+    
+    cancelButton.addEventListener("click", () => {
+      modal.close();
+      cleanUp();
+    });
   });
 };
 

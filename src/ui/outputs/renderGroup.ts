@@ -4,11 +4,11 @@ import ProjectInterface from "../../interfaces/ProjectInterface";
 import jsContainer from "../domConstants/projectContainer";
 import addToDoForm from "../inputs/addToDoForm";
 import clearPage from "./clearPage";
-import putToDoInDOM from "./putToDoInDom";
+import idempotentlyRenderToDo from "./idempotentlyRenderToDo";
 
 function renderGroup(group: GroupInterface) {
-  // History API for more accessible navigation
-  history.pushState(group.ID, "",  group.name.toLocaleLowerCase().replace(" ", "-"));
+  // History API for more accessible navigation. (Commented out because it's inconvenient with Webpack's HMR.)
+  // history.pushState(group.ID, "",  group.name.toLocaleLowerCase().replace(" ", "-"));
   // reset
   clearPage();
   jsContainer.classList.remove("arcade-page");
@@ -50,7 +50,7 @@ function renderGroup(group: GroupInterface) {
 
   jsContainer.appendChild(header);
 
-  group.toDos.forEach(toDo => putToDoInDOM(toDo, group.gender));
+  group.toDos.forEach(toDo => idempotentlyRenderToDo(toDo, group.gender));
 };
 
 export default renderGroup;

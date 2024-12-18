@@ -1,9 +1,9 @@
 import Categories from "../../classes/Categories";
 import uuid from "../../types/uuid";
-import addGroupToSidebar from "./addGroup";
+import putGroupInSidebar from "./putGroupInSidebar";
 
 function addCategory(categoryId: uuid) {
-  addGroupToSidebar(categoryId, Categories);
+  putGroupInSidebar(categoryId, Categories);
 };
 
 export default addCategory;

@@ -19,7 +19,7 @@ class Project extends Group implements ProjectInterface {
 
     Projects.add(this);
     
-    PS.publish(PSE.PostProject, this.ID);
+    PS.publish(PSE.PutProject, this.ID);
     PS.subscribe(PSE.DeleteToDo, this.deleteToDo.bind(this));
 
     if(initialToDos) {
@@ -33,6 +33,8 @@ class Project extends Group implements ProjectInterface {
 
   changeName(newName: string) {
     this.name = newName;
+    PS.publish(PSE.PutProject, this.ID);
+    PS.publish(PSE.PutProjectData);
   };
 
   addToDo(toDo: ToDoInterface, moveOperation = false) {

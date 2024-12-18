@@ -1,11 +1,11 @@
 import Projects from "../../classes/Projects";
 import uuid from "../../types/uuid";
 import projectNameModal from "../inputs/projectNameModal";
-import addGroupToSidebar from "./addGroup";
+import putGroupInSidebar from "./putGroupInSidebar";
 import showAllTasks from "./showAllTasks";
 
 function addProject(projectID: uuid) {
-  const { group: project, listElement } = addGroupToSidebar(projectID, Projects);
+  const { group: project, listElement } = putGroupInSidebar(projectID, Projects);
 
   // drag to-do over project list element to move it
   listElement.addEventListener("dragover", (e) => {
@@ -29,7 +29,7 @@ function addProject(projectID: uuid) {
   const renameButton = document.createElement("button");
   renameButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
   renameButton.title = "Rename project";
-  projectNameModal(renameButton, project.changeName, project.name);
+  projectNameModal(renameButton, n => project.changeName(n), project.name);
   buttonContainer.appendChild(renameButton);
   
   // delete project button
@@ -42,6 +42,6 @@ function addProject(projectID: uuid) {
   });
   buttonContainer.appendChild(deleteButton);
   listElement.appendChild(buttonContainer);
-}
+};
 
 export default addProject;

@@ -2,8 +2,9 @@ import GroupInterface from "../../interfaces/GroupInterface";
 import GroupOfGroupsInterface from "../../interfaces/GroupOfGroupsInterface";
 import renderGroup from "./renderGroup";
 import uuid from "../../types/uuid";
+import idempotentDOM from "./idempotentDOM";
 
-function addGroupToSidebar<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOfGroupsInterface<T>) {
+function putGroupInSidebar<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOfGroupsInterface<T>) {
   const group = GroupManager.get(groupID);
   if(!group) throw new Error(`Group of ID ${groupID} not found.`);
   
@@ -23,14 +24,15 @@ function addGroupToSidebar<T extends GroupInterface>(groupID: uuid, GroupManager
   listText.addEventListener("click", () => renderGroup(group));
   listText.classList.add("link-opacity-75", "link-opacity-100-hover", "link-underline-opacity-0", "link-secondary", "user-select-none", "m-0");
   toDoCounter.classList.add("counter", "badge", "p-1", "me-2");
+  toDoCounter.innerText = String(group.toDos.length || "");
   
   listText.append(toDoCounter);
   listText.append(groupNameSpan)
   listElement.append(listText);
-  groupList.appendChild(listElement);
+  idempotentDOM(groupList, listElement, groupID);
 
   // in case further manipulation is needed
   return { group, listElement };
 };
 
-export default addGroupToSidebar;
+export default putGroupInSidebar;

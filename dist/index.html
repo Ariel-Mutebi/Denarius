@@ -71,9 +71,10 @@
                   class="form-control m-2"
                   type="text"
                   placeholder="project name"
-                  minlength="2"
-                  maxlength="10"
+                  minlength="1"
+                  maxlength="255"
                 />
+                <!-- maxlength because of database schema, and who would put such a long name? -->
                 <button
                   type="submit"
                   title="create project"

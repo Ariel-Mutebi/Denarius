@@ -3,16 +3,13 @@ import PS from "../../classes/PubSub";
 import jsContainer from "../domConstants/projectContainer";
 import editToDoForm from "../inputs/editToDoForm";
 import Projects from "../../classes/Projects";
-import createDdnForToDoParameters from "../../interfaces/renderToDoParams";
 import ToDoPriority from "../../enums/ToDoPriority";
 import GroupGenders from "../../enums/GroupGenders";
 import PSE from "../../enums/PubSubEvents";
+import ToDoInterface from "../../interfaces/ToDoInterface";
+import idempotentDOM from "./idempotentDOM";
 
-// Ddn means detached DOM node
-function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
-  // spread parameters
-  const { toDo, parentGender } = positionalParameters;
-
+function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders = GroupGenders.Project) {
   const toDoPriority = (
     toDo.priority === ToDoPriority.High ? "high" : 
     toDo.priority === ToDoPriority.Medium ? "medium" : 
@@ -183,7 +180,7 @@ function creteDdnForToDo(positionalParameters: createDdnForToDoParameters) {
   element.appendChild(leftDiv);
   element.appendChild(rightDiv);
 
-  return element;
+  idempotentDOM(jsContainer, element, toDo.ID);
 }
 
-export default creteDdnForToDo;
+export default idempotentlyRenderToDo;
