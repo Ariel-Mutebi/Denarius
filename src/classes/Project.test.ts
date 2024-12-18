@@ -34,7 +34,7 @@ describe("Project class:", () => {
     const newToDo = new ToDo("addToDo method", "Test if it appends the new ToDo instance to the .toDos array.", today, ToDoPriority.Medium);
     project.addToDo(newToDo);
     const lastToDo = project.toDos.pop();
-    if(!lastToDo) throw new Error("project.toDos is empty, even after calling .addToDo method.");
+    if (!lastToDo) throw new Error("project.toDos is empty, even after calling .addToDo method.");
     instancePropertyCheck(makeStringIndexable(lastToDo), makeStringIndexable(newToDo));
   });
 
@@ -42,14 +42,14 @@ describe("Project class:", () => {
     const deletionID = initialToDo.ID;
     const toDoAwardMethod = jest.spyOn(initialToDo, "awardCompletion");
     project.deleteToDo(deletionID);
-    expect(project.toDos.find(t => t.ID === deletionID)).toBeFalsy();  
+    expect(project.toDos.find(t => t.ID === deletionID)).toBeFalsy();
     expect(toDoAwardMethod).toHaveBeenCalled();
   });
 
   test("receiveDrop method", () => {
     const leavingToDo = new ToDo("Start spreading the news", "I'm leaving today.", today, ToDoPriority.Medium); // this has no parentID
     const projectItsFrom = new Project("New York", [leavingToDo]);
-    project.takeToDoFromAnother(leavingToDo.ID);
+    project.takeToDoFromAnother(leavingToDo);
     expect(projectItsFrom.toDos.length).toBe(0);
     instancePropertyCheck(makeStringIndexable(project.toDos.pop()!), makeStringIndexable(leavingToDo));
   });

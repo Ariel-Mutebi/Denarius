@@ -9,7 +9,7 @@ function editToDoForm(toDo: ToDo, container: HTMLElement, coordinates: DOMRect) 
     const dueDate = new Date(dateString);
     toDo.updateProperties({ title, description, dueDate, priority });
     const selectedProject = ProjectsInstance.get(projectID)!;
-    selectedProject.takeToDoFromAnother(toDo.ID);
+    selectedProject.takeToDoFromAnother(toDo);
   };
   
   const elements = toDoForm(container, coordinates, editDetails);

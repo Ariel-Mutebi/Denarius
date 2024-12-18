@@ -4,7 +4,6 @@ import Group from "./Group";
 import ToDoInterface from "../interfaces/ToDoInterface";
 import uuid from "../types/uuid";
 import ProjectInterface from "../interfaces/ProjectInterface";
-import ToDoProperties from "../interfaces/ToDoProperties";
 import PSE from "../enums/PubSubEvents";
 import GroupGenders from "../enums/GroupGenders";
 
@@ -52,11 +51,11 @@ class Project extends Group implements ProjectInterface {
     PS.publish(PSE.PutProjectData);    
   };
 
-  takeToDoFromAnother(toDoID: uuid) {
-    const toDoToTake = Projects.getAllToDos().find(t => t.ID === toDoID);
-    if(!toDoToTake) throw new Error("Project can't take a to-do which doesn't exist.");
-    const originalHolder = Projects.query(project => project.ID == toDoToTake.parentID)!;
-    originalHolder.deleteToDo(toDoID, true);
+  takeToDoFromAnother(toDoToTake: ToDoInterface) {
+    const { parentID } = toDoToTake;
+    if(this.ID === parentID) return;
+    const originalHolder = Projects.query(project => project.ID === parentID)!;
+    originalHolder.deleteToDo(toDoToTake.ID, true);
     this.addToDo(toDoToTake, true);
   };
 
@@ -67,7 +66,12 @@ class Project extends Group implements ProjectInterface {
     const index = this.toDos.findIndex(t => t.ID == toDoID);
     if(index < 0) return;
     const deletion = this.toDos.splice(index, 1)[0];
-    if(!moveOperation) deletion.awardCompletion();
+
+    if(moveOperation){
+      PS.publish(PSE.DeleteToDo, deletion.ID);
+    } else {
+      deletion.awardCompletion();
+    };
 
     PS.publish(PSE.PostGroupCount, {
       groupID: this.ID,
