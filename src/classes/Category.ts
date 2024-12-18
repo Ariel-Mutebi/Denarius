@@ -36,6 +36,7 @@ class Category extends Group implements CategoryInterface {
 
   removeToDo(toDoToDeleteID: uuid) {
     const index = this.toDos.findIndex(t => t.ID == toDoToDeleteID);
+    if(index < 0) return;
     this.toDos.splice(index, 1);
     this.updateCounter(1, 0);
   };

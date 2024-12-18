@@ -75,7 +75,6 @@ class Project extends Group implements ProjectInterface {
       integerToAdd: -1
     });
 
-    PS.publish(PSE.DeleteToDo, toDoID);
     PS.publish(PSE.PutProjectData);
 
     return deletion;
