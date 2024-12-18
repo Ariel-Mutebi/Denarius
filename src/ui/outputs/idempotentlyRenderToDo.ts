@@ -80,6 +80,9 @@ function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders 
     element.classList.add("overdue");
   }
 
+  // hide date on small screens
+  if (jsContainer.clientWidth < 400) dueDateT.classList.add("d-none");
+
   // details button
   detailsButton.addEventListener("click", () => {
     detailsModal.showModal();
@@ -138,45 +141,39 @@ function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders 
   rightDiv.appendChild(detailsButton);
   rightDiv.appendChild(detailsModal);
 
-  if (parentGender === GroupGenders.Project) {
-    // hide date on small screens
-    if (jsContainer.clientWidth < 400) {
-      dueDateT.classList.add("d-none");
-    } else {
-      // to-dos are draggable on desktop
-      element.draggable = true;
+  // drag to-do to move it from one project to another on desktop
+  if (parentGender === GroupGenders.Project && jsContainer.clientWidth > 400) {
+    element.draggable = true;
 
-      element.addEventListener("dragstart", e => {
-        const serialized = JSON.stringify(toDo);
-        if(e.dataTransfer) {
-          e.dataTransfer.setData("text/plain", serialized);
-          e.dataTransfer.effectAllowed = "move";
-        };
-      });
-
-      // tell user what just happened
-      element.addEventListener("dragend", e => {
-        if(e.dataTransfer?.dropEffect === "move") {
-          PS.publish(PSE.PostMessage, "Yay! To-do moved!");
-        } else {
-          PS.publish(PSE.PostMessage, "Move failed.");
-        };
-      });
-    };
-
-    // edit button
-    editButton.addEventListener("click", () => {
-      editToDoForm(toDo, element, detailsButton.getBoundingClientRect());
+    element.addEventListener("dragstart", e => {
+      const serialized = JSON.stringify(toDo);
+      if(e.dataTransfer) {
+        e.dataTransfer.setData("text/plain", serialized);
+        e.dataTransfer.effectAllowed = "move";
+      };
     });
 
-    // delete button
-    deleteButton.addEventListener("click", () => {
-      PS.publish(PSE.DeleteToDo, toDo.ID);
+    element.addEventListener("dragend", e => {
+      if(e.dataTransfer?.dropEffect === "move") {
+        PS.publish(PSE.PostMessage, "Yay! To-do moved!");
+      } else {
+        PS.publish(PSE.PostMessage, "Move failed.");
+      };
     });
-
-    rightDiv.appendChild(editButton);
-    rightDiv.appendChild(deleteButton);
   };
+
+  // edit button
+  editButton.addEventListener("click", () => {
+    editToDoForm(toDo, element, detailsButton.getBoundingClientRect());
+  });
+
+  // delete button
+  deleteButton.addEventListener("click", () => {
+    PS.publish(PSE.DeleteToDo, toDo.ID);
+  });
+
+  rightDiv.appendChild(editButton);
+  rightDiv.appendChild(deleteButton);
 
   element.appendChild(leftDiv);
   element.appendChild(rightDiv);

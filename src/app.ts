@@ -28,7 +28,7 @@ if (!hasVisited()) {
   loadProjects();
 };
 
-// Load projects leads to PutToDo events being published which lead to project-like renders.
+// Load projects leads to PutToDo events being published which lead to to-do element renders being project-like.
 // This will lead to those renders being overridden for category-like renders.
 // So it should be at the end.
 showAllTasks();
