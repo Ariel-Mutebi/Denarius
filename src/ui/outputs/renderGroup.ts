@@ -6,7 +6,7 @@ import idempotentlyRenderToDo from "./idempotentlyRenderToDo";
 
 function renderGroup(group: GroupInterface) {
   // History API for more accessible navigation. (Commented out because it's inconvenient with Webpack's HMR.)
-  // history.pushState(group.ID, "",  group.name.toLocaleLowerCase().replace(" ", "-"));
+  history.pushState(group.ID, "",  group.name.toLocaleLowerCase().replace(" ", "-"));
   // reset
   clearPage();
   jsContainer.classList.remove("arcade-page");
