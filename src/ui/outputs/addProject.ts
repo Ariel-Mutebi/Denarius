@@ -24,6 +24,7 @@ function addProject(projectID: uuid) {
   });
 
   const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("d-flex", "align-items-center")
 
   // rename project button
   const renameButton = document.createElement("button");

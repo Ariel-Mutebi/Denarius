@@ -20,12 +20,17 @@ function putGroupInSidebar<T extends GroupInterface>(groupID: uuid, GroupManager
   listElement.id = groupID;
   listElement.classList.add("list-group-item", "list-group-item-action", "d-flex", "justify-content-between", "align-items-center");
   groupNameSpan.innerText = group.name;
+  groupNameSpan.classList.add("d-inline-block", "text-truncate");
+  groupNameSpan.style.maxWidth = "120px";
 
   listText.addEventListener("click", () => renderGroup(group));
-  listText.classList.add("link-opacity-75", "link-opacity-100-hover", "link-underline-opacity-0", "link-secondary", "user-select-none", "m-0");
-  toDoCounter.classList.add("counter", "badge", "p-1", "me-2");
-  toDoCounter.innerText = String(group.toDos.length || "");
-  
+  listText.classList.add("d-flex", "link-opacity-75", "link-opacity-100-hover", "link-underline-opacity-0", "link-secondary", "user-select-none", "m-0");
+  toDoCounter.classList.add("counter", "badge", "p-1", "me-2", "align-self-center");
+  const count = group.toDos.length;
+  if(count > 0) {
+    toDoCounter.innerText = String(count);
+  };
+
   listText.append(toDoCounter);
   listText.append(groupNameSpan)
   listElement.append(listText);
