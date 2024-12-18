@@ -10,6 +10,7 @@ import ToDoInterface from "../../interfaces/ToDoInterface";
 import idempotentDOM from "./idempotentDOM";
 
 function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders = GroupGenders.Project) {
+  console.trace();
   const toDoPriority = (
     toDo.priority === ToDoPriority.High ? "high" : 
     toDo.priority === ToDoPriority.Medium ? "medium" : 

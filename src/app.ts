@@ -18,7 +18,6 @@ setUpTourButton();
 subscribeUIAndStorageFunctions(); // must be before any object initializations
 initializeCategories();
 initializeGames();
-showAllTasks();
 whatsPopping();
 
 if (!hasVisited()) {
@@ -28,3 +27,8 @@ if (!hasVisited()) {
 } else {
   loadProjects();
 };
+
+// Load projects leads to PutToDo events being published which lead to project-like renders.
+// This will lead to those renders being overridden for category-like renders.
+// So it should be at the end.
+showAllTasks();

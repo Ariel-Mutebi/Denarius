@@ -5,8 +5,8 @@ import e from "./elementDictionary";
 import stages from "./stages";
 
 function renderOnboarding() {
-  if(window.location.pathname !== "/all-tasks") showAllTasks();
   if(!ProjectsInstance.projectExists(p => p.name === "Tutorial")) populateTutorialProject();
+  showAllTasks(); // must be after populateTutorialProject for the same reason explained in app.ts comments.
 
   setTimeout(async() => {
     let stageIndex = 0;
