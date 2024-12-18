@@ -4,12 +4,11 @@ import jsContainer from "../domConstants/projectContainer";
 import editToDoForm from "../inputs/editToDoForm";
 import Projects from "../../classes/Projects";
 import ToDoPriority from "../../enums/ToDoPriority";
-import GroupGenders from "../../enums/GroupGenders";
 import PSE from "../../enums/PubSubEvents";
 import ToDoInterface from "../../interfaces/ToDoInterface";
 import idempotentDOM from "./idempotentDOM";
 
-function idempotentlyRenderToDo(toDo: ToDoInterface, parentGender: GroupGenders = GroupGenders.Project) {
+function idempotentlyRenderToDo(toDo: ToDoInterface) {
   console.trace();
   const toDoPriority = (
     toDo.priority === ToDoPriority.High ? "high" : 

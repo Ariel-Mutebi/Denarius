@@ -5,7 +5,6 @@ import ToDoInterface from "../interfaces/ToDoInterface";
 import uuid from "../types/uuid";
 import ProjectInterface from "../interfaces/ProjectInterface";
 import PSE from "../enums/PubSubEvents";
-import GroupGenders from "../enums/GroupGenders";
 
 class Project extends Group implements ProjectInterface {
   constructor(
@@ -14,7 +13,7 @@ class Project extends Group implements ProjectInterface {
     icon?: string,
     id?: string,
   ) {
-    super(name, GroupGenders.Project, icon, [], id);
+    super(name, icon, [], id);
 
     Projects.add(this);
     

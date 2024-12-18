@@ -4,11 +4,10 @@ import renderGroup from "./renderGroup";
 import uuid from "../../types/uuid";
 import idempotentDOM from "./idempotentDOM";
 
-function putGroupInSidebar<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOfGroupsInterface<T>) {
+function putGroupInSidebar<T extends GroupInterface>(groupID: uuid, GroupManager: GroupOfGroupsInterface<T>, groupListId: string) {
   const group = GroupManager.get(groupID);
   if(!group) throw new Error(`Group of ID ${groupID} not found.`);
   
-  const groupListId = `${group.gender.toLocaleLowerCase()}-list`;
   const groupList = document.getElementById(groupListId);
   if(!groupList) throw new Error(`element of id ${groupListId} not found.`);
 

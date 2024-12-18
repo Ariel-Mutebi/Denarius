@@ -7,7 +7,6 @@ import ToDoInterface from "../interfaces/ToDoInterface"
 import ProjectsInstance from "./Projects"
 import filterFunction from "../types/filterFunction"
 import PSE from "../enums/PubSubEvents"
-import GroupGenders from "../enums/GroupGenders"
 
 class Category extends Group implements CategoryInterface {
   constructor(
@@ -15,7 +14,7 @@ class Category extends Group implements CategoryInterface {
     public filterFunction: filterFunction,
     icon?: string
   ) {
-    super(name, GroupGenders.Category, icon);
+    super(name, icon);
     this.updateCategory(ProjectsInstance.getAllToDos());
     Categories.add(this);
     

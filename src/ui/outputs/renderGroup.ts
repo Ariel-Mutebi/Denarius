@@ -1,6 +1,4 @@
-import GroupGenders from "../../enums/GroupGenders";
 import GroupInterface from "../../interfaces/GroupInterface";
-import ProjectInterface from "../../interfaces/ProjectInterface";
 import jsContainer from "../domConstants/projectContainer";
 import addToDoForm from "../inputs/addToDoForm";
 import clearPage from "./clearPage";
@@ -48,7 +46,7 @@ function renderGroup(group: GroupInterface) {
 
   jsContainer.appendChild(header);
 
-  group.toDos.forEach(toDo => idempotentlyRenderToDo(toDo, group.gender));
+  group.toDos.forEach(toDo => idempotentlyRenderToDo(toDo));
 };
 
 export default renderGroup;

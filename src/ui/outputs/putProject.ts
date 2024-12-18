@@ -4,8 +4,8 @@ import projectNameModal from "../inputs/projectNameModal";
 import putGroupInSidebar from "./putGroupInSidebar";
 import showAllTasks from "./showAllTasks";
 
-function addProject(projectID: uuid) {
-  const { group: project, listElement } = putGroupInSidebar(projectID, Projects);
+function putProject(projectID: uuid) {
+  const { group: project, listElement } = putGroupInSidebar(projectID, Projects, "project-list");
 
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("d-flex", "align-items-center")
@@ -29,4 +29,4 @@ function addProject(projectID: uuid) {
   listElement.appendChild(buttonContainer);
 };
 
-export default addProject;
+export default putProject;

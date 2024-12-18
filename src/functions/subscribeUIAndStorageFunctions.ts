@@ -2,8 +2,8 @@ import ProjectsInstance from "../classes/Projects";
 import PS from "../classes/PubSub";
 import PSE from "../enums/PubSubEvents";
 import putCoins from "../storage/putCoins";
-import addCategory from "../ui/outputs/addCategory";
-import addProject from "../ui/outputs/addProject";
+import putCategory from "../ui/outputs/putCategory";
+import putProject from "../ui/outputs/putProject";
 import idempotentlyRenderToDo from "../ui/outputs/idempotentlyRenderToDo";
 import removeProject from "../ui/outputs/removeProject";
 import removeToDo from "../ui/outputs/removeToDo";
@@ -11,8 +11,8 @@ import renderMessage from "../ui/outputs/renderMessage";
 import updateGroupCounter from "../ui/outputs/updateToDoCounter";
 
 function subscribeUIAndStorageFunctions() {
-  PS.subscribe(PSE.PostCategory, addCategory);
-  PS.subscribe(PSE.PutProject, addProject);
+  PS.subscribe(PSE.PostCategory, putCategory);
+  PS.subscribe(PSE.PutProject, putProject);
   PS.subscribe(PSE.PutToDo, idempotentlyRenderToDo);
   PS.subscribe(PSE.PostGroupCount, updateGroupCounter);
   PS.subscribe(PSE.DeleteToDo, removeToDo);
