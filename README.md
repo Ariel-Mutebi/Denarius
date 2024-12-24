@@ -5,6 +5,7 @@
 3. Appalled by the four-hundred-plus-line code files which I was once so proud of, I enacted the "refactor of Versailles [which] dissolv[ed] empires, giving each function sovereignty". (I.e., I split up the code into different directories and modules so that each module had a single responsibility, exporting a single entity. The historical allusion was inspired by how the Treaty of Versailles dissolved the Ottoman Empire and so on.) Along the way, I also wrote dozens of tests (four dozen, actually), to make sure I was working with 100% reliable code. Plus, I tried to document the system with some UML diagrams. (Scroll down to see them.)
 4. I added minor features, like the history API changing the URL when the user navigates to a different part of the app, and a few other common-sense additions. This is the stage where I am now, as of 14th December 2024. I now plan to work on the back-end API, then link the two so that the app runs on a hybrid of cloud and local storage.
 
+
 # UML Diagrams
 
 These can be found in the root of the repo. But in case you do not want to go through the hassle of loading their XML files in Draw.io, their PNGS are attached here for convenience.
@@ -20,3 +21,8 @@ These can be found in the root of the repo. But in case you do not want to go th
 ## Sequence Diagrams
 
 ![TaskQuest-UML-Sequence-Diagrams drawio](https://github.com/user-attachments/assets/e261e005-ddc0-488c-901c-eab91053a3be)
+
+# Status Update, 24 December 2024
+I'm putting this project on hold because I realize that, like a lion hunting a buffalo, I've bitten more than I could chew on the back-end. For one, I do not know the industry standards for user authentication. Secondly, I feel like I have unknown unknowns regarding API security. So, I'm going to first progress further in TOP and return later. But, looking at the calendar, it might be at least three weeks before I start that... 
+
+- Until then! From Ariel to whomever it may concern out there in the void.
