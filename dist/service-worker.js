@@ -82,13 +82,13 @@ define(['./workbox-ea107fe8'], (function (workbox) { 'use strict';
     "revision": null
   }, {
     "url": "app.bundle.js",
-    "revision": "711481ad57a06e14b92f163a6d078501"
+    "revision": "f1fccd39c853ed7bb3cb145b59953e50"
   }, {
     "url": "dea24bf5a7646d8b84e7.woff2?2820a3852bdb9a5832199cc61cec4e65",
     "revision": null
   }, {
     "url": "styles.bundle.js",
-    "revision": "3b1197df01f109e7ea93cdbb7412641f"
+    "revision": "5c20623bb9ebb1ec70430b32bb3d517f"
   }], {});
   workbox.registerRoute(/\.(?:html)$/, new workbox.StaleWhileRevalidate(), 'GET');
 

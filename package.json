@@ -1,7 +1,7 @@
 {
-  "name": "taskquest",
+  "name": "denarius",
   "version": "1.0.0",
-  "description": "A to-do application than not only allows you to manage various to-do lists as projects, but also helps you gamify your life.",
+  "description": "to-do list app where you earn denari for your achievements.",
   "main": "./dist/main.js",
   "private": true,
   "sideEffects": ["*.scss"],
@@ -10,20 +10,19 @@
     "build": "webpack",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open",
-    "http": "http-server dist",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "http": "http-server dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/black-RAM/TaskQuest.git"
+    "url": "git+https://github.com/Ariel-Mutebi/Denaius.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/black-RAM/TaskQuest/issues"
+    "url": "https://github.com/Ariel-Mutebi/Denaius/issues"
   },
-  "homepage": "https://github.com/black-RAM/TaskQuest#readme",
+  "homepage": "https://github.com/Ariel-Mutebi/Denarius#readme",
   "devDependencies": {
     "@types/date-fns": "^2.6.0",
     "@types/jest": "^29.5.13",

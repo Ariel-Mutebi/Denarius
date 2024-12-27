@@ -1,6 +1,6 @@
 {
-  "name": "TaskQuest to-do list app",
-  "short_name": "TaskQuest",
+  "name": "Denarius to-do list app",
+  "short_name": "Denarius",
   "description": "A to-do list application",
   "start_url": "./index.html",
   "display": "standalone",
@@ -8,7 +8,7 @@
   "theme_color": "#212529",
   "icons": [
     {
-      "src": "https://black-ram.github.io/TaskQuest/icon.png",
+      "src": "https://black-ram.github.io/Denarius/ceasear-agustus-denarius.png",
       "sizes": "512x512",
       "type": "image/png"
     }

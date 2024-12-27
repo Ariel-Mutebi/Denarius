@@ -3,7 +3,7 @@ import e from "./elementDictionary"
 
 const categorySteps: Partial<IntroStep>[] = [
   {
-    title: "TaskQuest Ahoy!",
+    title: "Ave, Denarius!",
     intro: "It's fun. It's simple. Meet the only to-do app you'll ever need!",
   },
   {
