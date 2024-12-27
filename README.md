@@ -11,4 +11,4 @@
 4. But, when I got to the API, I realized I was a lion who'd bitten off more than he could chew on the back-end. I was not armed with the sharp incisors of knowledge about API security, user authentication, session management, and what have you. So, as of now (Friday 27 December, 2024), I have decided to let this buffalo live on a few more days, in the meanwhile, strengthen my jaws by progressing further in the TOP curriculum and hunting down smaller project-animals.
 
 ## Note
-If you are looking for details pertaining to the how the app works, open the XML files in the diagramming software Draw.IO.
+If you are looking for details pertaining to the how the app works, open the XML files (found in the project's root) using the diagramming software Draw.IO.
